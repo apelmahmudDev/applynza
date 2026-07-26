@@ -237,7 +237,7 @@ pnpm version:prerelease
 To set an exact version manually, run:
 
 ```bash
-pnpm version:set -- 0.1.0
+pnpm version:set -- 1.0.0
 ```
 
 ## Load the Extension Locally

@@ -14,7 +14,7 @@ export function SettingsAboutSection({ appVersion }: SettingsAboutSectionProps) 
 						Local-first by design
 					</h3>
 					<p className="mt-1 max-w-3xl text-sm leading-6 text-slate-500 dark:text-muted-foreground">
-						Applypilot keeps job application data inside your browser so you can
+						Applynza keeps job application data inside your browser so you can
 						track progress privately without extra accounts or syncing services.
 					</p>
 				</div>

@@ -4,7 +4,8 @@ import {
 } from "@/modules/dashboard/components/reminders/reminder-form.types";
 import type { JobForm } from "@/modules/popup/types";
 
-const JOBS_STORAGE_KEY = "applypilot.jobs";
+export const JOBS_STORAGE_KEY = "applynza.jobs";
+export const LEGACY_JOBS_STORAGE_KEY = "applypilot.jobs";
 
 export type StoredJob = JobForm & {
 	id: string;
@@ -122,8 +123,11 @@ export async function deleteJobFromStorage(jobId: string) {
 }
 
 export async function getStoredJobs(): Promise<StoredJob[]> {
-	const stored = await browser.storage.local.get(JOBS_STORAGE_KEY);
-	const jobs = stored[JOBS_STORAGE_KEY];
+	const stored = await browser.storage.local.get([
+		JOBS_STORAGE_KEY,
+		LEGACY_JOBS_STORAGE_KEY,
+	]);
+	const jobs = stored[JOBS_STORAGE_KEY] ?? stored[LEGACY_JOBS_STORAGE_KEY];
 
 	if (!Array.isArray(jobs)) {
 		return [];
@@ -135,6 +139,7 @@ export async function getStoredJobs(): Promise<StoredJob[]> {
 async function setStoredJobs(jobs: StoredJob[]) {
 	await browser.storage.local.set({
 		[JOBS_STORAGE_KEY]: jobs,
+		[LEGACY_JOBS_STORAGE_KEY]: jobs,
 	});
 }
 

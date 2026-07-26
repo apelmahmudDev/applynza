@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
 	deleteJobFromStorage,
 	getStoredJobs,
+	JOBS_STORAGE_KEY,
 	updateJobInStorage,
 } from "@/lib/jobs/storage";
 import type { DashboardSortJobsBy } from "@/lib/settings/storage";
@@ -38,7 +39,7 @@ export function useDashboardJobs(
 			changes: Record<string, browser.storage.StorageChange>,
 			areaName: string,
 		) => {
-			if (areaName === "local" && changes["applypilot.jobs"]) {
+			if (areaName === "local" && changes[JOBS_STORAGE_KEY]) {
 				void loadJobs();
 			}
 		};

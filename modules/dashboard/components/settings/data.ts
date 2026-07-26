@@ -28,14 +28,14 @@ export const settingsSections: Record<
 	appearance: {
 		title: "Appearance",
 		description:
-			"Choose how Applypilot looks while keeping the interface lightweight and readable.",
+			"Choose how Applynza looks while keeping the interface lightweight and readable.",
 		icon: Palette,
 		iconClassName: "text-emerald-600",
 	},
 	about: {
 		title: "About",
 		description:
-			"Applypilot is a browser extension to help you track job applications locally. No accounts. No cloud. No tracking.",
+			"Applynza is a browser extension to help you track job applications locally. No accounts. No cloud. No tracking.",
 		icon: CircleHelp,
 		iconClassName: "text-primary",
 	},

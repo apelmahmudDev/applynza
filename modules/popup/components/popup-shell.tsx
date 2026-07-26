@@ -23,7 +23,7 @@ export function PopupShell({ children }: PopupShellProps) {
 						className="h-7 w-auto shrink-0 rounded-xs"
 						aria-hidden="true"
 					/>
-					<h1 className="text-lg font-bold tracking-normal">Applypilot</h1>
+					<h1 className="text-lg font-bold tracking-normal">Applynza</h1>
 				</div>
 				<div className="flex items-center gap-1">
 					<Button

@@ -1,4 +1,4 @@
-# ApplyPilot Agent Rules
+# Applynza Agent Rules
 
 These rules apply to all AI-agent work in this repository.
 

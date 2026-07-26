@@ -11,7 +11,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import {
-	exportApplyPilotData,
+	exportApplynzaData,
 	getExportRangeDescription,
 	type ExportRange,
 } from "@/lib/export/backup";
@@ -36,7 +36,7 @@ export function ExportControlsSection() {
 		setIsExporting(true);
 
 		try {
-			await exportApplyPilotData(selectedFormat, selectedRange);
+			await exportApplynzaData(selectedFormat, selectedRange);
 			toast.success(
 				selectedFormat === "json"
 					? "Backup exported successfully."

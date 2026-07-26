@@ -102,7 +102,7 @@ export function FormattedJobDescription({
 	}, [collapsible, descriptionHtml, descriptionText]);
 
 	const baseClassName =
-		"applypilot-job-description text-[13px] leading-[1.65] text-muted-foreground break-words " +
+		"applynza-job-description text-[13px] leading-[1.65] text-muted-foreground break-words " +
 		"[&_p]:mb-3 [&_p:last-child]:mb-0 [&_h1]:mb-2 [&_h1]:mt-4 [&_h1]:text-lg [&_h1]:font-semibold [&_h1]:text-foreground " +
 		"[&_h2]:mb-2 [&_h2]:mt-4 [&_h2]:text-base [&_h2]:font-semibold [&_h2]:text-foreground " +
 		"[&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:text-foreground " +

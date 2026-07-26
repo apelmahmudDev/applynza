@@ -1,8 +1,8 @@
 <!-- <p align="center">
-  <img src="./public/logo.png" alt="Applypilot logo" width="88" />
+  <img src="./public/logo.png" alt="Applynza logo" width="88" />
 </p> -->
 
-<h1 align="center">Applypilot</h1>
+<h1 align="center">Applynza</h1>
 
 <p align="center">
   A privacy-first browser extension for saving, organizing, and tracking job applications directly from job boards.
@@ -11,7 +11,7 @@
 <p align="center">
   <img
     src="./public/featured-image.png"
-    alt="Applypilot browser extension preview"
+    alt="Applynza browser extension preview"
     width="100%"
   />
 </p>
@@ -24,13 +24,13 @@
   <a href="https://apelmahmuddev.github.io/applypilot/">
     <img
       src="https://img.shields.io/badge/Chrome-Install%20Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white"
-      alt="Install Applypilot for Chrome"
+      alt="Install Applynza for Chrome"
     />
   </a>
   <a href="https://github.com/apelmahmudDev/applypilot">
     <img
       src="https://img.shields.io/badge/GitHub-View%20Repository-181717?style=for-the-badge&logo=github&logoColor=white"
-      alt="View Applypilot on GitHub"
+      alt="View Applynza on GitHub"
     />
   </a>
 </p>
@@ -39,9 +39,9 @@
 
 ## Overview
 
-Applypilot helps job seekers manage their entire application journey without leaving the browser.
+Applynza helps job seekers manage their entire application journey without leaving the browser.
 
-While viewing a supported job posting, Applypilot can detect the visible job information, let you review or edit the captured details, and save the job locally.
+While viewing a supported job posting, Applynza can detect the visible job information, let you review or edit the captured details, and save the job locally.
 
 Saved applications can then be managed through the extension popup, side panel, or full dashboard.
 
@@ -104,8 +104,8 @@ It includes:
 ## How It Works
 
 1. Open a supported job posting.
-2. Open the Applypilot popup or side panel.
-3. Applypilot detects the visible job information.
+2. Open the Applynza popup or side panel.
+3. Applynza detects the visible job information.
 4. Review the captured details.
 5. Edit any incorrect or missing information.
 6. Save the job to your local workspace.
@@ -113,17 +113,17 @@ It includes:
 
 ## Privacy
 
-Applypilot follows a local-first approach.
+Applynza follows a local-first approach.
 
 Your saved jobs, application statuses, reminders, and other tracking data are stored locally using browser storage.
 
-Applypilot does not require an account for its core functionality.
+Applynza does not require an account for its core functionality.
 
 The extension is designed to request only the permissions needed for job detection, local storage, and the browser side panel.
 
 ## Duplicate Detection
 
-Applypilot attempts to prevent duplicate job records using the following checks:
+Applynza attempts to prevent duplicate job records using the following checks:
 
 1. Exact job URL
 2. Company name and job title
@@ -149,7 +149,7 @@ Each saved record also includes:
 
 ## Browser Permissions
 
-Applypilot currently uses the following permissions:
+Applynza currently uses the following permissions:
 
 ```txt
 activeTab
@@ -296,7 +296,7 @@ pnpm version:set -- 0.1.0
 
 ## Project Status
 
-Applypilot is currently under active development.
+Applynza is currently under active development.
 
 ### Available Functionality
 
@@ -333,7 +333,7 @@ Before submitting a pull request:
 ---
 
 <p align="center">
-  Your job search, organized with Applypilot.
+  Your job search, organized with Applynza.
 </p>
 
 <p align="center">

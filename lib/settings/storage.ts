@@ -1,4 +1,5 @@
-export const DASHBOARD_SETTINGS_STORAGE_KEY = "applypilot.dashboard-settings";
+export const DASHBOARD_SETTINGS_STORAGE_KEY = "applynza.dashboard-settings";
+export const LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY = "applypilot.dashboard-settings";
 
 export type DashboardDefaultStatus = "saved" | "applied" | "interview" | "offer";
 export type DashboardDateFormat = "may-20-2025" | "20-may-2025" | "2025-05-20";
@@ -17,8 +18,13 @@ export const defaultDashboardSettings: DashboardSettings = {
 };
 
 export async function getStoredDashboardSettings(): Promise<DashboardSettings> {
-	const stored = await browser.storage.local.get(DASHBOARD_SETTINGS_STORAGE_KEY);
-	const settings = stored[DASHBOARD_SETTINGS_STORAGE_KEY];
+	const stored = await browser.storage.local.get([
+		DASHBOARD_SETTINGS_STORAGE_KEY,
+		LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY,
+	]);
+	const settings =
+		stored[DASHBOARD_SETTINGS_STORAGE_KEY] ??
+		stored[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY];
 
 	if (!settings || typeof settings !== "object") {
 		return defaultDashboardSettings;
@@ -51,6 +57,7 @@ export async function updateStoredDashboardSettings(
 
 	await browser.storage.local.set({
 		[DASHBOARD_SETTINGS_STORAGE_KEY]: nextSettings,
+		[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY]: nextSettings,
 	});
 
 	return nextSettings;

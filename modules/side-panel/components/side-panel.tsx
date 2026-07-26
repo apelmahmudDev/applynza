@@ -8,6 +8,7 @@ import {
 	createJobInStorage,
 	deleteJobFromStorage,
 	getStoredJobs,
+	JOBS_STORAGE_KEY,
 	saveJobToStorage,
 	updateJobInStorage,
 	type StoredJob,
@@ -102,7 +103,7 @@ export function SidePanel() {
 		const handleStorageChange: Parameters<
 			typeof browser.storage.onChanged.addListener
 		>[0] = (changes, areaName) => {
-			if (areaName === "local" && changes["applypilot.jobs"]) {
+			if (areaName === "local" && changes[JOBS_STORAGE_KEY]) {
 				loadJobs();
 			}
 		};

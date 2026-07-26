@@ -15,7 +15,7 @@ export async function detectJobFromActiveTab(): Promise<DetectedJob | null> {
 	if (isLinkedIn) {
 		try {
 			const response = (await browser.tabs.sendMessage(tab.id, {
-				type: "APPLYPILOT_GET_JOB",
+				type: "APPLYNZA_GET_JOB",
 			} satisfies JobDetectorMessage)) as { job?: DetectedJob | null };
 			return response?.job ?? null;
 		} catch {

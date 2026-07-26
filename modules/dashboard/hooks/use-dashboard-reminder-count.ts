@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { getStoredJobs } from "@/lib/jobs/storage";
+import { getStoredJobs, JOBS_STORAGE_KEY } from "@/lib/jobs/storage";
 
 export function useDashboardReminderCount() {
 	const [count, setCount] = useState(0);
@@ -38,7 +38,7 @@ export function useDashboardReminderCount() {
 			changes: Record<string, browser.storage.StorageChange>,
 			areaName: string,
 		) => {
-			if (areaName === "local" && changes["applypilot.jobs"]) {
+			if (areaName === "local" && changes[JOBS_STORAGE_KEY]) {
 				void loadReminderCount();
 			}
 		};

@@ -64,7 +64,7 @@ export function RestoreControlsSection() {
 
 	const handleRestore = async () => {
 		if (!preview) {
-			toast.error("Choose a valid Applypilot backup file first.");
+			toast.error("Choose a valid Applynza backup file first.");
 			return;
 		}
 
@@ -106,7 +106,7 @@ export function RestoreControlsSection() {
 					</Button>
 
 					<p className="text-sm text-slate-500 dark:text-muted-foreground">
-						Select an Applypilot JSON backup file to merge it with your current local data.
+						Select an Applynza JSON backup file to merge it with your current local data.
 					</p>
 				</div>
 

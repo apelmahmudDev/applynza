@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { getAppVersionLabel } from "@/lib/app-version";
 import { cn } from "@/lib/utils";
 
-const DASHBOARD_IDENTITY_STORAGE_KEY = "applypilot.dashboardIdentity";
+const DASHBOARD_IDENTITY_STORAGE_KEY = "applynza.dashboardIdentity";
+const LEGACY_DASHBOARD_IDENTITY_STORAGE_KEY = "applypilot.dashboardIdentity";
 
 const dashboardIdentities = [
 	"Orion Nova",
@@ -85,10 +86,13 @@ export function useUserIdentity() {
 		let isMounted = true;
 
 		async function loadUserIdentity() {
-			const stored = await browser.storage.local.get(
+			const stored = await browser.storage.local.get([
 				DASHBOARD_IDENTITY_STORAGE_KEY,
-			);
-			const storedName = stored[DASHBOARD_IDENTITY_STORAGE_KEY];
+				LEGACY_DASHBOARD_IDENTITY_STORAGE_KEY,
+			]);
+			const storedName =
+				stored[DASHBOARD_IDENTITY_STORAGE_KEY] ??
+				stored[LEGACY_DASHBOARD_IDENTITY_STORAGE_KEY];
 			const validStoredName = dashboardIdentities.find(
 				(identity) => identity === storedName,
 			);
@@ -97,6 +101,7 @@ export function useUserIdentity() {
 			if (!validStoredName) {
 				await browser.storage.local.set({
 					[DASHBOARD_IDENTITY_STORAGE_KEY]: identityName,
+					[LEGACY_DASHBOARD_IDENTITY_STORAGE_KEY]: identityName,
 				});
 			}
 

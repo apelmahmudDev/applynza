@@ -62,7 +62,7 @@ export default defineContentScript({
 
 			lastSignature = signature;
 			try {
-				await browser.runtime.sendMessage({ type: "APPLYPILOT_JOB_CHANGED", job } satisfies JobDetectorMessage);
+				await browser.runtime.sendMessage({ type: "APPLYNZA_JOB_CHANGED", job } satisfies JobDetectorMessage);
 			} catch {
 				// The popup and side panel are not always open.
 			}
@@ -75,7 +75,7 @@ export default defineContentScript({
 		};
 
 		browser.runtime.onMessage.addListener((message: JobDetectorMessage) => {
-			if (message.type !== "APPLYPILOT_GET_JOB") return;
+			if (message.type !== "APPLYNZA_GET_JOB") return;
 			return readJobWithRetries().then((job) => ({ ok: true, job }));
 		});
 

@@ -10,8 +10,8 @@ const extensionVersion = getExtensionVersion();
 export default defineConfig({
 	modules: ["@wxt-dev/module-react"],
 	manifest: {
-		name: "Applypilot",
-		short_name: "Applypilot",
+		name: "Applynza",
+		short_name: "Applynza",
 		version: extensionVersion,
 		permissions: ["activeTab", "scripting", "sidePanel", "storage"],
 		host_permissions: [

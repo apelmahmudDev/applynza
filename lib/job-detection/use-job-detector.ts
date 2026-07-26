@@ -48,7 +48,7 @@ export function useJobDetector() {
 			message: JobDetectorMessage,
 			sender: { tab?: { id?: number } },
 		) => {
-			if (message.type !== "APPLYPILOT_JOB_CHANGED") return;
+			if (message.type !== "APPLYNZA_JOB_CHANGED") return;
 			if (sender.tab?.id !== activeTabIdRef.current) return;
 			setState({ job: message.job, isDetecting: false, error: "" });
 		};

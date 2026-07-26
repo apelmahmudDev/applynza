@@ -13,7 +13,7 @@ export function SettingsView({ isDarkMode, onBack }: SettingsViewProps) {
 			<section className="rounded-[14px] border border-border bg-card p-4 text-muted-foreground">
 				<p className="text-sm font-semibold">Theme preference</p>
 				<p className="mt-1 text-xs leading-5">
-					Applypilot uses the theme you choose in Dashboard Settings.
+					Applynza uses the theme you choose in Dashboard Settings.
 				</p>
 			</section>
 			<div className="mt-auto">

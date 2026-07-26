@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { getStoredJobs, type StoredJob } from "@/lib/jobs/storage";
+import {
+	getStoredJobs,
+	JOBS_STORAGE_KEY,
+	type StoredJob,
+} from "@/lib/jobs/storage";
 import {
 	buildDashboardAnalytics,
 	type AnalyticsRange,
@@ -27,7 +31,7 @@ export function useDashboardAnalytics(range: AnalyticsRange) {
 		const handleStorageChanged: Parameters<
 			typeof browser.storage.onChanged.addListener
 		>[0] = (changes, areaName) => {
-			if (areaName === "local" && changes["applypilot.jobs"]) {
+			if (areaName === "local" && changes[JOBS_STORAGE_KEY]) {
 				void loadJobs();
 			}
 		};

@@ -9,18 +9,21 @@ import type { JobForm } from "@/modules/popup/types";
 
 import {
 	getStoredJobs,
+	JOBS_STORAGE_KEY,
+	LEGACY_JOBS_STORAGE_KEY,
 	type StoredJob,
 } from "../jobs/storage";
 
 export type ExportFormat = "json" | "csv";
 export type ExportRange = "all-time" | "last-30-days" | "this-year";
 
-const JOBS_STORAGE_KEY = "applypilot.jobs";
 const BACKUP_SCHEMA_VERSION = 1;
 const MAX_BACKUP_FILE_SIZE_BYTES = 10 * 1024 * 1024;
+const APP_NAME = "Applynza" as const;
+const LEGACY_APP_NAME = "Applypilot" as const;
 
-export type ApplyPilotBackup = {
-	app: "Applypilot";
+export type ApplynzaBackup = {
+	app: typeof APP_NAME;
 	schemaVersion: number;
 	exportedAt: string;
 	extensionVersion: string;
@@ -40,10 +43,10 @@ export type BackupPreview = {
 	jobsCount: number;
 	remindersCount: number;
 	settingsIncluded: boolean;
-	backup: ApplyPilotBackup;
+	backup: ApplynzaBackup;
 };
 
-export async function exportApplyPilotData(
+export async function exportApplynzaData(
 	format: ExportFormat,
 	range: ExportRange,
 ) {
@@ -59,8 +62,8 @@ export async function exportApplyPilotData(
 	}
 
 	const snapshot = await browser.storage.local.get(null);
-	const backup: ApplyPilotBackup = {
-		app: "Applypilot",
+	const backup: ApplynzaBackup = {
+		app: APP_NAME,
 		schemaVersion: BACKUP_SCHEMA_VERSION,
 		exportedAt: new Date().toISOString(),
 		extensionVersion: getAppVersion(),
@@ -75,6 +78,7 @@ export async function exportApplyPilotData(
 			storage: {
 				...snapshot,
 				[JOBS_STORAGE_KEY]: jobs,
+				[LEGACY_JOBS_STORAGE_KEY]: jobs,
 			},
 		},
 	};
@@ -89,7 +93,7 @@ export async function exportApplyPilotData(
 
 export async function readBackupPreview(file: File): Promise<BackupPreview> {
 	if (!file.name.toLowerCase().endsWith(".json")) {
-		throw new Error("Please select an Applypilot JSON backup file.");
+		throw new Error("Please select an Applynza JSON backup file.");
 	}
 
 	if (file.size > MAX_BACKUP_FILE_SIZE_BYTES) {
@@ -119,7 +123,7 @@ export async function readBackupPreview(file: File): Promise<BackupPreview> {
 	};
 }
 
-export async function mergeBackupWithCurrentData(backup: ApplyPilotBackup) {
+export async function mergeBackupWithCurrentData(backup: ApplynzaBackup) {
 	const importedJobs = normalizeBackupJobs(backup.data.jobs);
 	const currentStorage = await browser.storage.local.get(null);
 	const currentJobs = await getStoredJobs();
@@ -152,18 +156,18 @@ export function getExportRangeDescription(range: ExportRange) {
 	return "Export all data from the beginning.";
 }
 
-function normalizeBackup(input: unknown): ApplyPilotBackup {
+function normalizeBackup(input: unknown): ApplynzaBackup {
 	validateBackup(input);
 
-	const backup = input as Partial<ApplyPilotBackup> & {
+	const backup = input as Partial<ApplynzaBackup> & {
 		data?: Record<string, unknown>;
 	};
-	const data = isRecord(backup.data) ? backup.data : {};
-	const storage = isRecord(data.storage) ? data.storage : {};
-	const settings = isRecord(data.settings) ? data.settings : {};
+	const data: Record<string, unknown> = isRecord(backup.data) ? backup.data : {};
+	const storage: Record<string, unknown> = isRecord(data.storage) ? data.storage : {};
+	const settings: Record<string, unknown> = isRecord(data.settings) ? data.settings : {};
 
 	return {
-		app: "Applypilot",
+		app: APP_NAME,
 		schemaVersion:
 			typeof backup.schemaVersion === "number" ? backup.schemaVersion : 1,
 		exportedAt:
@@ -177,6 +181,8 @@ function normalizeBackup(input: unknown): ApplyPilotBackup {
 				? (data.jobs as StoredJob[])
 				: Array.isArray(storage[JOBS_STORAGE_KEY])
 					? (storage[JOBS_STORAGE_KEY] as StoredJob[])
+				: Array.isArray(storage[LEGACY_JOBS_STORAGE_KEY])
+					? (storage[LEGACY_JOBS_STORAGE_KEY] as StoredJob[])
 					: [],
 			settings: {
 				dashboard: isRecord(settings.dashboard)
@@ -198,8 +204,8 @@ function validateBackup(backup: unknown) {
 		throw new Error("Invalid backup file.");
 	}
 
-	if (backup.app !== "Applypilot") {
-		throw new Error("This is not an Applypilot backup file.");
+	if (backup.app !== APP_NAME && backup.app !== LEGACY_APP_NAME) {
+		throw new Error("This is not an Applynza backup file.");
 	}
 
 	if (!Number.isInteger(backup.schemaVersion)) {
@@ -207,7 +213,7 @@ function validateBackup(backup: unknown) {
 	}
 
 	if ((backup.schemaVersion as number) > BACKUP_SCHEMA_VERSION) {
-		throw new Error("This backup was created by a newer version of Applypilot.");
+		throw new Error("This backup was created by a newer version of Applynza.");
 	}
 
 	if (!isRecord(backup.data)) {
@@ -332,12 +338,13 @@ function mergeStorageSnapshots(
 	currentStorage: Record<string, unknown>,
 	importedStorage: Record<string, unknown>,
 	mergedJobs: StoredJob[],
-	importedSettings: ApplyPilotBackup["data"]["settings"],
+	importedSettings: ApplynzaBackup["data"]["settings"],
 ) {
-	const nextStorage = {
+	const nextStorage: Record<string, unknown> = {
 		...currentStorage,
 		...importedStorage,
 		[JOBS_STORAGE_KEY]: mergedJobs,
+		[LEGACY_JOBS_STORAGE_KEY]: mergedJobs,
 	};
 
 	if (importedSettings.dashboard) {
@@ -397,7 +404,7 @@ function escapeCsvValue(value: string) {
 
 function createFilename(extension: "json" | "csv") {
 	const date = new Date().toISOString().slice(0, 10);
-	return `applypilot-backup-${date}.${extension}`;
+	return `applynza-backup-${date}.${extension}`;
 }
 
 function downloadFile(blob: Blob, filename: string) {

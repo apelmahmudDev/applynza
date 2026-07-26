@@ -59,7 +59,7 @@ export function DashboardSidebar({
 					/>
 					<div className="min-w-0 group-data-[collapsible=icon]:hidden">
 						<h1 className="truncate text-lg font-bold tracking-normal">
-							Applypilot
+							Applynza
 						</h1>
 						<p className="truncate text-xs font-semibold text-slate-500">
 							Job application tracker

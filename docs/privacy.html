@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Applynza privacy details: what the extension reads, stores, and sends."
+		/>
+		<title>Privacy — Applynza</title>
+		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap"
+			rel="stylesheet"
+		/>
+		<style type="text/tailwindcss">
+			@theme {
+				--font-body: "Inter", system-ui, sans-serif;
+				--font-display: "Fraunces", Georgia, serif;
+				--color-canvas: #faf9f6;
+				--color-surface: #ffffff;
+				--color-border: #e7e3da;
+				--color-borderStrong: #d8d2c4;
+				--color-ink: #211f1a;
+				--color-muted: #6b675e;
+				--color-dim: #9b968a;
+				--color-accent: #3a4fd1;
+				--color-accentDeep: #2c3aa6;
+				--color-accentSoft: #eef0fc;
+				--color-green: #3e8a5c;
+				--color-greenSoft: #e9f3ec;
+				--shadow-smSoft: 0 1px 2px rgba(33, 31, 26, 0.06);
+				--background-image-pageGlow: radial-gradient(circle at 10% -5%, rgba(58, 79, 209, 0.06), transparent 32%), radial-gradient(circle at 92% 6%, rgba(176, 138, 62, 0.07), transparent 30%);
+			}
+		</style>
+		<style>
+			html { scroll-behavior: smooth; }
+			body { font-family: "Inter", sans-serif; }
+			@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+		</style>
+	</head>
+	<body class="bg-canvas text-ink font-body antialiased">
+		<header class="sticky top-0 z-50 bg-canvas/85 backdrop-blur-md border-b border-border">
+			<div class="max-w-6xl mx-auto px-6 md:px-8 h-[72px] flex items-center justify-between">
+				<a href="index.html" class="flex items-center gap-3">
+					<img src="assets/logo.png" alt="Applynza logo" class="h-[34px] w-[34px] shrink-0 object-cover" />
+					<span class="font-body text-[18px] font-[800] tracking-[-0.04em] leading-none">Applynza</span>
+				</a>
+				<nav class="hidden md:flex items-center gap-8 text-[14.5px] text-muted">
+					<a href="index.html#surfaces" class="hover:text-ink transition-colors">Product</a>
+					<a href="index.html#workflow" class="hover:text-ink transition-colors">How it works</a>
+					<a href="index.html#features" class="hover:text-ink transition-colors">Features</a>
+					<a href="privacy.html" class="text-ink font-medium">Privacy</a>
+					<a href="install-guide.html" class="hover:text-ink transition-colors">Install Guide</a>
+				</nav>
+				<a href="install-guide.html" class="rounded-full bg-ink text-canvas text-[14px] font-medium px-[18px] py-[10px] hover:bg-accentDeep transition-colors shadow-smSoft">Install Guide</a>
+			</div>
+		</header>
+
+		<main>
+			<section class="relative overflow-hidden bg-pageGlow border-b border-border">
+				<div class="max-w-3xl mx-auto px-6 md:px-8 pt-16 md:pt-24 pb-16 text-center">
+					<div class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-[12.5px] text-muted shadow-smSoft">
+						<span class="w-1.5 h-1.5 rounded-full bg-green"></span>
+						Privacy, explained plainly
+					</div>
+					<h1 class="font-display font-semibold text-[42px] md:text-[56px] leading-[1.06] tracking-tight mt-6">Your job search is yours.</h1>
+					<p class="text-muted text-[17px] leading-relaxed mt-6 max-w-2xl mx-auto">Applynza is built to keep your application tracker on your device. Here is exactly what the extension accesses, what it stores, and when information can leave your browser.</p>
+					<p class="text-[12.5px] text-dim mt-6">Last updated August 1, 2026</p>
+				</div>
+			</section>
+
+			<div class="max-w-4xl mx-auto px-6 md:px-8 py-14 md:py-20 space-y-12">
+				<section class="grid md:grid-cols-[190px_1fr] gap-6 md:gap-12">
+					<div><p class="text-[12px] uppercase tracking-[0.14em] text-accent font-semibold">01</p><h2 class="font-display font-semibold text-[25px] mt-2">The short version</h2></div>
+					<div class="text-muted text-[15.5px] leading-relaxed space-y-4"><p>Applynza does not require an account, does not include advertising or analytics, and does not sell your information. Saved jobs, notes, statuses, reminders, preferences, and theme settings are kept in your browser's local extension storage.</p><p>You decide when a job is detected and saved. You can export your data or clear it from the extension's Settings screen.</p></div>
+				</section>
+
+				<section class="grid md:grid-cols-[190px_1fr] gap-6 md:gap-12 border-t border-border pt-12">
+					<div><p class="text-[12px] uppercase tracking-[0.14em] text-accent font-semibold">02</p><h2 class="font-display font-semibold text-[25px] mt-2">What Applynza reads</h2></div>
+					<div class="text-muted text-[15.5px] leading-relaxed space-y-4"><p>When you use the extension on a job page, it reads the visible job information needed to identify a posting: title, company, location, salary, employment type, workplace type, description, application URL, and related job metadata.</p><p>On supported pages, the extension can inspect the active tab to detect those details. It does not collect passwords, cookies, private messages, or unrelated browsing content.</p></div>
+				</section>
+
+				<section class="grid md:grid-cols-[190px_1fr] gap-6 md:gap-12 border-t border-border pt-12">
+					<div><p class="text-[12px] uppercase tracking-[0.14em] text-accent font-semibold">03</p><h2 class="font-display font-semibold text-[25px] mt-2">What stays local</h2></div>
+					<div class="rounded-2xl border border-border bg-surface p-6 shadow-smSoft"><div class="grid sm:grid-cols-2 gap-5"><div><h3 class="font-medium text-[15px]">Your workspace</h3><p class="text-muted text-[14px] leading-relaxed mt-1.5">Saved applications, notes, statuses, reminders, timestamps, and dashboard preferences.</p></div><div><h3 class="font-medium text-[15px]">Your controls</h3><p class="text-muted text-[14px] leading-relaxed mt-1.5">Export and restore tools work with local JSON backups. Clearing storage removes the extension data on this browser.</p></div></div></div>
+				</section>
+
+				<section class="grid md:grid-cols-[190px_1fr] gap-6 md:gap-12 border-t border-border pt-12">
+					<div><p class="text-[12px] uppercase tracking-[0.14em] text-green font-semibold">04</p><h2 class="font-display font-semibold text-[25px] mt-2">Optional analysis</h2></div>
+					<div class="text-muted text-[15.5px] leading-relaxed space-y-4"><p>Some builds can be configured with an AI job-analysis endpoint. If that option is enabled and you use it, Applynza sends the job page URL in a request to that configured service so it can return structured job details.</p><p>This is separate from local saving. The extension does not silently send every page or every saved job. Review the service's own privacy terms before enabling or using it.</p></div>
+				</section>
+
+				<section class="grid md:grid-cols-[190px_1fr] gap-6 md:gap-12 border-t border-border pt-12">
+					<div><p class="text-[12px] uppercase tracking-[0.14em] text-accent font-semibold">05</p><h2 class="font-display font-semibold text-[25px] mt-2">Permissions</h2></div>
+					<div class="space-y-3 text-[14px]"><div class="flex gap-3 border-b border-border pb-3"><code class="font-mono text-accentDeep bg-accentSoft rounded px-2 py-1 text-[12px]">activeTab</code><p class="text-muted leading-relaxed">Access the tab you are actively using when detection is requested.</p></div><div class="flex gap-3 border-b border-border pb-3"><code class="font-mono text-accentDeep bg-accentSoft rounded px-2 py-1 text-[12px]">scripting</code><p class="text-muted leading-relaxed">Run the detector needed to read job details on supported pages.</p></div><div class="flex gap-3 border-b border-border pb-3"><code class="font-mono text-accentDeep bg-accentSoft rounded px-2 py-1 text-[12px]">sidePanel</code><p class="text-muted leading-relaxed">Show the workspace beside your browser tab.</p></div><div class="flex gap-3 border-b border-border pb-3"><code class="font-mono text-accentDeep bg-accentSoft rounded px-2 py-1 text-[12px]">storage</code><p class="text-muted leading-relaxed">Save your tracker data locally in the browser.</p></div><div class="flex gap-3"><code class="font-mono text-accentDeep bg-accentSoft rounded px-2 py-1 text-[12px]">host access</code><p class="text-muted leading-relaxed">Allow detection to run on job pages across HTTP and HTTPS sites. Applynza uses this access for job-related page content only.</p></div></div>
+				</section>
+
+				<section class="rounded-2xl bg-ink text-canvas p-7 md:p-9"><p class="text-[12px] uppercase tracking-[0.14em] text-green font-semibold">Your choices</p><h2 class="font-display font-semibold text-[28px] mt-3">You stay in control.</h2><p class="text-canvas/65 text-[15px] leading-relaxed mt-3 max-w-2xl">Use Settings inside the dashboard to see local storage usage, export a backup, or clear locally stored data. Removing the extension also removes its browser storage according to your browser's extension data rules.</p><div class="flex flex-wrap gap-5 mt-6"><a href="install-guide.html" class="text-[14.5px] font-medium hover:text-green transition-colors">Install Applynza →</a><a href="https://github.com/apelmahmudDev/applypilot" target="_blank" rel="noopener" class="text-[14.5px] font-medium text-canvas/65 hover:text-canvas transition-colors">Review the source →</a></div></section>
+			</div>
+		</main>
+
+		<footer class="border-t border-border"><div class="max-w-6xl mx-auto px-6 md:px-8 py-10 flex flex-col items-center justify-center gap-4 text-center"><a href="index.html" class="text-dim hover:text-ink transition-colors text-[14px]">Back to Applynza overview</a><p class="text-[13px] text-dim">© 2026 Applynza. Smart Job Application Tracker Extension.</p></div></footer>
+	</body>
+</html>

@@ -10,7 +10,7 @@ const extensionVersion = getExtensionVersion();
 export default defineConfig({
 	modules: ["@wxt-dev/module-react"],
 	manifest: {
-		name: "Applynza",
+		name: "Applynza: Job Application Tracker & Organizer",
 		short_name: "Applynza",
 		version: extensionVersion,
 		permissions: ["activeTab", "scripting", "sidePanel", "storage"],

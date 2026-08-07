@@ -2,7 +2,7 @@
 	"name": "applynza",
 	"description": "A privacy-first browser extension for saving, organizing, and tracking job applications directly from job boards.",
 	"private": true,
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"type": "module",
 	"scripts": {
 		"dev": "wxt",

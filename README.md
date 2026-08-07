@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-  <a href="https://apelmahmuddev.github.io/applypilot/">
+  <a href="https://chromewebstore.google.com/detail/applynza/kmcbnkikojfohfdoennicddnlabophjg?authuser=0&hl=en">
     <img
       src="https://img.shields.io/badge/Chrome-Install%20Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white"
       alt="Install Applynza for Chrome"

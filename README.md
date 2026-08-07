@@ -337,7 +337,7 @@ Before submitting a pull request:
 </p>
 
 <p align="center">
-  <a href="https://apelmahmuddev.github.io/applypilot/"><strong>Installation Guide</strong></a>
+  <a href="https://apelmahmuddev.github.io/applynza/"><strong>Installation Guide</strong></a>
   ·
-  <a href="https://apelmahmuddev.github.io/applypilot/"><strong>View Demo</strong></a>
+  <a href="https://apelmahmuddev.github.io/applynza/"><strong>View Demo</strong></a>
 </p>

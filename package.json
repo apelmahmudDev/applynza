@@ -1,6 +1,6 @@
 {
 	"name": "applynza",
-	"description": "manifest.json description",
+	"description": "A privacy-first browser extension for saving, organizing, and tracking job applications directly from job boards.",
 	"private": true,
 	"version": "1.0.0",
 	"type": "module",

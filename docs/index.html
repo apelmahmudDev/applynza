@@ -3,6 +3,10 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Applynza is a free, local-first Chrome extension for saving, organizing, and tracking job applications as you browse."
+		/>
 		<title>
 			Applynza — Manage your job search without leaving the browser
 		</title>
@@ -57,6 +61,11 @@
 			}
 		</style>
 		<style>
+			:focus-visible {
+				outline: 3px solid #3a4fd1;
+				outline-offset: 3px;
+			}
+
 			html {
 				scroll-behavior: smooth;
 			}
@@ -103,7 +112,7 @@
 				animation: softPulse 1.8s ease-in-out infinite;
 			}
 
-			.fade-up {
+			.js .fade-up {
 				opacity: 0;
 				transform: translateY(18px);
 				transition:
@@ -130,14 +139,23 @@
 				border: 1px solid #e7e3da;
 			}
 		</style>
+		<script>
+			document.documentElement.classList.add("js");
+		</script>
 	</head>
 	<body class="bg-canvas text-ink font-body antialiased">
+		<a
+			href="#main-content"
+			class="sr-only fixed left-4 top-4 z-[60] rounded-md bg-ink px-4 py-2 text-sm font-semibold text-canvas focus:not-sr-only"
+		>
+			Skip to main content
+		</a>
 		<!-- ================= NAV ================= -->
 		<header
 			class="sticky top-0 z-50 bg-canvas/85 backdrop-blur-md border-b border-border"
 		>
 			<div
-				class="max-w-6xl mx-auto px-6 md:px-8 h-[72px] flex items-center justify-between"
+				class="max-w-6xl mx-auto h-[72px] px-4 sm:px-6 md:px-8 flex items-center justify-between"
 			>
 				<a href="#top" class="flex items-center gap-3">
 					<img
@@ -164,9 +182,6 @@
 					<a href="privacy.html" class="hover:text-ink transition-colors"
 						>Privacy</a
 					>
-					<a href="install-guide.html" class="hover:text-ink transition-colors"
-						>Install Guide</a
-					>
 				</nav>
 				<div class="flex items-center gap-2.5">
 					<a
@@ -174,7 +189,7 @@
 						target="_blank"
 						rel="noopener"
 						aria-label="View source on GitHub"
-						class="flex items-center justify-center w-10 h-10 rounded-full border border-border text-ink hover:bg-surface transition-colors shadow-smSoft shrink-0"
+						class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full border border-border text-ink hover:bg-surface transition-colors shadow-smSoft shrink-0"
 					>
 						<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
 							<path
@@ -184,7 +199,9 @@
 					</a>
 					<a
 						href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
-						class="inline-flex items-center gap-2 rounded-[14px] border border-black/5 bg-white px-5 py-[11px] text-[14px] font-semibold text-ink shadow-[0_1px_2px_rgba(33,31,26,0.06),0_10px_24px_rgba(33,31,26,0.06)] transition-all hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(33,31,26,0.08),0_14px_28px_rgba(33,31,26,0.09)]"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center gap-2 rounded-[14px] border border-black/5 bg-white px-3.5 sm:px-5 py-[11px] text-[14px] font-semibold text-ink shadow-[0_1px_2px_rgba(33,31,26,0.06),0_10px_24px_rgba(33,31,26,0.06)] transition-all hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(33,31,26,0.08),0_14px_28px_rgba(33,31,26,0.09)]"
 					>
 						<img src="assets/chrome.png" alt="" class="h-[18px] w-[18px] shrink-0 object-contain" />
 						Add to Chrome
@@ -194,6 +211,7 @@
 		</header>
 
 		<!-- ================ HERO ================ -->
+		<main id="main-content">
 		<section id="top" class="relative overflow-hidden bg-pageGlow">
 			<div
 				class="max-w-6xl mx-auto px-6 md:px-8 pt-16 md:pt-24 pb-20 grid md:grid-cols-2 gap-14 items-center"
@@ -228,6 +246,8 @@
 					<div class="rise-in rise-in-4 flex flex-wrap items-center gap-4 mt-9">
 						<a
 							href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
+							target="_blank"
+							rel="noopener noreferrer"
 							class="inline-flex min-w-[228px] items-center justify-center gap-2.5 rounded-[14px] bg-[linear-gradient(135deg,#6d4df6_0%,#5938e9_100%)] px-6 py-4 text-[15px] font-semibold text-white shadow-[0_18px_34px_rgba(89,56,233,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_38px_rgba(89,56,233,0.34)]"
 						>
 							<img
@@ -847,11 +867,17 @@
 					</div>
 					<div
 						class="fade-up inline-flex items-center gap-1 rounded-full border border-border bg-canvas p-1 shadow-smSoft"
+						role="tablist"
+						aria-label="Extension interface previews"
 					>
 						<button
 							type="button"
 							data-preview-tab="popup"
-							aria-pressed="true"
+							id="preview-tab-popup"
+							role="tab"
+							aria-controls="preview-panel-popup"
+							tabindex="0"
+							aria-selected="true"
 							class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-canvas bg-ink transition-colors"
 						>
 							Popup
@@ -859,7 +885,11 @@
 						<button
 							type="button"
 							data-preview-tab="sidepanel"
-							aria-pressed="false"
+							id="preview-tab-sidepanel"
+							role="tab"
+							aria-controls="preview-panel-sidepanel"
+							tabindex="-1"
+							aria-selected="false"
 							class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-muted transition-colors"
 						>
 							Side panel
@@ -867,7 +897,11 @@
 						<button
 							type="button"
 							data-preview-tab="dashboard"
-							aria-pressed="false"
+							id="preview-tab-dashboard"
+							role="tab"
+							aria-controls="preview-panel-dashboard"
+							tabindex="-1"
+							aria-selected="false"
 							class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-muted transition-colors"
 						>
 							Dashboard
@@ -876,37 +910,43 @@
 				</div>
 
 				<div class="fade-up mt-10 rounded-lg">
-					<div data-preview-panel="popup" class="preview-panel">
+					<div data-preview-panel="popup" id="preview-panel-popup" class="preview-panel" role="tabpanel" aria-labelledby="preview-tab-popup" tabindex="0">
 						<div
 							class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
 						>
 							<img
 								src="screenshots/s-1.png"
 								alt="Applynza popup interface preview"
+								loading="lazy"
+								decoding="async"
 								class="w-full h-auto rounded-[1.1rem]"
 							/>
 						</div>
 					</div>
 
-					<div data-preview-panel="sidepanel" class="preview-panel hidden">
+					<div data-preview-panel="sidepanel" id="preview-panel-sidepanel" class="preview-panel hidden" role="tabpanel" aria-labelledby="preview-tab-sidepanel" tabindex="0">
 						<div
 							class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
 						>
 							<img
 								src="screenshots/s-2.png"
 								alt="Applynza side panel interface preview"
+								loading="lazy"
+								decoding="async"
 								class="w-full h-auto rounded-[1.1rem]"
 							/>
 						</div>
 					</div>
 
-					<div data-preview-panel="dashboard" class="preview-panel hidden">
+					<div data-preview-panel="dashboard" id="preview-panel-dashboard" class="preview-panel hidden" role="tabpanel" aria-labelledby="preview-tab-dashboard" tabindex="0">
 						<div
 							class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
 						>
 							<img
 								src="screenshots/s-3.png"
 								alt="Applynza dashboard interface preview"
+								loading="lazy"
+								decoding="async"
 								class="w-full h-auto rounded-[1.1rem]"
 							/>
 						</div>
@@ -1185,6 +1225,8 @@
 					</p>
 					<a
 						href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
+						target="_blank"
+						rel="noopener noreferrer"
 						class="inline-flex items-center gap-1.5 text-[15px] font-medium text-canvas mt-7 hover:text-green transition-colors"
 					>
 						<img
@@ -1395,6 +1437,8 @@
 					</p>
 					<a
 						href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
+						target="_blank"
+						rel="noopener noreferrer"
 						class="mt-8 inline-flex min-w-[228px] items-center justify-center gap-2.5 rounded-[14px] bg-[linear-gradient(135deg,#6d4df6_0%,#5938e9_100%)] px-6 md:px-7 py-4 text-[15px] md:text-[16px] font-semibold text-white shadow-[0_18px_34px_rgba(89,56,233,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_38px_rgba(89,56,233,0.34)]"
 					>
 						<img
@@ -1476,12 +1520,19 @@
 				</div>
 			</div>
 		</section>
+		</main>
 
 		<!-- ================= FOOTER ================= -->
 		<footer class="border-t border-border">
 			<div
 				class="max-w-6xl mx-auto px-6 md:px-8 py-10 flex flex-col items-center justify-center gap-4 text-center"
 			>
+				<nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[14px] text-dim">
+					<a href="#surfaces" class="transition-colors hover:text-ink">Product</a>
+					<a href="#workflow" class="transition-colors hover:text-ink">How it works</a>
+					<a href="privacy.html" class="transition-colors hover:text-ink">Privacy</a>
+					<a href="install-guide.html" class="transition-colors hover:text-ink">Developer install</a>
+				</nav>
 				<a
 					href="https://github.com/apelmahmudDev/applypilot"
 					target="_blank"
@@ -1505,22 +1556,43 @@
 			const previewTabs = document.querySelectorAll("[data-preview-tab]");
 			const previewPanels = document.querySelectorAll("[data-preview-panel]");
 
-			previewTabs.forEach((tab) => {
-				tab.addEventListener("click", () => {
-					const target = tab.getAttribute("data-preview-tab");
+			const selectPreview = (tab) => {
+				const target = tab.getAttribute("data-preview-tab");
 
-					previewTabs.forEach((btn) => {
-						const active = btn === tab;
-						btn.setAttribute("aria-pressed", active ? "true" : "false");
-						btn.classList.toggle("bg-ink", active);
-						btn.classList.toggle("text-canvas", active);
-						btn.classList.toggle("text-muted", !active);
-					});
+				previewTabs.forEach((btn) => {
+					const active = btn === tab;
+					btn.setAttribute("aria-selected", active ? "true" : "false");
+					btn.setAttribute("tabindex", active ? "0" : "-1");
+					btn.classList.toggle("bg-ink", active);
+					btn.classList.toggle("text-canvas", active);
+					btn.classList.toggle("text-muted", !active);
+				});
 
-					previewPanels.forEach((panel) => {
-						const active = panel.getAttribute("data-preview-panel") === target;
-						panel.classList.toggle("hidden", !active);
-					});
+				previewPanels.forEach((panel) => {
+					const active = panel.getAttribute("data-preview-panel") === target;
+					panel.classList.toggle("hidden", !active);
+				});
+			};
+
+			previewTabs.forEach((tab, index) => {
+				tab.addEventListener("click", () => selectPreview(tab));
+				tab.addEventListener("keydown", (event) => {
+					const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+					if (!keys.includes(event.key)) return;
+
+					event.preventDefault();
+					const nextIndex =
+						event.key === "Home"
+							? 0
+							: event.key === "End"
+								? previewTabs.length - 1
+								: (index +
+										(event.key === "ArrowRight" ? 1 : -1) +
+										previewTabs.length) %
+									previewTabs.length;
+					const nextTab = previewTabs[nextIndex];
+					selectPreview(nextTab);
+					nextTab.focus();
 				});
 			});
 

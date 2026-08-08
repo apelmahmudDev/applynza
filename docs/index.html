@@ -7,9 +7,7 @@
 			name="description"
 			content="Applynza is a free, local-first Chrome extension for saving, organizing, and tracking job applications as you browse."
 		/>
-		<title>
-			Applynza — Manage your job search without leaving the browser
-		</title>
+		<title>Applynza — Manage your job search without leaving the browser</title>
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -203,7 +201,11 @@
 						rel="noopener noreferrer"
 						class="inline-flex items-center gap-2 rounded-[14px] border border-black/5 bg-white px-3.5 sm:px-5 py-[11px] text-[14px] font-semibold text-ink shadow-[0_1px_2px_rgba(33,31,26,0.06),0_10px_24px_rgba(33,31,26,0.06)] transition-all hover:-translate-y-0.5 hover:shadow-[0_1px_2px_rgba(33,31,26,0.08),0_14px_28px_rgba(33,31,26,0.09)]"
 					>
-						<img src="assets/chrome.png" alt="" class="h-[18px] w-[18px] shrink-0 object-contain" />
+						<img
+							src="assets/chrome.png"
+							alt=""
+							class="h-[18px] w-[18px] shrink-0 object-contain"
+						/>
 						Add to Chrome
 					</a>
 				</div>
@@ -212,56 +214,1310 @@
 
 		<!-- ================ HERO ================ -->
 		<main id="main-content">
-		<section id="top" class="relative overflow-hidden bg-pageGlow">
-			<div
-				class="max-w-6xl mx-auto px-6 md:px-8 pt-16 md:pt-24 pb-20 grid md:grid-cols-2 gap-14 items-center"
-			>
-				<div>
-					<div
-						class="rise-in rise-in-1 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-[12.5px] text-muted"
-					>
-						<span class="relative flex h-1.5 w-1.5">
-							<span
-								class="pulse-dot absolute inline-flex h-full w-full rounded-full bg-green"
-							></span>
-						</span>
-						Local-first · no account required
+			<section id="top" class="relative overflow-hidden bg-pageGlow">
+				<div
+					class="max-w-6xl mx-auto px-6 md:px-8 pt-16 md:pt-24 pb-20 grid md:grid-cols-2 gap-14 items-center"
+				>
+					<div>
+						<div
+							class="rise-in rise-in-1 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-[12.5px] text-muted"
+						>
+							<span class="relative flex h-1.5 w-1.5">
+								<span
+									class="pulse-dot absolute inline-flex h-full w-full rounded-full bg-green"
+								></span>
+							</span>
+							Local-first · no account required
+						</div>
+
+						<h1
+							class="rise-in rise-in-2 font-display font-semibold text-[42px] md:text-[54px] leading-[1.08] tracking-tight mt-6"
+						>
+							Track every job you find —
+							<span class="italic text-accent">right from your browser</span>
+						</h1>
+
+						<p
+							class="rise-in rise-in-3 text-muted text-[17px] leading-relaxed mt-6 max-w-[480px]"
+						>
+							Applynza detects job details on the page you're viewing, lets you
+							review or edit them, and saves everything instantly. Your data
+							stays private and stored locally in your browser.
+						</p>
+
+						<div
+							class="rise-in rise-in-4 flex flex-wrap items-center gap-4 mt-9"
+						>
+							<a
+								href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex min-w-[228px] items-center justify-center gap-2.5 rounded-[14px] bg-[linear-gradient(135deg,#6d4df6_0%,#5938e9_100%)] px-6 py-4 text-[15px] font-semibold text-white shadow-[0_18px_34px_rgba(89,56,233,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_38px_rgba(89,56,233,0.34)]"
+							>
+								<img
+									src="assets/chrome.png"
+									alt=""
+									class="h-5 w-5 shrink-0 object-contain"
+								/>
+								Add to Chrome - It's free
+							</a>
+							<a
+								href="#workflow"
+								class="inline-flex items-center gap-1.5 text-[15px] font-medium text-ink hover:text-accent transition-colors"
+							>
+								See how it works
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+									<path
+										d="M9 6L15 12L9 18"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div
+							class="rise-in rise-in-4 flex items-center gap-6 mt-10 text-[13px] text-dim"
+						>
+							<span class="flex items-center gap-1.5"
+								><svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+									<path
+										d="M12 2L4 6V12C4 17 7.6 20.7 12 22C16.4 20.7 20 17 20 12V6L12 2Z"
+										stroke="#9b968a"
+										stroke-width="1.6"
+										stroke-linejoin="round"
+									/>
+								</svg>
+								4 permissions, nothing more</span
+							>
+							<span class="flex items-center gap-1.5"
+								><svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+									<rect
+										x="4"
+										y="4"
+										width="16"
+										height="16"
+										rx="3"
+										stroke="#9b968a"
+										stroke-width="1.6"
+									/>
+								</svg>
+								Works from popup, panel &amp; dashboard</span
+							>
+						</div>
 					</div>
 
-					<h1
-						class="rise-in rise-in-2 font-display font-semibold text-[42px] md:text-[54px] leading-[1.08] tracking-tight mt-6"
-					>
-						Track every job you find —
-						<span class="italic text-accent">right from your browser</span>
-					</h1>
+					<!-- Hero visual: extension popup anchored over a live browser window -->
+					<div class="hidden" aria-hidden="true">
+						<div
+							class="absolute -inset-x-6 -inset-y-6 md:-inset-x-10 md:-inset-y-8 bg-ctaGlow rounded-[32px] md:rounded-[40px] -z-10"
+						></div>
 
-					<p
-						class="rise-in rise-in-3 text-muted text-[17px] leading-relaxed mt-6 max-w-[480px]"
+						<div
+							class="relative rounded-2xl border-0 md:border border-border bg-transparent md:bg-surface shadow-none overflow-hidden"
+						>
+							<!-- browser chrome -->
+							<div
+								class="hidden md:flex items-center gap-3 px-4 py-3 border-b border-border bg-canvas"
+							>
+								<div class="flex items-center gap-1.5 shrink-0">
+									<span class="w-2.5 h-2.5 rounded-full bg-borderStrong"></span>
+									<span class="w-2.5 h-2.5 rounded-full bg-borderStrong"></span>
+									<span class="w-2.5 h-2.5 rounded-full bg-borderStrong"></span>
+								</div>
+								<div
+									class="flex-1 h-7 rounded-md bg-surface border border-border flex items-center gap-1.5 px-2.5 min-w-0"
+								>
+									<svg
+										width="11"
+										height="11"
+										viewBox="0 0 24 24"
+										fill="none"
+										class="shrink-0"
+									>
+										<rect
+											x="5"
+											y="10"
+											width="14"
+											height="10"
+											rx="2"
+											stroke="#9b968a"
+											stroke-width="1.8"
+										/>
+										<path
+											d="M8 10V7A4 4 0 0 1 16 7V10"
+											stroke="#9b968a"
+											stroke-width="1.8"
+										/>
+									</svg>
+									<span class="text-[11px] text-dim truncate"
+										>boards.example.com/jobs/view?id=4432622555&amp;keywords=frontend-developer</span
+									>
+								</div>
+								<div
+									class="hidden sm:flex items-center gap-2.5 shrink-0 text-dim"
+								>
+									<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+										<path
+											d="M12 3L14.6 9H21L15.9 12.9L17.8 19L12 15.3L6.2 19L8.1 12.9L3 9H9.4L12 3Z"
+											stroke="#9b968a"
+											stroke-width="1.4"
+											stroke-linejoin="round"
+										/>
+									</svg>
+									<span
+										class="relative flex items-center justify-center w-6 h-6 rounded-md bg-accentSoft ring-2 ring-accent/25"
+									>
+										<img
+											src="assets/logo.png"
+											alt="Applynza extension icon"
+											class="h-[13px] w-[13px] object-contain"
+										/>
+									</span>
+									<span class="w-5 h-5 rounded-full bg-borderStrong/60"></span>
+								</div>
+							</div>
+
+							<!-- job board backdrop (dimmed, for context only) -->
+							<div
+								class="relative h-auto md:h-[402px] bg-transparent md:bg-surface overflow-hidden select-none"
+							>
+								<div
+									class="hidden md:grid opacity-40 grid-cols-[1fr_1.4fr] h-full"
+								>
+									<!-- results list -->
+									<div class="border-r border-border p-4 space-y-3">
+										<div class="h-3 w-24 rounded bg-borderStrong/70"></div>
+										<div class="space-y-2.5 mt-3">
+											<div
+												class="flex gap-2.5 p-2.5 rounded-lg bg-accentSoft/70"
+											>
+												<div
+													class="w-8 h-8 rounded bg-borderStrong shrink-0"
+												></div>
+												<div class="flex-1 space-y-1.5 pt-0.5">
+													<div class="h-2.5 w-28 rounded bg-ink/25"></div>
+													<div class="h-2 w-20 rounded bg-borderStrong"></div>
+												</div>
+											</div>
+											<div class="flex gap-2.5 p-2.5">
+												<div
+													class="w-8 h-8 rounded bg-borderStrong/70 shrink-0"
+												></div>
+												<div class="flex-1 space-y-1.5 pt-0.5">
+													<div class="h-2.5 w-24 rounded bg-dim/40"></div>
+													<div
+														class="h-2 w-16 rounded bg-borderStrong/70"
+													></div>
+												</div>
+											</div>
+											<div class="flex gap-2.5 p-2.5">
+												<div
+													class="w-8 h-8 rounded bg-borderStrong/70 shrink-0"
+												></div>
+												<div class="flex-1 space-y-1.5 pt-0.5">
+													<div class="h-2.5 w-32 rounded bg-dim/40"></div>
+													<div
+														class="h-2 w-14 rounded bg-borderStrong/70"
+													></div>
+												</div>
+											</div>
+											<div class="flex gap-2.5 p-2.5">
+												<div
+													class="w-8 h-8 rounded bg-borderStrong/70 shrink-0"
+												></div>
+												<div class="flex-1 space-y-1.5 pt-0.5">
+													<div class="h-2.5 w-20 rounded bg-dim/40"></div>
+													<div
+														class="h-2 w-16 rounded bg-borderStrong/70"
+													></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- job detail -->
+									<div class="p-5 space-y-3">
+										<div class="w-9 h-9 rounded bg-borderStrong"></div>
+										<div class="h-3.5 w-40 rounded bg-ink/25 mt-2"></div>
+										<div class="h-2.5 w-28 rounded bg-borderStrong"></div>
+										<div class="flex gap-2 mt-2">
+											<div
+												class="h-6 w-20 rounded-full border border-border"
+											></div>
+											<div
+												class="h-6 w-20 rounded-full border border-border"
+											></div>
+										</div>
+										<div class="space-y-1.5 mt-4">
+											<div class="h-2 w-full rounded bg-borderStrong/70"></div>
+											<div class="h-2 w-[92%] rounded bg-borderStrong/70"></div>
+											<div class="h-2 w-[85%] rounded bg-borderStrong/70"></div>
+											<div class="h-2 w-[70%] rounded bg-borderStrong/70"></div>
+										</div>
+									</div>
+								</div>
+								<div
+									class="hidden md:block absolute inset-0 bg-gradient-to-l from-surface via-surface/40 to-transparent"
+								></div>
+
+								<!-- Applynza popup, anchored top-right like a real extension dropdown -->
+								<div
+									class="relative md:absolute top-auto md:top-3 right-auto md:right-3 w-full max-w-[340px] md:w-[300px] mx-auto md:mx-0 rounded-xl border border-border bg-surface shadow-lgSoft overflow-hidden"
+								>
+									<!-- popup header -->
+									<div
+										class="flex items-center justify-between px-4 pt-4 pb-3 border-b border-border"
+									>
+										<div class="flex items-center gap-2">
+											<img
+												src="assets/logo.png"
+												alt="Applynza extension icon"
+												class="h-[22px] w-[22px] object-contain"
+											/>
+											<span
+												class="font-display font-semibold text-[14px] tracking-tight"
+												>Applynza
+											</span>
+										</div>
+										<svg
+											width="15"
+											height="15"
+											viewBox="0 0 24 24"
+											fill="none"
+											class="text-dim"
+										>
+											<path
+												d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z"
+												stroke="currentColor"
+												stroke-width="1.5"
+											/>
+											<path
+												d="M19.4 13.5C19.47 13 19.47 12.5 19.4 12L20.9 10.8L19.59 7.9L17.35 8.42C16.97 8.14 16.56 7.9 16.11 7.73L15.84 5.86H12.66L12.01 7.73C11.56 7.9 11.15 8.15 10.77 8.42L8.53 7.9L7.13 10.3L8.72 12C8.65 12.5 8.65 13 8.72 13.5L7.13 15.2L8.53 17.6L10.77 17.08C11.15 17.36 11.56 17.6 12.01 17.77L12.66 19.97H15.46L16.11 17.77C16.56 17.6 16.97 17.35 17.35 17.08L19.59 17.6L20.9 15.2L19.4 13.5Z"
+												stroke="currentColor"
+												stroke-width="1.2"
+												stroke-linejoin="round"
+											/>
+										</svg>
+									</div>
+
+									<!-- popup body -->
+									<div class="px-4 pt-3.5 pb-6">
+										<div class="flex items-center justify-between mb-3">
+											<p class="text-[12.5px] font-medium text-ink">
+												Job detected on this page
+											</p>
+											<span
+												class="text-[10.5px] font-medium text-accentDeep bg-accentSoft px-2 py-[3px] rounded-md"
+												>Job board</span
+											>
+										</div>
+
+										<div class="rounded-lg border border-border p-3.5">
+											<p class="text-[14.5px] font-semibold leading-snug">
+												Frontend Developer
+											</p>
+											<div
+												class="flex items-center gap-1.5 mt-2.5 text-[12.5px] text-muted"
+											>
+												<svg
+													width="13"
+													height="13"
+													viewBox="0 0 24 24"
+													fill="none"
+													class="shrink-0"
+												>
+													<rect
+														x="3"
+														y="7"
+														width="18"
+														height="12"
+														rx="2"
+														stroke="#6b675e"
+														stroke-width="1.6"
+													/>
+													<path
+														d="M8 7V5.5C8 4.67 8.67 4 9.5 4H14.5C15.33 4 16 4.67 16 5.5V7"
+														stroke="#6b675e"
+														stroke-width="1.6"
+													/>
+												</svg>
+												Millennium
+											</div>
+											<div
+												class="flex items-center gap-1.5 mt-1.5 text-[12.5px] text-muted"
+											>
+												<svg
+													width="13"
+													height="13"
+													viewBox="0 0 24 24"
+													fill="none"
+													class="shrink-0"
+												>
+													<path
+														d="M12 21C12 21 19 15.5 19 10.5C19 6.36 15.64 3 11.5 3S4 6.36 4 10.5C4 15.5 12 21 12 21Z"
+														stroke="#6b675e"
+														stroke-width="1.6"
+														stroke-linejoin="round"
+													/>
+													<circle
+														cx="11.5"
+														cy="10.5"
+														r="2.2"
+														stroke="#6b675e"
+														stroke-width="1.6"
+													/>
+												</svg>
+												Singapore · On-site
+											</div>
+										</div>
+
+										<div class="flex gap-2 mt-3.5">
+											<button
+												class="flex-1 flex items-center justify-center gap-1.5 rounded-lg border border-border text-[12.5px] font-medium py-2.5 text-ink"
+											>
+												<svg
+													width="13"
+													height="13"
+													viewBox="0 0 24 24"
+													fill="none"
+												>
+													<path
+														d="M4 20L4.6 17.2C4.8 16.3 5.3 15.5 6 14.9L15.5 5.4C16.3 4.6 17.6 4.6 18.4 5.4L18.6 5.6C19.4 6.4 19.4 7.7 18.6 8.5L9.1 18C8.5 18.7 7.7 19.2 6.8 19.4L4 20Z"
+														stroke="#211f1a"
+														stroke-width="1.5"
+														stroke-linejoin="round"
+													/>
+												</svg>
+												Edit
+											</button>
+											<button
+												class="flex-1 rounded-lg bg-accentGradient text-white text-[12.5px] font-medium py-2.5 shadow-smSoft"
+											>
+												Save Job
+											</button>
+										</div>
+
+										<div class="grid grid-cols-2 gap-2 mt-2">
+											<button
+												class="flex flex-col items-center gap-1.5 rounded-lg border border-border py-2.5 text-[11px] font-medium text-ink"
+											>
+												<svg
+													width="15"
+													height="15"
+													viewBox="0 0 24 24"
+													fill="none"
+												>
+													<rect
+														x="4"
+														y="4"
+														width="7"
+														height="7"
+														rx="1.3"
+														stroke="#3A4FD1"
+														stroke-width="1.6"
+													/>
+													<rect
+														x="13"
+														y="4"
+														width="7"
+														height="7"
+														rx="1.3"
+														stroke="#3A4FD1"
+														stroke-width="1.6"
+													/>
+													<rect
+														x="4"
+														y="13"
+														width="7"
+														height="7"
+														rx="1.3"
+														stroke="#3A4FD1"
+														stroke-width="1.6"
+													/>
+													<rect
+														x="13"
+														y="13"
+														width="7"
+														height="7"
+														rx="1.3"
+														stroke="#3A4FD1"
+														stroke-width="1.6"
+													/>
+												</svg>
+												Dashboard
+											</button>
+											<button
+												class="flex flex-col items-center gap-1.5 rounded-lg border border-border py-2.5 text-[11px] font-medium text-ink"
+											>
+												<svg
+													width="15"
+													height="15"
+													viewBox="0 0 24 24"
+													fill="none"
+												>
+													<rect
+														x="4"
+														y="4"
+														width="16"
+														height="16"
+														rx="2"
+														stroke="#3A4FD1"
+														stroke-width="1.6"
+													/>
+													<path
+														d="M14 4V20"
+														stroke="#3A4FD1"
+														stroke-width="1.6"
+													/>
+												</svg>
+												Side Panel
+											</button>
+										</div>
+
+										<p
+											class="flex items-center justify-center gap-1.5 text-center text-[10.5px] text-dim mt-3.5"
+										>
+											<svg
+												width="10"
+												height="10"
+												viewBox="0 0 24 24"
+												fill="none"
+											>
+												<rect
+													x="5"
+													y="10"
+													width="14"
+													height="10"
+													rx="2"
+													stroke="#9b968a"
+													stroke-width="2"
+												/>
+												<path
+													d="M8 10V7A4 4 0 0 1 16 7V10"
+													stroke="#9b968a"
+													stroke-width="2"
+												/>
+											</svg>
+											All data stored locally in your browser
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<p class="text-center text-[12.5px] text-dim mt-4">
+							Live preview of the Applynza popup, detecting a role in real time.
+						</p>
+					</div>
+
+					<!-- Hero visual: faithful preview of the Applynza extension popup -->
+					<div class="rise-in rise-in-3 relative">
+						<div
+							class="mx-auto max-w-[350px] overflow-hidden rounded-xl border border-[#dce3ef] bg-white"
+							role="img"
+							aria-label="Applynza popup preview showing a detected Senior Frontend Engineer job"
+						>
+							<div
+								class="flex items-center justify-between border-b border-[#dce3ef] px-4 py-3.5"
+							>
+								<div class="flex items-center gap-2.5">
+									<img
+										src="assets/logo.png"
+										alt=""
+										class="h-8 w-8 object-contain"
+									/>
+									<span
+										class="text-[18px] font-bold tracking-[-0.03em] text-[#081a3e]"
+										>Applynza</span
+									>
+								</div>
+								<svg
+									width="17"
+									height="17"
+									viewBox="0 0 24 24"
+									fill="none"
+									class="text-[#52627e]"
+									aria-hidden="true"
+								>
+									<path
+										d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+									<path
+										d="M19.4 15A1.65 1.65 0 0 0 19.73 16.82L19.79 16.88A2 2 0 1 1 16.96 19.71L16.9 19.65A1.65 1.65 0 0 0 15.08 19.32A1.65 1.65 0 0 0 14.08 20.83V21A2 2 0 1 1 10.08 21V20.91A1.65 1.65 0 0 0 9 19.4A1.65 1.65 0 0 0 7.18 19.73L7.12 19.79A2 2 0 1 1 4.29 16.96L4.35 16.9A1.65 1.65 0 0 0 4.68 15.08A1.65 1.65 0 0 0 3.17 14.08H3A2 2 0 1 1 3 10.08H3.09A1.65 1.65 0 0 0 4.6 9A1.65 1.65 0 0 0 4.27 7.18L4.21 7.12A2 2 0 1 1 7.04 4.29L7.1 4.35A1.65 1.65 0 0 0 8.92 4.68H9A1.65 1.65 0 0 0 10 3.17V3A2 2 0 1 1 14 3V3.09A1.65 1.65 0 0 0 15 4.6A1.65 1.65 0 0 0 16.82 4.27L16.88 4.21A2 2 0 1 1 19.71 7.04L19.65 7.1A1.65 1.65 0 0 0 19.32 8.92V9A1.65 1.65 0 0 0 20.83 10H21A2 2 0 1 1 21 14H20.91A1.65 1.65 0 0 0 19.4 15Z"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							</div>
+							<div class="space-y-4 px-4 py-4 text-[#081a3e]">
+								<div
+									class="flex items-center justify-between gap-3 text-[14px] font-semibold"
+								>
+									<span>Job detected on this page</span>
+									<span
+										class="rounded-lg bg-[#e9fbf3] px-3 py-1 text-[12px] font-medium text-[#0e9d66]"
+										>LinkedIn</span
+									>
+								</div>
+								<div class="rounded-xl border border-[#dce3ef] p-3.5">
+									<p class="text-[16px] font-semibold leading-snug">
+										Senior Frontend Engineer
+									</p>
+									<div
+										class="mt-3 space-y-1.5 text-[13.5px] font-medium text-[#243b63]"
+									>
+										<p class="flex items-center gap-2">
+											<svg
+												width="14"
+												height="14"
+												viewBox="0 0 24 24"
+												fill="none"
+												class="text-[#7f91ad]"
+												aria-hidden="true"
+											>
+												<rect
+													x="4"
+													y="7"
+													width="16"
+													height="12"
+													rx="2"
+													stroke="currentColor"
+													stroke-width="1.7"
+												/>
+												<path
+													d="M8 7V5.5C8 4.67 8.67 4 9.5 4h5c.83 0 1.5.67 1.5 1.5V7M4 11h16"
+													stroke="currentColor"
+													stroke-width="1.7"
+												/></svg
+											>DataCrunch
+										</p>
+										<p class="flex items-center gap-2">
+											<svg
+												width="14"
+												height="14"
+												viewBox="0 0 24 24"
+												fill="none"
+												class="text-[#7f91ad]"
+												aria-hidden="true"
+											>
+												<path
+													d="M12 21s7-5.5 7-10.5a7 7 0 1 0-14 0C5 15.5 12 21 12 21Z"
+													stroke="currentColor"
+													stroke-width="1.7"
+												/>
+												<circle
+													cx="12"
+													cy="10.5"
+													r="2"
+													stroke="currentColor"
+													stroke-width="1.7"
+												/></svg
+											>Gulshan, Dhaka, Bangladesh
+										</p>
+									</div>
+									<p
+										class="mt-3 flex items-center gap-1.5 text-[12.5px] font-medium text-[#155eef]"
+									>
+										<span class="truncate"
+											>linkedin.com/jobs/view/4450067446/</span
+										><svg
+											width="14"
+											height="14"
+											viewBox="0 0 24 24"
+											fill="none"
+											aria-hidden="true"
+										>
+											<path
+												d="M14 5h5v5M19 5l-8 8M11 7H6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-5"
+												stroke="currentColor"
+												stroke-width="1.8"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
+									</p>
+								</div>
+								<div class="grid grid-cols-2 gap-3">
+									<div
+										class="flex h-10 items-center justify-center gap-1 whitespace-nowrap rounded-lg border border-[#cfd9ea] bg-white px-2 text-[13px] font-semibold text-[#10244a] shadow-[0_1px_2px_rgba(16,36,74,0.04)]"
+									>
+										<svg
+											width="15"
+											height="15"
+											viewBox="0 0 24 24"
+											fill="none"
+											aria-hidden="true"
+											class="shrink-0"
+										>
+											<path
+												d="M12 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7M16 3v6m3-3h-6M13 15l6-6 2 2-6 6-3 1 1-3Z"
+												stroke="currentColor"
+												stroke-width="1.7"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/></svg
+										>Edit Before Saving
+									</div>
+									<div
+										class="flex h-10 items-center justify-center rounded-lg bg-[#5c63dc] text-[14px] font-semibold text-white shadow-sm"
+									>
+										Save Job
+									</div>
+								</div>
+								<div class="grid grid-cols-2 gap-3">
+									<div
+										class="flex h-[84px] flex-col items-center justify-center gap-2.5 rounded-lg border border-[#dce3ef] text-[13.5px] font-semibold"
+									>
+										<span
+											class="flex h-8 w-8 items-center justify-center rounded-md bg-[#f4f7ff] text-[#155eef]"
+											><svg
+												width="18"
+												height="18"
+												viewBox="0 0 24 24"
+												fill="none"
+												aria-hidden="true"
+											>
+												<rect
+													x="4"
+													y="4"
+													width="16"
+													height="16"
+													rx="2"
+													stroke="currentColor"
+													stroke-width="1.8"
+												/>
+												<path
+													d="M12 4v16M4 12h16"
+													stroke="currentColor"
+													stroke-width="1.8"
+												/></svg></span
+										>Open Dashboard
+									</div>
+									<div
+										class="flex h-[84px] flex-col items-center justify-center gap-2.5 rounded-lg border border-[#dce3ef] text-[13.5px] font-semibold"
+									>
+										<span
+											class="flex h-8 w-8 items-center justify-center rounded-md bg-[#f7f8fa] text-[#243b63]"
+											><svg
+												width="18"
+												height="18"
+												viewBox="0 0 24 24"
+												fill="none"
+												aria-hidden="true"
+											>
+												<rect
+													x="4"
+													y="4"
+													width="16"
+													height="16"
+													rx="2"
+													stroke="currentColor"
+													stroke-width="1.8"
+												/>
+												<path
+													d="M14 4v16"
+													stroke="currentColor"
+													stroke-width="1.8"
+												/></svg></span
+										>Open Side Panel
+									</div>
+								</div>
+							</div>
+							<p
+								class="px-4 py-3.5 text-center text-[12px] font-medium text-[#243b63]"
+							>
+								All data is stored locally in your browser.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ================= THREE SURFACES ================= -->
+			<section
+				id="surfaces"
+				class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24"
+			>
+				<div class="fade-up max-w-xl">
+					<span class="text-[13px] font-medium text-accent tracking-wide"
+						>Three surfaces, one workspace</span
 					>
-						Applynza detects job details on the page you're viewing, lets you
-						review or edit them, and saves everything instantly. Your data stays
-						private and stored locally in your browser.
+					<h2
+						class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
+					>
+						Meet it where you're already working.
+					</h2>
+					<p class="text-muted text-[16px] leading-relaxed mt-4">
+						Quick capture in the popup, a working surface beside your tab, and a
+						full dashboard when the list gets long.
 					</p>
+				</div>
 
-					<div class="rise-in rise-in-4 flex flex-wrap items-center gap-4 mt-9">
+				<div class="grid md:grid-cols-3 gap-6 mt-12">
+					<!-- Popup -->
+					<div
+						class="fade-up rounded-2xl border border-border bg-surface p-7 shadow-smSoft hover:shadow-mdSoft transition-shadow"
+					>
+						<div
+							class="w-10 h-10 rounded-lg bg-accentSoft flex items-center justify-center mb-5"
+						>
+							<svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+								<rect
+									x="4"
+									y="4"
+									width="16"
+									height="16"
+									rx="2.5"
+									stroke="#3A4FD1"
+									stroke-width="1.7"
+								/>
+								<path d="M4 9H20" stroke="#3A4FD1" stroke-width="1.7" />
+							</svg>
+						</div>
+						<h3 class="font-display font-semibold text-[19px]">Popup</h3>
+						<p class="text-muted text-[14.5px] leading-relaxed mt-2">
+							Built for quick actions — detect the current posting, review what
+							was captured, and save with one click.
+						</p>
+						<ul class="mt-5 space-y-2.5 text-[13.5px] text-ink/80">
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Detect the current job
+								posting
+							</li>
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Edit details before
+								saving
+							</li>
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Open the side panel or
+								dashboard
+							</li>
+						</ul>
+					</div>
+
+					<!-- Side Panel -->
+					<div
+						class="fade-up rounded-2xl border border-border bg-surface p-7 shadow-smSoft hover:shadow-mdSoft transition-shadow md:translate-y-4"
+					>
+						<div
+							class="w-10 h-10 rounded-lg bg-accentSoft flex items-center justify-center mb-5"
+						>
+							<svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+								<rect
+									x="4"
+									y="4"
+									width="16"
+									height="16"
+									rx="2.5"
+									stroke="#3A4FD1"
+									stroke-width="1.7"
+								/>
+								<path d="M15 4V20" stroke="#3A4FD1" stroke-width="1.7" />
+							</svg>
+						</div>
+						<h3 class="font-display font-semibold text-[19px]">Side panel</h3>
+						<p class="text-muted text-[14.5px] leading-relaxed mt-2">
+							A larger workspace that stays open while you keep browsing job
+							boards.
+						</p>
+						<ul class="mt-5 space-y-2.5 text-[13.5px] text-ink/80">
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>View recently saved
+								jobs
+							</li>
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Update application
+								statuses
+							</li>
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Review upcoming
+								reminders
+							</li>
+						</ul>
+					</div>
+
+					<!-- Dashboard -->
+					<div
+						class="fade-up rounded-2xl border border-border bg-surface p-7 shadow-smSoft hover:shadow-mdSoft transition-shadow"
+					>
+						<div
+							class="w-10 h-10 rounded-lg bg-accentSoft flex items-center justify-center mb-5"
+						>
+							<svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+								<rect
+									x="4"
+									y="4"
+									width="16"
+									height="16"
+									rx="2.5"
+									stroke="#3A4FD1"
+									stroke-width="1.7"
+								/>
+								<path
+									d="M8 14V17M12 11V17M16 8V17"
+									stroke="#3A4FD1"
+									stroke-width="1.7"
+									stroke-linecap="round"
+								/>
+							</svg>
+						</div>
+						<h3 class="font-display font-semibold text-[19px]">Dashboard</h3>
+						<p class="text-muted text-[14.5px] leading-relaxed mt-2">
+							The full workspace for managing larger amounts of application
+							data.
+						</p>
+						<ul class="mt-5 space-y-2.5 text-[13.5px] text-ink/80">
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Searchable, structured
+								job views
+							</li>
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Analytics on sources
+								and companies
+							</li>
+							<li class="flex gap-2">
+								<span class="text-accent mt-0.5">—</span>Reminder management
+								&amp; export
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<!-- ================= INTERFACE PREVIEW ================= -->
+			<section class="bg-surface border-t border-border">
+				<div class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24">
+					<div
+						class="fade-up flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
+					>
+						<div class="max-w-2xl">
+							<span class="text-[13px] font-medium text-accent tracking-wide"
+								>Extension preview</span
+							>
+							<h2
+								class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
+							>
+								See the interface before you install it.
+							</h2>
+							<p class="text-muted text-[16px] leading-relaxed mt-4">
+								Jump between the popup, side panel, and dashboard to get a feel
+								for how Applynza looks across each workspace.
+							</p>
+						</div>
+						<div
+							class="fade-up inline-flex items-center gap-1 rounded-full border border-border bg-canvas p-1 shadow-smSoft"
+							role="tablist"
+							aria-label="Extension interface previews"
+						>
+							<button
+								type="button"
+								data-preview-tab="popup"
+								id="preview-tab-popup"
+								role="tab"
+								aria-controls="preview-panel-popup"
+								tabindex="0"
+								aria-selected="true"
+								class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-canvas bg-ink transition-colors"
+							>
+								Popup
+							</button>
+							<button
+								type="button"
+								data-preview-tab="sidepanel"
+								id="preview-tab-sidepanel"
+								role="tab"
+								aria-controls="preview-panel-sidepanel"
+								tabindex="-1"
+								aria-selected="false"
+								class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-muted transition-colors"
+							>
+								Side panel
+							</button>
+							<button
+								type="button"
+								data-preview-tab="dashboard"
+								id="preview-tab-dashboard"
+								role="tab"
+								aria-controls="preview-panel-dashboard"
+								tabindex="-1"
+								aria-selected="false"
+								class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-muted transition-colors"
+							>
+								Dashboard
+							</button>
+						</div>
+					</div>
+
+					<div class="fade-up mt-10 rounded-lg">
+						<div
+							data-preview-panel="popup"
+							id="preview-panel-popup"
+							class="preview-panel"
+							role="tabpanel"
+							aria-labelledby="preview-tab-popup"
+							tabindex="0"
+						>
+							<div
+								class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
+							>
+								<img
+									src="screenshots/s-1.png"
+									alt="Applynza popup interface preview"
+									loading="lazy"
+									decoding="async"
+									class="w-full h-auto rounded-[1.1rem]"
+								/>
+							</div>
+						</div>
+
+						<div
+							data-preview-panel="sidepanel"
+							id="preview-panel-sidepanel"
+							class="preview-panel hidden"
+							role="tabpanel"
+							aria-labelledby="preview-tab-sidepanel"
+							tabindex="0"
+						>
+							<div
+								class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
+							>
+								<img
+									src="screenshots/s-2.png"
+									alt="Applynza side panel interface preview"
+									loading="lazy"
+									decoding="async"
+									class="w-full h-auto rounded-[1.1rem]"
+								/>
+							</div>
+						</div>
+
+						<div
+							data-preview-panel="dashboard"
+							id="preview-panel-dashboard"
+							class="preview-panel hidden"
+							role="tabpanel"
+							aria-labelledby="preview-tab-dashboard"
+							tabindex="0"
+						>
+							<div
+								class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
+							>
+								<img
+									src="screenshots/s-3.png"
+									alt="Applynza dashboard interface preview"
+									loading="lazy"
+									decoding="async"
+									class="w-full h-auto rounded-[1.1rem]"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ================= HOW IT WORKS ================= -->
+			<section id="workflow" class="bg-surface border-y border-border">
+				<div class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24">
+					<div class="fade-up max-w-xl">
+						<span class="text-[13px] font-medium text-accent tracking-wide"
+							>The workflow</span
+						>
+						<h2
+							class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
+						>
+							From open tab to tracked application.
+						</h2>
+					</div>
+
+					<div class="grid md:grid-cols-2 gap-x-16 gap-y-10 mt-12">
+						<div class="fade-up flex gap-5">
+							<span
+								class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
+								>1</span
+							>
+							<div>
+								<h4 class="font-semibold text-[16px]">
+									Open a supported posting
+								</h4>
+								<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
+									Browse job boards as you normally would — nothing changes
+									about how you look for roles.
+								</p>
+							</div>
+						</div>
+						<div class="fade-up flex gap-5">
+							<span
+								class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
+								>2</span
+							>
+							<div>
+								<h4 class="font-semibold text-[16px]">
+									Open the popup or side panel
+								</h4>
+								<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
+									Applynza reads the visible job information straight from the
+									page.
+								</p>
+							</div>
+						</div>
+						<div class="fade-up flex gap-5">
+							<span
+								class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
+								>3</span
+							>
+							<div>
+								<h4 class="font-semibold text-[16px]">Review and edit</h4>
+								<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
+									Fix anything missing or wrong before it's saved to your
+									workspace.
+								</p>
+							</div>
+						</div>
+						<div class="fade-up flex gap-5">
+							<span
+								class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
+								>4</span
+							>
+							<div>
+								<h4 class="font-semibold text-[16px]">Save and track</h4>
+								<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
+									The job moves into your local workspace, ready to update from
+									the side panel or dashboard later.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ================= FEATURES ================= -->
+			<section
+				id="features"
+				class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24"
+			>
+				<div class="fade-up max-w-xl">
+					<span class="text-[13px] font-medium text-accent tracking-wide"
+						>Built for the day-to-day</span
+					>
+					<h2
+						class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
+					>
+						Everything a job search actually needs.
+					</h2>
+				</div>
+
+				<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
+					<div
+						class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							class="mb-4"
+						>
+							<path
+								d="M12 2L4 6V12C4 17 7.6 20.7 12 22C16.4 20.7 20 17 20 12V6L12 2Z"
+								stroke="#3A4FD1"
+								stroke-width="1.6"
+								stroke-linejoin="round"
+							/>
+						</svg>
+						<h4 class="font-semibold text-[15.5px]">Duplicate protection</h4>
+						<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
+							Matches on job URL, company, and title so the same posting never
+							gets saved twice.
+						</p>
+					</div>
+					<div
+						class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							class="mb-4"
+						>
+							<path
+								d="M12 8V13L15 15"
+								stroke="#3A4FD1"
+								stroke-width="1.6"
+								stroke-linecap="round"
+							/>
+							<circle
+								cx="12"
+								cy="12"
+								r="8.5"
+								stroke="#3A4FD1"
+								stroke-width="1.6"
+							/>
+						</svg>
+						<h4 class="font-semibold text-[15.5px]">Reminders</h4>
+						<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
+							Set follow-up, interview, and deadline reminders so nothing slips
+							past you.
+						</p>
+					</div>
+					<div
+						class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							class="mb-4"
+						>
+							<path
+								d="M4 19V5M4 19H20M8 19V11M12 19V7M16 19V13"
+								stroke="#3A4FD1"
+								stroke-width="1.6"
+								stroke-linecap="round"
+							/>
+						</svg>
+						<h4 class="font-semibold text-[15.5px]">Status tracking</h4>
+						<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
+							Move each application through its progress, from applied to offer.
+						</p>
+					</div>
+					<div
+						class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							class="mb-4"
+						>
+							<path
+								d="M5 13L9 17L19 7"
+								stroke="#3A4FD1"
+								stroke-width="1.8"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+						<h4 class="font-semibold text-[15.5px]">Review before saving</h4>
+						<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
+							Detected details are always editable — nothing saves without your
+							say.
+						</p>
+					</div>
+					<div
+						class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							class="mb-4"
+						>
+							<rect
+								x="4"
+								y="4"
+								width="16"
+								height="16"
+								rx="3"
+								stroke="#3A4FD1"
+								stroke-width="1.6"
+							/>
+							<path
+								d="M8 8H16M8 12H16M8 16H12"
+								stroke="#3A4FD1"
+								stroke-width="1.6"
+								stroke-linecap="round"
+							/>
+						</svg>
+						<h4 class="font-semibold text-[15.5px]">Recently saved</h4>
+						<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
+							Your latest saves surface immediately in the popup and side panel.
+						</p>
+					</div>
+					<div
+						class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							class="mb-4"
+						>
+							<path
+								d="M3 12H8L10 8L14 16L16 12H21"
+								stroke="#3A4FD1"
+								stroke-width="1.6"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+						<h4 class="font-semibold text-[15.5px]">Analytics</h4>
+						<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
+							See where applications come from and how they're progressing,
+							right in the dashboard.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- ================= PRIVACY ================= -->
+			<section id="privacy" class="bg-ink text-canvas">
+				<div
+					class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center"
+				>
+					<div class="fade-up">
+						<span class="text-[13px] font-medium text-green tracking-wide"
+							>Local-first, by design</span
+						>
+						<h2
+							class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
+						>
+							Your data stays on your machine.
+						</h2>
+						<p class="text-canvas/65 text-[16px] leading-relaxed mt-5 max-w-md">
+							Saved jobs, statuses, and reminders are stored locally in the
+							browser. There's no account to create and no server holding your
+							search.
+						</p>
 						<a
 							href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
 							target="_blank"
 							rel="noopener noreferrer"
-							class="inline-flex min-w-[228px] items-center justify-center gap-2.5 rounded-[14px] bg-[linear-gradient(135deg,#6d4df6_0%,#5938e9_100%)] px-6 py-4 text-[15px] font-semibold text-white shadow-[0_18px_34px_rgba(89,56,233,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_38px_rgba(89,56,233,0.34)]"
+							class="inline-flex items-center gap-1.5 text-[15px] font-medium text-canvas mt-7 hover:text-green transition-colors"
 						>
 							<img
 								src="assets/chrome.png"
 								alt=""
-								class="h-5 w-5 shrink-0 object-contain"
+								class="h-4 w-4 rounded-sm object-contain"
 							/>
-							Add to Chrome - It's free
+							Install Applynza
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<path
+									d="M9 6L15 12L9 18"
+									stroke="currentColor"
+									stroke-width="1.8"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
 						</a>
 						<a
-							href="#workflow"
-							class="inline-flex items-center gap-1.5 text-[15px] font-medium text-ink hover:text-accent transition-colors"
+							href="privacy.html"
+							class="inline-flex items-center gap-1.5 text-[15px] font-medium text-canvas mt-4 hover:text-green transition-colors"
 						>
-							See how it works
+							Read the privacy details
 							<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
 								<path
 									d="M9 6L15 12L9 18"
@@ -275,1251 +1531,268 @@
 					</div>
 
 					<div
-						class="rise-in rise-in-4 flex items-center gap-6 mt-10 text-[13px] text-dim"
+						class="fade-up rounded-2xl border border-canvas/12 bg-canvas/[0.04] p-7"
 					>
-						<span class="flex items-center gap-1.5"
-							><svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-								<path
-									d="M12 2L4 6V12C4 17 7.6 20.7 12 22C16.4 20.7 20 17 20 12V6L12 2Z"
-									stroke="#9b968a"
-									stroke-width="1.6"
-									stroke-linejoin="round"
-								/>
-							</svg>
-							4 permissions, nothing more</span
+						<p
+							class="text-[12.5px] uppercase tracking-[0.14em] text-canvas/45 font-medium mb-5"
 						>
-						<span class="flex items-center gap-1.5"
-							><svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-								<rect
-									x="4"
-									y="4"
-									width="16"
-									height="16"
-									rx="3"
-									stroke="#9b968a"
-									stroke-width="1.6"
-								/>
-							</svg>
-							Works from popup, panel &amp; dashboard</span
-						>
-					</div>
-				</div>
-
-				<!-- Hero visual: extension popup anchored over a live browser window -->
-				<div class="rise-in rise-in-3 relative">
-					<div
-						class="absolute -inset-x-6 -inset-y-6 md:-inset-x-10 md:-inset-y-8 bg-ctaGlow rounded-[32px] md:rounded-[40px] -z-10"
-					></div>
-
-					<div
-						class="relative rounded-2xl border-0 md:border border-border bg-transparent md:bg-surface shadow-none overflow-hidden"
-					>
-						<!-- browser chrome -->
-						<div
-							class="hidden md:flex items-center gap-3 px-4 py-3 border-b border-border bg-canvas"
-						>
-							<div class="flex items-center gap-1.5 shrink-0">
-								<span class="w-2.5 h-2.5 rounded-full bg-borderStrong"></span>
-								<span class="w-2.5 h-2.5 rounded-full bg-borderStrong"></span>
-								<span class="w-2.5 h-2.5 rounded-full bg-borderStrong"></span>
-							</div>
+							Permissions used
+						</p>
+						<div class="space-y-4">
 							<div
-								class="flex-1 h-7 rounded-md bg-surface border border-border flex items-center gap-1.5 px-2.5 min-w-0"
+								class="flex items-start gap-3.5 pb-4 border-b border-canvas/10"
 							>
-								<svg
-									width="11"
-									height="11"
-									viewBox="0 0 24 24"
-									fill="none"
-									class="shrink-0"
-								>
-									<rect
-										x="5"
-										y="10"
-										width="14"
-										height="10"
-										rx="2"
-										stroke="#9b968a"
-										stroke-width="1.8"
-									/>
-									<path
-										d="M8 10V7A4 4 0 0 1 16 7V10"
-										stroke="#9b968a"
-										stroke-width="1.8"
-									/>
-								</svg>
-								<span class="text-[11px] text-dim truncate"
-									>boards.example.com/jobs/view?id=4432622555&amp;keywords=frontend-developer</span
-								>
-							</div>
-							<div
-								class="hidden sm:flex items-center gap-2.5 shrink-0 text-dim"
-							>
-								<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M12 3L14.6 9H21L15.9 12.9L17.8 19L12 15.3L6.2 19L8.1 12.9L3 9H9.4L12 3Z"
-										stroke="#9b968a"
-										stroke-width="1.4"
-										stroke-linejoin="round"
-									/>
-								</svg>
-								<span
-									class="relative flex items-center justify-center w-6 h-6 rounded-md bg-accentSoft ring-2 ring-accent/25"
-								>
-									<img
-										src="assets/logo.png"
-										alt="Applynza extension icon"
-										class="h-[13px] w-[13px] object-contain"
-									/>
-								</span>
-								<span class="w-5 h-5 rounded-full bg-borderStrong/60"></span>
-							</div>
-						</div>
-
-						<!-- job board backdrop (dimmed, for context only) -->
-						<div
-							class="relative h-auto md:h-[402px] bg-transparent md:bg-surface overflow-hidden select-none"
-						>
-							<div
-								class="hidden md:grid opacity-40 grid-cols-[1fr_1.4fr] h-full"
-							>
-								<!-- results list -->
-								<div class="border-r border-border p-4 space-y-3">
-									<div class="h-3 w-24 rounded bg-borderStrong/70"></div>
-									<div class="space-y-2.5 mt-3">
-										<div class="flex gap-2.5 p-2.5 rounded-lg bg-accentSoft/70">
-											<div
-												class="w-8 h-8 rounded bg-borderStrong shrink-0"
-											></div>
-											<div class="flex-1 space-y-1.5 pt-0.5">
-												<div class="h-2.5 w-28 rounded bg-ink/25"></div>
-												<div class="h-2 w-20 rounded bg-borderStrong"></div>
-											</div>
-										</div>
-										<div class="flex gap-2.5 p-2.5">
-											<div
-												class="w-8 h-8 rounded bg-borderStrong/70 shrink-0"
-											></div>
-											<div class="flex-1 space-y-1.5 pt-0.5">
-												<div class="h-2.5 w-24 rounded bg-dim/40"></div>
-												<div class="h-2 w-16 rounded bg-borderStrong/70"></div>
-											</div>
-										</div>
-										<div class="flex gap-2.5 p-2.5">
-											<div
-												class="w-8 h-8 rounded bg-borderStrong/70 shrink-0"
-											></div>
-											<div class="flex-1 space-y-1.5 pt-0.5">
-												<div class="h-2.5 w-32 rounded bg-dim/40"></div>
-												<div class="h-2 w-14 rounded bg-borderStrong/70"></div>
-											</div>
-										</div>
-										<div class="flex gap-2.5 p-2.5">
-											<div
-												class="w-8 h-8 rounded bg-borderStrong/70 shrink-0"
-											></div>
-											<div class="flex-1 space-y-1.5 pt-0.5">
-												<div class="h-2.5 w-20 rounded bg-dim/40"></div>
-												<div class="h-2 w-16 rounded bg-borderStrong/70"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- job detail -->
-								<div class="p-5 space-y-3">
-									<div class="w-9 h-9 rounded bg-borderStrong"></div>
-									<div class="h-3.5 w-40 rounded bg-ink/25 mt-2"></div>
-									<div class="h-2.5 w-28 rounded bg-borderStrong"></div>
-									<div class="flex gap-2 mt-2">
-										<div
-											class="h-6 w-20 rounded-full border border-border"
-										></div>
-										<div
-											class="h-6 w-20 rounded-full border border-border"
-										></div>
-									</div>
-									<div class="space-y-1.5 mt-4">
-										<div class="h-2 w-full rounded bg-borderStrong/70"></div>
-										<div class="h-2 w-[92%] rounded bg-borderStrong/70"></div>
-										<div class="h-2 w-[85%] rounded bg-borderStrong/70"></div>
-										<div class="h-2 w-[70%] rounded bg-borderStrong/70"></div>
-									</div>
-								</div>
-							</div>
-							<div
-								class="hidden md:block absolute inset-0 bg-gradient-to-l from-surface via-surface/40 to-transparent"
-							></div>
-
-							<!-- Applynza popup, anchored top-right like a real extension dropdown -->
-							<div
-								class="relative md:absolute top-auto md:top-3 right-auto md:right-3 w-full max-w-[340px] md:w-[300px] mx-auto md:mx-0 rounded-xl border border-border bg-surface shadow-lgSoft overflow-hidden"
-							>
-								<!-- popup header -->
 								<div
-									class="flex items-center justify-between px-4 pt-4 pb-3 border-b border-border"
+									class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
 								>
-									<div class="flex items-center gap-2">
-										<img
-											src="assets/logo.png"
-											alt="Applynza extension icon"
-											class="h-[22px] w-[22px] object-contain"
-										/>
-										<span
-											class="font-display font-semibold text-[14px] tracking-tight"
-											>Applynza
-										</span>
-									</div>
-									<svg
-										width="15"
-										height="15"
-										viewBox="0 0 24 24"
-										fill="none"
-										class="text-dim"
-									>
+									<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
 										<path
-											d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z"
-											stroke="currentColor"
-											stroke-width="1.5"
-										/>
-										<path
-											d="M19.4 13.5C19.47 13 19.47 12.5 19.4 12L20.9 10.8L19.59 7.9L17.35 8.42C16.97 8.14 16.56 7.9 16.11 7.73L15.84 5.86H12.66L12.01 7.73C11.56 7.9 11.15 8.15 10.77 8.42L8.53 7.9L7.13 10.3L8.72 12C8.65 12.5 8.65 13 8.72 13.5L7.13 15.2L8.53 17.6L10.77 17.08C11.15 17.36 11.56 17.6 12.01 17.77L12.66 19.97H15.46L16.11 17.77C16.56 17.6 16.97 17.35 17.35 17.08L19.59 17.6L20.9 15.2L19.4 13.5Z"
-											stroke="currentColor"
-											stroke-width="1.2"
+											d="M5 13L9 17L19 7"
+											stroke="#5cb082"
+											stroke-width="2"
+											stroke-linecap="round"
 											stroke-linejoin="round"
 										/>
 									</svg>
 								</div>
-
-								<!-- popup body -->
-								<div class="px-4 pt-3.5 pb-6">
-									<div class="flex items-center justify-between mb-3">
-										<p class="text-[12.5px] font-medium text-ink">
-											Job detected on this page
-										</p>
-										<span
-											class="text-[10.5px] font-medium text-accentDeep bg-accentSoft px-2 py-[3px] rounded-md"
-											>Job board</span
-										>
-									</div>
-
-									<div class="rounded-lg border border-border p-3.5">
-										<p class="text-[14.5px] font-semibold leading-snug">
-											Frontend Developer
-										</p>
-										<div
-											class="flex items-center gap-1.5 mt-2.5 text-[12.5px] text-muted"
-										>
-											<svg
-												width="13"
-												height="13"
-												viewBox="0 0 24 24"
-												fill="none"
-												class="shrink-0"
-											>
-												<rect
-													x="3"
-													y="7"
-													width="18"
-													height="12"
-													rx="2"
-													stroke="#6b675e"
-													stroke-width="1.6"
-												/>
-												<path
-													d="M8 7V5.5C8 4.67 8.67 4 9.5 4H14.5C15.33 4 16 4.67 16 5.5V7"
-													stroke="#6b675e"
-													stroke-width="1.6"
-												/>
-											</svg>
-											Millennium
-										</div>
-										<div
-											class="flex items-center gap-1.5 mt-1.5 text-[12.5px] text-muted"
-										>
-											<svg
-												width="13"
-												height="13"
-												viewBox="0 0 24 24"
-												fill="none"
-												class="shrink-0"
-											>
-												<path
-													d="M12 21C12 21 19 15.5 19 10.5C19 6.36 15.64 3 11.5 3S4 6.36 4 10.5C4 15.5 12 21 12 21Z"
-													stroke="#6b675e"
-													stroke-width="1.6"
-													stroke-linejoin="round"
-												/>
-												<circle
-													cx="11.5"
-													cy="10.5"
-													r="2.2"
-													stroke="#6b675e"
-													stroke-width="1.6"
-												/>
-											</svg>
-											Singapore · On-site
-										</div>
-									</div>
-
-									<div class="flex gap-2 mt-3.5">
-										<button
-											class="flex-1 flex items-center justify-center gap-1.5 rounded-lg border border-border text-[12.5px] font-medium py-2.5 text-ink"
-										>
-											<svg
-												width="13"
-												height="13"
-												viewBox="0 0 24 24"
-												fill="none"
-											>
-												<path
-													d="M4 20L4.6 17.2C4.8 16.3 5.3 15.5 6 14.9L15.5 5.4C16.3 4.6 17.6 4.6 18.4 5.4L18.6 5.6C19.4 6.4 19.4 7.7 18.6 8.5L9.1 18C8.5 18.7 7.7 19.2 6.8 19.4L4 20Z"
-													stroke="#211f1a"
-													stroke-width="1.5"
-													stroke-linejoin="round"
-												/>
-											</svg>
-											Edit
-										</button>
-										<button
-											class="flex-1 rounded-lg bg-accentGradient text-white text-[12.5px] font-medium py-2.5 shadow-smSoft"
-										>
-											Save Job
-										</button>
-									</div>
-
-									<div class="grid grid-cols-2 gap-2 mt-2">
-										<button
-											class="flex flex-col items-center gap-1.5 rounded-lg border border-border py-2.5 text-[11px] font-medium text-ink"
-										>
-											<svg
-												width="15"
-												height="15"
-												viewBox="0 0 24 24"
-												fill="none"
-											>
-												<rect
-													x="4"
-													y="4"
-													width="7"
-													height="7"
-													rx="1.3"
-													stroke="#3A4FD1"
-													stroke-width="1.6"
-												/>
-												<rect
-													x="13"
-													y="4"
-													width="7"
-													height="7"
-													rx="1.3"
-													stroke="#3A4FD1"
-													stroke-width="1.6"
-												/>
-												<rect
-													x="4"
-													y="13"
-													width="7"
-													height="7"
-													rx="1.3"
-													stroke="#3A4FD1"
-													stroke-width="1.6"
-												/>
-												<rect
-													x="13"
-													y="13"
-													width="7"
-													height="7"
-													rx="1.3"
-													stroke="#3A4FD1"
-													stroke-width="1.6"
-												/>
-											</svg>
-											Dashboard
-										</button>
-										<button
-											class="flex flex-col items-center gap-1.5 rounded-lg border border-border py-2.5 text-[11px] font-medium text-ink"
-										>
-											<svg
-												width="15"
-												height="15"
-												viewBox="0 0 24 24"
-												fill="none"
-											>
-												<rect
-													x="4"
-													y="4"
-													width="16"
-													height="16"
-													rx="2"
-													stroke="#3A4FD1"
-													stroke-width="1.6"
-												/>
-												<path
-													d="M14 4V20"
-													stroke="#3A4FD1"
-													stroke-width="1.6"
-												/>
-											</svg>
-											Side Panel
-										</button>
-									</div>
-
-									<p
-										class="flex items-center justify-center gap-1.5 text-center text-[10.5px] text-dim mt-3.5"
-									>
-										<svg width="10" height="10" viewBox="0 0 24 24" fill="none">
-											<rect
-												x="5"
-												y="10"
-												width="14"
-												height="10"
-												rx="2"
-												stroke="#9b968a"
-												stroke-width="2"
-											/>
-											<path
-												d="M8 10V7A4 4 0 0 1 16 7V10"
-												stroke="#9b968a"
-												stroke-width="2"
-											/>
-										</svg>
-										All data stored locally in your browser
+								<div>
+									<p class="text-[14.5px] font-medium">activeTab</p>
+									<p class="text-[13px] text-canvas/50 mt-0.5">
+										Read the posting on the tab you're viewing, only when you
+										ask.
+									</p>
+								</div>
+							</div>
+							<div
+								class="flex items-start gap-3.5 pb-4 border-b border-canvas/10"
+							>
+								<div
+									class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
+								>
+									<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+										<path
+											d="M5 13L9 17L19 7"
+											stroke="#5cb082"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</div>
+								<div>
+									<p class="text-[14.5px] font-medium">scripting</p>
+									<p class="text-[13px] text-canvas/50 mt-0.5">
+										Detect visible job details directly on the page.
+									</p>
+								</div>
+							</div>
+							<div
+								class="flex items-start gap-3.5 pb-4 border-b border-canvas/10"
+							>
+								<div
+									class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
+								>
+									<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+										<path
+											d="M5 13L9 17L19 7"
+											stroke="#5cb082"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</div>
+								<div>
+									<p class="text-[14.5px] font-medium">sidePanel</p>
+									<p class="text-[13px] text-canvas/50 mt-0.5">
+										Open the workspace beside your tab.
+									</p>
+								</div>
+							</div>
+							<div class="flex items-start gap-3.5">
+								<div
+									class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
+								>
+									<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+										<path
+											d="M5 13L9 17L19 7"
+											stroke="#5cb082"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</div>
+								<div>
+									<p class="text-[14.5px] font-medium">storage</p>
+									<p class="text-[13px] text-canvas/50 mt-0.5">
+										Keep your saved jobs on this device, locally.
 									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-
-					<p class="text-center text-[12.5px] text-dim mt-4">
-						Live preview of the Applynza popup, detecting a role in real time.
-					</p>
 				</div>
-			</div>
-		</section>
+			</section>
 
-		<!-- ================= THREE SURFACES ================= -->
-		<section
-			id="surfaces"
-			class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24"
-		>
-			<div class="fade-up max-w-xl">
-				<span class="text-[13px] font-medium text-accent tracking-wide"
-					>Three surfaces, one workspace</span
-				>
-				<h2
-					class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
-				>
-					Meet it where you're already working.
-				</h2>
-				<p class="text-muted text-[16px] leading-relaxed mt-4">
-					Quick capture in the popup, a working surface beside your tab, and a
-					full dashboard when the list gets long.
-				</p>
-			</div>
-
-			<div class="grid md:grid-cols-3 gap-6 mt-12">
-				<!-- Popup -->
+			<!-- ================= FINAL CTA ================= -->
+			<section
+				id="install"
+				class="max-w-[84rem] mx-auto px-6 md:px-8 py-18 md:py-22"
+			>
 				<div
-					class="fade-up rounded-2xl border border-border bg-surface p-7 shadow-smSoft hover:shadow-mdSoft transition-shadow"
+					class="fade-up relative rounded-[2rem] border border-border/90 bg-surface px-6 md:px-16 py-12 md:py-14 text-center overflow-hidden"
 				>
+					<div class="absolute inset-0 bg-ctaGlow opacity-70"></div>
 					<div
-						class="w-10 h-10 rounded-lg bg-accentSoft flex items-center justify-center mb-5"
-					>
-						<svg width="19" height="19" viewBox="0 0 24 24" fill="none">
-							<rect
-								x="4"
-								y="4"
-								width="16"
-								height="16"
-								rx="2.5"
-								stroke="#3A4FD1"
-								stroke-width="1.7"
-							/>
-							<path d="M4 9H20" stroke="#3A4FD1" stroke-width="1.7" />
-						</svg>
-					</div>
-					<h3 class="font-display font-semibold text-[19px]">Popup</h3>
-					<p class="text-muted text-[14.5px] leading-relaxed mt-2">
-						Built for quick actions — detect the current posting, review what
-						was captured, and save with one click.
-					</p>
-					<ul class="mt-5 space-y-2.5 text-[13.5px] text-ink/80">
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Detect the current job
-							posting
-						</li>
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Edit details before
-							saving
-						</li>
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Open the side panel or
-							dashboard
-						</li>
-					</ul>
-				</div>
-
-				<!-- Side Panel -->
-				<div
-					class="fade-up rounded-2xl border border-border bg-surface p-7 shadow-smSoft hover:shadow-mdSoft transition-shadow md:translate-y-4"
-				>
+						class="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,255,255,0.98),rgba(255,255,255,0.93)_34%,rgba(244,245,255,0.90)_62%,rgba(238,240,252,0.82)_100%)]"
+					></div>
 					<div
-						class="w-10 h-10 rounded-lg bg-accentSoft flex items-center justify-center mb-5"
-					>
-						<svg width="19" height="19" viewBox="0 0 24 24" fill="none">
-							<rect
-								x="4"
-								y="4"
-								width="16"
-								height="16"
-								rx="2.5"
-								stroke="#3A4FD1"
-								stroke-width="1.7"
-							/>
-							<path d="M15 4V20" stroke="#3A4FD1" stroke-width="1.7" />
-						</svg>
-					</div>
-					<h3 class="font-display font-semibold text-[19px]">Side panel</h3>
-					<p class="text-muted text-[14.5px] leading-relaxed mt-2">
-						A larger workspace that stays open while you keep browsing job
-						boards.
-					</p>
-					<ul class="mt-5 space-y-2.5 text-[13.5px] text-ink/80">
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>View recently saved jobs
-						</li>
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Update application
-							statuses
-						</li>
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Review upcoming reminders
-						</li>
-					</ul>
-				</div>
-
-				<!-- Dashboard -->
-				<div
-					class="fade-up rounded-2xl border border-border bg-surface p-7 shadow-smSoft hover:shadow-mdSoft transition-shadow"
-				>
+						class="absolute -left-28 bottom-[-165px] h-[320px] w-[320px] rounded-full border border-accent/8"
+					></div>
 					<div
-						class="w-10 h-10 rounded-lg bg-accentSoft flex items-center justify-center mb-5"
+						class="absolute -left-20 bottom-[-148px] h-[282px] w-[282px] rounded-full border border-accent/8"
+					></div>
+					<div
+						class="absolute -left-12 bottom-[-131px] h-[244px] w-[244px] rounded-full border border-accent/8"
+					></div>
+					<div
+						class="absolute -right-24 bottom-[-155px] h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(238,240,252,0.92)_0%,rgba(238,240,252,0.58)_48%,rgba(238,240,252,0)_76%)]"
+					></div>
+					<div
+						class="absolute right-16 top-14 hidden md:grid grid-cols-5 gap-3.5 opacity-75"
 					>
-						<svg width="19" height="19" viewBox="0 0 24 24" fill="none">
-							<rect
-								x="4"
-								y="4"
-								width="16"
-								height="16"
-								rx="2.5"
-								stroke="#3A4FD1"
-								stroke-width="1.7"
-							/>
-							<path
-								d="M8 14V17M12 11V17M16 8V17"
-								stroke="#3A4FD1"
-								stroke-width="1.7"
-								stroke-linecap="round"
-							/>
-						</svg>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
 					</div>
-					<h3 class="font-display font-semibold text-[19px]">Dashboard</h3>
-					<p class="text-muted text-[14.5px] leading-relaxed mt-2">
-						The full workspace for managing larger amounts of application data.
-					</p>
-					<ul class="mt-5 space-y-2.5 text-[13.5px] text-ink/80">
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Searchable, structured
-							job views
-						</li>
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Analytics on sources and
-							companies
-						</li>
-						<li class="flex gap-2">
-							<span class="text-accent mt-0.5">—</span>Reminder management &amp;
-							export
-						</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-
-		<!-- ================= INTERFACE PREVIEW ================= -->
-		<section class="bg-surface border-t border-border">
-			<div class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24">
-				<div
-					class="fade-up flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
-				>
-					<div class="max-w-2xl">
-						<span class="text-[13px] font-medium text-accent tracking-wide"
-							>Extension preview</span
+					<div class="relative max-w-[50rem] mx-auto">
+						<div
+							class="inline-flex items-center gap-2.5 rounded-full bg-accentSoft/80 px-4.5 py-2 text-[13px] font-semibold text-accent shadow-[0_8px_24px_rgba(58,79,209,0.10)]"
 						>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+								<path
+									d="M12 3L13.9 8.1L19 10L13.9 11.9L12 17L10.1 11.9L5 10L10.1 8.1L12 3Z"
+									stroke="currentColor"
+									stroke-width="1.8"
+									stroke-linejoin="round"
+								/>
+							</svg>
+							Applynza is free
+						</div>
 						<h2
-							class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
+							class="font-display font-semibold text-[32px] md:text-[38px] leading-tight tracking-[-0.03em] max-w-[14ch] mx-auto mt-6 text-balance"
 						>
-							See the interface before you install it.
+							Stop losing track of
+							<br />
+							where <span class="text-accent">you applied</span>
 						</h2>
-						<p class="text-muted text-[16px] leading-relaxed mt-4">
-							Jump between the popup, side panel, and dashboard to get a feel
-							for how Applynza looks across each workspace.
+						<p
+							class="text-muted text-[16px] md:text-[17px] leading-relaxed mt-5 max-w-lg mx-auto"
+						>
+							Applynza is free, local-first, and ready in minutes.
 						</p>
-					</div>
-					<div
-						class="fade-up inline-flex items-center gap-1 rounded-full border border-border bg-canvas p-1 shadow-smSoft"
-						role="tablist"
-						aria-label="Extension interface previews"
-					>
-						<button
-							type="button"
-							data-preview-tab="popup"
-							id="preview-tab-popup"
-							role="tab"
-							aria-controls="preview-panel-popup"
-							tabindex="0"
-							aria-selected="true"
-							class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-canvas bg-ink transition-colors"
-						>
-							Popup
-						</button>
-						<button
-							type="button"
-							data-preview-tab="sidepanel"
-							id="preview-tab-sidepanel"
-							role="tab"
-							aria-controls="preview-panel-sidepanel"
-							tabindex="-1"
-							aria-selected="false"
-							class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-muted transition-colors"
-						>
-							Side panel
-						</button>
-						<button
-							type="button"
-							data-preview-tab="dashboard"
-							id="preview-tab-dashboard"
-							role="tab"
-							aria-controls="preview-panel-dashboard"
-							tabindex="-1"
-							aria-selected="false"
-							class="preview-tab rounded-full px-4 py-2 text-[13.5px] font-medium text-muted transition-colors"
-						>
-							Dashboard
-						</button>
-					</div>
-				</div>
-
-				<div class="fade-up mt-10 rounded-lg">
-					<div data-preview-panel="popup" id="preview-panel-popup" class="preview-panel" role="tabpanel" aria-labelledby="preview-tab-popup" tabindex="0">
-						<div
-							class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
+						<a
+							href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="mt-8 inline-flex min-w-[228px] items-center justify-center gap-2.5 rounded-[14px] bg-[linear-gradient(135deg,#6d4df6_0%,#5938e9_100%)] px-6 md:px-7 py-4 text-[15px] md:text-[16px] font-semibold text-white shadow-[0_18px_34px_rgba(89,56,233,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_38px_rgba(89,56,233,0.34)]"
 						>
 							<img
-								src="screenshots/s-1.png"
-								alt="Applynza popup interface preview"
-								loading="lazy"
-								decoding="async"
-								class="w-full h-auto rounded-[1.1rem]"
+								src="assets/chrome.png"
+								alt=""
+								class="h-5 w-5 shrink-0 object-contain"
 							/>
-						</div>
-					</div>
-
-					<div data-preview-panel="sidepanel" id="preview-panel-sidepanel" class="preview-panel hidden" role="tabpanel" aria-labelledby="preview-tab-sidepanel" tabindex="0">
+							Add to Chrome - It's free
+						</a>
 						<div
-							class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
+							class="mt-8 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 text-muted text-[14px] md:text-[15px]"
 						>
-							<img
-								src="screenshots/s-2.png"
-								alt="Applynza side panel interface preview"
-								loading="lazy"
-								decoding="async"
-								class="w-full h-auto rounded-[1.1rem]"
-							/>
-						</div>
-					</div>
-
-					<div data-preview-panel="dashboard" id="preview-panel-dashboard" class="preview-panel hidden" role="tabpanel" aria-labelledby="preview-tab-dashboard" tabindex="0">
-						<div
-							class="mx-auto overflow-hidden rounded-[1.5rem] border border-border/80 bg-surface"
-						>
-							<img
-								src="screenshots/s-3.png"
-								alt="Applynza dashboard interface preview"
-								loading="lazy"
-								decoding="async"
-								class="w-full h-auto rounded-[1.1rem]"
-							/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ================= HOW IT WORKS ================= -->
-		<section id="workflow" class="bg-surface border-y border-border">
-			<div class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24">
-				<div class="fade-up max-w-xl">
-					<span class="text-[13px] font-medium text-accent tracking-wide"
-						>The workflow</span
-					>
-					<h2
-						class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
-					>
-						From open tab to tracked application.
-					</h2>
-				</div>
-
-				<div class="grid md:grid-cols-2 gap-x-16 gap-y-10 mt-12">
-					<div class="fade-up flex gap-5">
-						<span
-							class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
-							>1</span
-						>
-						<div>
-							<h4 class="font-semibold text-[16px]">
-								Open a supported posting
-							</h4>
-							<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
-								Browse job boards as you normally would — nothing changes about
-								how you look for roles.
-							</p>
-						</div>
-					</div>
-					<div class="fade-up flex gap-5">
-						<span
-							class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
-							>2</span
-						>
-						<div>
-							<h4 class="font-semibold text-[16px]">
-								Open the popup or side panel
-							</h4>
-							<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
-								Applynza reads the visible job information straight from the
-								page.
-							</p>
-						</div>
-					</div>
-					<div class="fade-up flex gap-5">
-						<span
-							class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
-							>3</span
-						>
-						<div>
-							<h4 class="font-semibold text-[16px]">Review and edit</h4>
-							<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
-								Fix anything missing or wrong before it's saved to your
-								workspace.
-							</p>
-						</div>
-					</div>
-					<div class="fade-up flex gap-5">
-						<span
-							class="font-display text-[15px] text-accent border border-border rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-0.5"
-							>4</span
-						>
-						<div>
-							<h4 class="font-semibold text-[16px]">Save and track</h4>
-							<p class="text-muted text-[14.5px] leading-relaxed mt-1.5">
-								The job moves into your local workspace, ready to update from
-								the side panel or dashboard later.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ================= FEATURES ================= -->
-		<section
-			id="features"
-			class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24"
-		>
-			<div class="fade-up max-w-xl">
-				<span class="text-[13px] font-medium text-accent tracking-wide"
-					>Built for the day-to-day</span
-				>
-				<h2
-					class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
-				>
-					Everything a job search actually needs.
-				</h2>
-			</div>
-
-			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
-				<div
-					class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						class="mb-4"
-					>
-						<path
-							d="M12 2L4 6V12C4 17 7.6 20.7 12 22C16.4 20.7 20 17 20 12V6L12 2Z"
-							stroke="#3A4FD1"
-							stroke-width="1.6"
-							stroke-linejoin="round"
-						/>
-					</svg>
-					<h4 class="font-semibold text-[15.5px]">Duplicate protection</h4>
-					<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
-						Matches on job URL, company, and title so the same posting never
-						gets saved twice.
-					</p>
-				</div>
-				<div
-					class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						class="mb-4"
-					>
-						<path
-							d="M12 8V13L15 15"
-							stroke="#3A4FD1"
-							stroke-width="1.6"
-							stroke-linecap="round"
-						/>
-						<circle
-							cx="12"
-							cy="12"
-							r="8.5"
-							stroke="#3A4FD1"
-							stroke-width="1.6"
-						/>
-					</svg>
-					<h4 class="font-semibold text-[15.5px]">Reminders</h4>
-					<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
-						Set follow-up, interview, and deadline reminders so nothing slips
-						past you.
-					</p>
-				</div>
-				<div
-					class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						class="mb-4"
-					>
-						<path
-							d="M4 19V5M4 19H20M8 19V11M12 19V7M16 19V13"
-							stroke="#3A4FD1"
-							stroke-width="1.6"
-							stroke-linecap="round"
-						/>
-					</svg>
-					<h4 class="font-semibold text-[15.5px]">Status tracking</h4>
-					<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
-						Move each application through its progress, from applied to offer.
-					</p>
-				</div>
-				<div
-					class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						class="mb-4"
-					>
-						<path
-							d="M5 13L9 17L19 7"
-							stroke="#3A4FD1"
-							stroke-width="1.8"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						/>
-					</svg>
-					<h4 class="font-semibold text-[15.5px]">Review before saving</h4>
-					<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
-						Detected details are always editable — nothing saves without your
-						say.
-					</p>
-				</div>
-				<div
-					class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						class="mb-4"
-					>
-						<rect
-							x="4"
-							y="4"
-							width="16"
-							height="16"
-							rx="3"
-							stroke="#3A4FD1"
-							stroke-width="1.6"
-						/>
-						<path
-							d="M8 8H16M8 12H16M8 16H12"
-							stroke="#3A4FD1"
-							stroke-width="1.6"
-							stroke-linecap="round"
-						/>
-					</svg>
-					<h4 class="font-semibold text-[15.5px]">Recently saved</h4>
-					<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
-						Your latest saves surface immediately in the popup and side panel.
-					</p>
-				</div>
-				<div
-					class="fade-up rounded-xl border border-border bg-surface p-6 hover:border-borderStrong transition-colors"
-				>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						class="mb-4"
-					>
-						<path
-							d="M3 12H8L10 8L14 16L16 12H21"
-							stroke="#3A4FD1"
-							stroke-width="1.6"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						/>
-					</svg>
-					<h4 class="font-semibold text-[15.5px]">Analytics</h4>
-					<p class="text-muted text-[13.5px] leading-relaxed mt-1.5">
-						See where applications come from and how they're progressing, right
-						in the dashboard.
-					</p>
-				</div>
-			</div>
-		</section>
-
-		<!-- ================= PRIVACY ================= -->
-		<section id="privacy" class="bg-ink text-canvas">
-			<div
-				class="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-24 grid md:grid-cols-2 gap-14 items-center"
-			>
-				<div class="fade-up">
-					<span class="text-[13px] font-medium text-green tracking-wide"
-						>Local-first, by design</span
-					>
-					<h2
-						class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
-					>
-						Your data stays on your machine.
-					</h2>
-					<p class="text-canvas/65 text-[16px] leading-relaxed mt-5 max-w-md">
-						Saved jobs, statuses, and reminders are stored locally in the
-						browser. There's no account to create and no server holding your
-						search.
-					</p>
-					<a
-						href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="inline-flex items-center gap-1.5 text-[15px] font-medium text-canvas mt-7 hover:text-green transition-colors"
-					>
-						<img
-							src="assets/chrome.png"
-							alt=""
-							class="h-4 w-4 rounded-sm object-contain"
-						/>
-						Install Applynza
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-							<path
-								d="M9 6L15 12L9 18"
-								stroke="currentColor"
-								stroke-width="1.8"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/>
-						</svg>
-					</a>
-					<a
-						href="privacy.html"
-						class="inline-flex items-center gap-1.5 text-[15px] font-medium text-canvas mt-4 hover:text-green transition-colors"
-					>
-						Read the privacy details
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-							<path
-								d="M9 6L15 12L9 18"
-								stroke="currentColor"
-								stroke-width="1.8"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/>
-						</svg>
-					</a>
-				</div>
-
-				<div
-					class="fade-up rounded-2xl border border-canvas/12 bg-canvas/[0.04] p-7"
-				>
-					<p
-						class="text-[12.5px] uppercase tracking-[0.14em] text-canvas/45 font-medium mb-5"
-					>
-						Permissions used
-					</p>
-					<div class="space-y-4">
-						<div
-							class="flex items-start gap-3.5 pb-4 border-b border-canvas/10"
-						>
-							<div
-								class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
-							>
-								<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M5 13L9 17L19 7"
-										stroke="#5cb082"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
+							<div class="flex items-center gap-3 px-2">
+								<span
+									class="flex h-8 w-8 items-center justify-center rounded-full bg-surface/95 shadow-[0_10px_24px_rgba(33,31,26,0.07)] text-accent"
+								>
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+										<path
+											d="M6 12.5L10 16.5L18 8.5"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</span>
+								<span>Free to use</span>
 							</div>
-							<div>
-								<p class="text-[14.5px] font-medium">activeTab</p>
-								<p class="text-[13px] text-canvas/50 mt-0.5">
-									Read the posting on the tab you're viewing, only when you ask.
-								</p>
-							</div>
-						</div>
-						<div
-							class="flex items-start gap-3.5 pb-4 border-b border-canvas/10"
-						>
-							<div
-								class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
-							>
-								<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M5 13L9 17L19 7"
-										stroke="#5cb082"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-							</div>
-							<div>
-								<p class="text-[14.5px] font-medium">scripting</p>
-								<p class="text-[13px] text-canvas/50 mt-0.5">
-									Detect visible job details directly on the page.
-								</p>
-							</div>
-						</div>
-						<div
-							class="flex items-start gap-3.5 pb-4 border-b border-canvas/10"
-						>
-							<div
-								class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
-							>
-								<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M5 13L9 17L19 7"
-										stroke="#5cb082"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-							</div>
-							<div>
-								<p class="text-[14.5px] font-medium">sidePanel</p>
-								<p class="text-[13px] text-canvas/50 mt-0.5">
-									Open the workspace beside your tab.
-								</p>
-							</div>
-						</div>
-						<div class="flex items-start gap-3.5">
-							<div
-								class="w-8 h-8 rounded-lg bg-green/15 flex items-center justify-center shrink-0"
-							>
-								<svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M5 13L9 17L19 7"
-										stroke="#5cb082"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-							</div>
-							<div>
-								<p class="text-[14.5px] font-medium">storage</p>
-								<p class="text-[13px] text-canvas/50 mt-0.5">
-									Keep your saved jobs on this device, locally.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ================= FINAL CTA ================= -->
-		<section
-			id="install"
-			class="max-w-[84rem] mx-auto px-6 md:px-8 py-18 md:py-22"
-		>
-			<div
-				class="fade-up relative rounded-[2rem] border border-border/90 bg-surface px-6 md:px-16 py-12 md:py-14 text-center overflow-hidden"
-			>
-				<div class="absolute inset-0 bg-ctaGlow opacity-70"></div>
-				<div
-					class="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,255,255,0.98),rgba(255,255,255,0.93)_34%,rgba(244,245,255,0.90)_62%,rgba(238,240,252,0.82)_100%)]"
-				></div>
-				<div
-					class="absolute -left-28 bottom-[-165px] h-[320px] w-[320px] rounded-full border border-accent/8"
-				></div>
-				<div
-					class="absolute -left-20 bottom-[-148px] h-[282px] w-[282px] rounded-full border border-accent/8"
-				></div>
-				<div
-					class="absolute -left-12 bottom-[-131px] h-[244px] w-[244px] rounded-full border border-accent/8"
-				></div>
-				<div
-					class="absolute -right-24 bottom-[-155px] h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(238,240,252,0.92)_0%,rgba(238,240,252,0.58)_48%,rgba(238,240,252,0)_76%)]"
-				></div>
-				<div
-					class="absolute right-16 top-14 hidden md:grid grid-cols-5 gap-3.5 opacity-75"
-				>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-					<span class="h-1.5 w-1.5 rounded-full bg-accent/12"></span>
-				</div>
-				<div class="relative max-w-[50rem] mx-auto">
-					<div
-						class="inline-flex items-center gap-2.5 rounded-full bg-accentSoft/80 px-4.5 py-2 text-[13px] font-semibold text-accent shadow-[0_8px_24px_rgba(58,79,209,0.10)]"
-					>
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-							<path
-								d="M12 3L13.9 8.1L19 10L13.9 11.9L12 17L10.1 11.9L5 10L10.1 8.1L12 3Z"
-								stroke="currentColor"
-								stroke-width="1.8"
-								stroke-linejoin="round"
-							/>
-						</svg>
-						Applynza is free
-					</div>
-					<h2
-						class="font-display font-semibold text-[32px] md:text-[38px] leading-tight tracking-[-0.03em] max-w-[14ch] mx-auto mt-6 text-balance"
-					>
-						Stop losing track of
-						<br />
-						where <span class="text-accent">you applied</span>
-					</h2>
-					<p
-						class="text-muted text-[16px] md:text-[17px] leading-relaxed mt-5 max-w-lg mx-auto"
-					>
-						Applynza is free, local-first, and ready in minutes.
-					</p>
-					<a
-						href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="mt-8 inline-flex min-w-[228px] items-center justify-center gap-2.5 rounded-[14px] bg-[linear-gradient(135deg,#6d4df6_0%,#5938e9_100%)] px-6 md:px-7 py-4 text-[15px] md:text-[16px] font-semibold text-white shadow-[0_18px_34px_rgba(89,56,233,0.28)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_38px_rgba(89,56,233,0.34)]"
-					>
-						<img
-							src="assets/chrome.png"
-							alt=""
-							class="h-5 w-5 shrink-0 object-contain"
-						/>
-						Add to Chrome - It's free
-					</a>
-					<div
-						class="mt-8 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 text-muted text-[14px] md:text-[15px]"
-					>
-						<div class="flex items-center gap-3 px-2">
 							<span
-								class="flex h-8 w-8 items-center justify-center rounded-full bg-surface/95 shadow-[0_10px_24px_rgba(33,31,26,0.07)] text-accent"
-							>
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M6 12.5L10 16.5L18 8.5"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-							</span>
-							<span>Free to use</span>
-						</div>
-						<span class="hidden md:block mx-4 h-6 w-px bg-borderStrong"></span>
-						<div class="flex items-center gap-3 px-2">
+								class="hidden md:block mx-4 h-6 w-px bg-borderStrong"
+							></span>
+							<div class="flex items-center gap-3 px-2">
+								<span
+									class="flex h-8 w-8 items-center justify-center rounded-full bg-surface/95 shadow-[0_10px_24px_rgba(33,31,26,0.07)] text-accent"
+								>
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+										<path
+											d="M8 11V8.5C8 6.57 9.57 5 11.5 5C13.43 5 15 6.57 15 8.5V11"
+											stroke="currentColor"
+											stroke-width="1.8"
+											stroke-linecap="round"
+										/>
+										<rect
+											x="6.5"
+											y="11"
+											width="10"
+											height="8"
+											rx="2"
+											stroke="currentColor"
+											stroke-width="1.8"
+										/>
+									</svg>
+								</span>
+								<span>Local-first</span>
+							</div>
 							<span
-								class="flex h-8 w-8 items-center justify-center rounded-full bg-surface/95 shadow-[0_10px_24px_rgba(33,31,26,0.07)] text-accent"
-							>
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-									<path
-										d="M8 11V8.5C8 6.57 9.57 5 11.5 5C13.43 5 15 6.57 15 8.5V11"
-										stroke="currentColor"
-										stroke-width="1.8"
-										stroke-linecap="round"
-									/>
-									<rect
-										x="6.5"
-										y="11"
-										width="10"
-										height="8"
-										rx="2"
-										stroke="currentColor"
-										stroke-width="1.8"
-									/>
-								</svg>
-							</span>
-							<span>Local-first</span>
-						</div>
-						<span class="hidden md:block mx-4 h-6 w-px bg-borderStrong"></span>
-						<div class="flex items-center gap-3 px-2">
-							<span
-								class="flex h-8 w-8 items-center justify-center rounded-full bg-surface/95 shadow-[0_10px_24px_rgba(33,31,26,0.07)] text-accent"
-							>
-								<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-									<circle
-										cx="12"
-										cy="12"
-										r="8"
-										stroke="currentColor"
-										stroke-width="1.8"
-									/>
-									<path
-										d="M12 8V12L14.8 13.8"
-										stroke="currentColor"
-										stroke-width="1.8"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									/>
-								</svg>
-							</span>
-							<span>Setup in under 5 minutes</span>
+								class="hidden md:block mx-4 h-6 w-px bg-borderStrong"
+							></span>
+							<div class="flex items-center gap-3 px-2">
+								<span
+									class="flex h-8 w-8 items-center justify-center rounded-full bg-surface/95 shadow-[0_10px_24px_rgba(33,31,26,0.07)] text-accent"
+								>
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+										<circle
+											cx="12"
+											cy="12"
+											r="8"
+											stroke="currentColor"
+											stroke-width="1.8"
+										/>
+										<path
+											d="M12 8V12L14.8 13.8"
+											stroke="currentColor"
+											stroke-width="1.8"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</span>
+								<span>Setup in under 5 minutes</span>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
 		</main>
 
 		<!-- ================= FOOTER ================= -->
@@ -1527,11 +1800,22 @@
 			<div
 				class="max-w-6xl mx-auto px-6 md:px-8 py-10 flex flex-col items-center justify-center gap-4 text-center"
 			>
-				<nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[14px] text-dim">
-					<a href="#surfaces" class="transition-colors hover:text-ink">Product</a>
-					<a href="#workflow" class="transition-colors hover:text-ink">How it works</a>
-					<a href="privacy.html" class="transition-colors hover:text-ink">Privacy</a>
-					<a href="install-guide.html" class="transition-colors hover:text-ink">Developer install</a>
+				<nav
+					aria-label="Footer"
+					class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[14px] text-dim"
+				>
+					<a href="#surfaces" class="transition-colors hover:text-ink"
+						>Product</a
+					>
+					<a href="#workflow" class="transition-colors hover:text-ink"
+						>How it works</a
+					>
+					<a href="privacy.html" class="transition-colors hover:text-ink"
+						>Privacy</a
+					>
+					<a href="install-guide.html" class="transition-colors hover:text-ink"
+						>Developer install</a
+					>
 				</nav>
 				<a
 					href="https://github.com/apelmahmudDev/applypilot"

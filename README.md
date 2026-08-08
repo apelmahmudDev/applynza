@@ -27,6 +27,12 @@
       alt="Install Applynza for Chrome"
     />
   </a>
+  <a href="https://apelmahmuddev.github.io/applynza/">
+    <img
+      src="https://img.shields.io/badge/Website-Visit%20Applynza-0F766E?style=for-the-badge&logo=googlechrome&logoColor=white"
+      alt="Visit the Applynza website"
+    />
+  </a>
   <a href="https://github.com/apelmahmudDev/applypilot">
     <img
       src="https://img.shields.io/badge/GitHub-View%20Repository-181717?style=for-the-badge&logo=github&logoColor=white"

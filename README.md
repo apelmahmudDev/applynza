@@ -63,6 +63,7 @@ Saved applications can then be managed through the extension popup, side panel, 
 - Explore analytics from a full dashboard
 - Prevent duplicate entries using job URL, company, and title
 - Store all application data locally in the browser
+- Optionally sign in with Google and sync data through Firebase Firestore
 - Use minimal browser permissions
 
 ## Product Experience
@@ -123,9 +124,32 @@ Applynza follows a local-first approach.
 
 Your saved jobs, application statuses, reminders, and other tracking data are stored locally using browser storage.
 
-Applynza does not require an account for its core functionality.
+Applynza does not require an account for its core functionality. Google sign-in and Firebase sync are optional. When sync is enabled, selected job and preference data is stored in the user's private Firestore path.
 
 The extension is designed to request only the permissions needed for job detection, local storage, and the browser side panel.
+
+### Optional Firebase Sync Setup
+
+To enable Google sign-in and Firestore sync during development:
+
+1. Create a Firebase project and enable Google under Authentication providers.
+2. Create a Firestore database.
+3. Add a Web app to the Firebase project.
+4. Copy `.env.example` to `.env.local` and fill in the Firebase Web app values.
+5. Add Firestore rules that restrict each user's data to their own `users/{userId}` path:
+
+```text
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+```
+
+The extension remains local-only when these variables are missing. Export/import backups continue to work independently of Firebase.
 
 ## Duplicate Detection
 

@@ -15,7 +15,8 @@ export function SettingsAboutSection({ appVersion }: SettingsAboutSectionProps) 
 					</h3>
 					<p className="mt-1 max-w-3xl text-sm leading-6 text-slate-500 dark:text-muted-foreground">
 						Applynza keeps job application data inside your browser so you can
-						track progress privately without extra accounts or syncing services.
+						track progress privately. Optional Google sign-in and cloud sync are
+						available only when you enable them.
 					</p>
 				</div>
 

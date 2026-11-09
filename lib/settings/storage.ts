@@ -59,6 +59,7 @@ export async function updateStoredDashboardSettings(
 		[DASHBOARD_SETTINGS_STORAGE_KEY]: nextSettings,
 		[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY]: nextSettings,
 	});
+	void import("@/lib/sync/service").then(({ queueSync }) => queueSync());
 
 	return nextSettings;
 }

@@ -18,4 +18,5 @@ export async function setStoredThemePreference(theme: ThemePreference) {
 		[THEME_STORAGE_KEY]: theme,
 		[LEGACY_THEME_STORAGE_KEY]: theme,
 	});
+	void import("@/lib/sync/service").then(({ queueSync }) => queueSync());
 }

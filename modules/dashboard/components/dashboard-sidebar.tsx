@@ -135,10 +135,10 @@ export function DashboardSidebar({
 						/>
 						<div className="min-w-0">
 							<p className="text-sm font-bold text-slate-800 dark:text-foreground">
-								All your data is stored locally in your browser.
+								Your data is local-first.
 							</p>
 							<p className="mt-1 text-xs leading-5 text-slate-500 dark:text-muted-foreground">
-								No account. No tracking. 100% private.
+								Cloud sync is optional and user-controlled.
 							</p>
 						</div>
 					</div>

@@ -141,6 +141,7 @@ async function setStoredJobs(jobs: StoredJob[]) {
 		[JOBS_STORAGE_KEY]: jobs,
 		[LEGACY_JOBS_STORAGE_KEY]: jobs,
 	});
+	void import("@/lib/sync/service").then(({ queueSync }) => queueSync());
 }
 
 function isDuplicateJob(storedJob: StoredJob, job: JobForm) {

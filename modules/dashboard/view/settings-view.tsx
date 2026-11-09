@@ -2,6 +2,7 @@ import { SettingsAboutSection } from "@/modules/dashboard/components/settings/se
 import { SettingsAppearanceSection } from "@/modules/dashboard/components/settings/settings-appearance-section";
 import { SettingsPreferencesSection } from "@/modules/dashboard/components/settings/settings-preferences-section";
 import { SettingsStorageSection } from "@/modules/dashboard/components/settings/settings-storage-section";
+import { SettingsSyncSection } from "@/modules/dashboard/components/settings/settings-sync-section";
 import { useDashboardSettings } from "@/modules/dashboard/hooks/use-dashboard-settings";
 
 export function SettingsView() {
@@ -45,6 +46,7 @@ export function SettingsView() {
 					isClearingData={isClearingData}
 					onClearAllData={clearAllData}
 				/>
+				<SettingsSyncSection />
 				<SettingsPreferencesSection
 					settings={settings}
 					onUpdateSetting={updateSetting}

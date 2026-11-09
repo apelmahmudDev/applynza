@@ -48,7 +48,13 @@ export function SettingsSyncSection() {
 					</div>
 
 					{user ? (
-						<Button type="button" variant="outline" onClick={() => void signOut()} disabled={isBusy}>
+						<Button
+							type="button"
+							variant="outline"
+							className="h-11 rounded-md px-4 font-semibold"
+							onClick={() => void signOut()}
+							disabled={isBusy}
+						>
 							<LogOut className="size-4" aria-hidden="true" />
 							Sign out
 						</Button>
@@ -86,8 +92,17 @@ export function SettingsSyncSection() {
 							Last synced: {lastSyncedLabel}
 							{settings.lastError ? ` · ${settings.lastError}` : ""}
 						</p>
-						<Button type="button" variant="outline" onClick={() => void sync()} disabled={isBusy}>
-							<RefreshCw className="size-4" aria-hidden="true" />
+						<Button
+							type="button"
+							variant="outline"
+							className="h-11 rounded-md px-4 font-semibold"
+							onClick={() => void sync()}
+							disabled={isBusy}
+						>
+							<RefreshCw
+								className={`size-4 ${isBusy ? "animate-spin" : ""}`}
+								aria-hidden="true"
+							/>
 							Sync now
 						</Button>
 					</div>

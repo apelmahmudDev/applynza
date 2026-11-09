@@ -12,6 +12,7 @@ import {
 	getSyncSettings,
 	setSyncEnabled,
 	startRemoteListeners,
+	startStorageSyncListener,
 	stopRemoteListeners,
 	syncNow,
 	type SyncSettings,
@@ -31,6 +32,7 @@ export function useSyncAccount() {
 	useEffect(() => {
 		let isMounted = true;
 		let unsubscribeAuth: (() => void) | undefined;
+		startStorageSyncListener();
 
 		void getSyncSettings().then((nextSettings) => {
 			if (isMounted) {

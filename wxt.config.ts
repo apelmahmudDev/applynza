@@ -13,7 +13,7 @@ export default defineConfig({
 		name: "Applynza: Job Application Tracker & Organizer",
 		short_name: "Applynza",
 		version: extensionVersion,
-		permissions: ["activeTab", "scripting", "sidePanel", "storage"],
+		permissions: ["activeTab", "identity", "scripting", "sidePanel", "storage"],
 		host_permissions: [
 			"http://*/*",
 			"https://*/*",

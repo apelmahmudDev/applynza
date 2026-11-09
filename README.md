@@ -136,7 +136,21 @@ To enable Google sign-in and Firestore sync during development:
 2. Create a Firestore database.
 3. Add a Web app to the Firebase project.
 4. Copy `.env.example` to `.env.local` and fill in the Firebase Web app values.
-5. Add Firestore rules that restrict each user's data to their own `users/{userId}` path:
+5. In Google Cloud Console, create an OAuth 2.0 Client ID for a Web application.
+6. Add the extension redirect URI to that OAuth client:
+
+```text
+https://EXTENSION_ID.chromiumapp.org/
+```
+
+Replace `EXTENSION_ID` with the ID shown at `chrome://extensions`. Add both your development and published extension IDs if they differ.
+7. Add the OAuth client ID to `.env.local`:
+
+```env
+WXT_GOOGLE_OAUTH_CLIENT_ID=...
+```
+
+8. Add Firestore rules that restrict each user's data to their own `users/{userId}` path:
 
 ```text
 rules_version = '2';

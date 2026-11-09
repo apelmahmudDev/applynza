@@ -15,7 +15,7 @@ export const settingsSections: Record<
 	storage: {
 		title: "Data & Storage",
 		description:
-			"Data is saved in your browser using Chrome Storage. Optional cloud sync can be enabled from Account & Sync.",
+			"Data is saved in your browser. Optional cloud sync can be enabled from Account & Sync.",
 		icon: DatabaseZap,
 		iconClassName: "text-primary",
 	},

@@ -30,7 +30,7 @@ export function SettingsSyncSection() {
 			<div className="space-y-5">
 				{!isConfigured ? (
 					<div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100">
-						Firebase sync is not configured in this build yet. Your data remains local.
+						Online sync is not available in this build yet. Your data remains local.
 					</div>
 				) : null}
 

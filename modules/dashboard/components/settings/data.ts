@@ -15,7 +15,7 @@ export const settingsSections: Record<
 	storage: {
 		title: "Data & Storage",
 		description:
-			"Data is saved in your browser. Optional cloud sync can be enabled from Account & Sync.",
+			"Manage the Applynza data stored in this browser. Cloud sync is managed in Account & Sync.",
 		icon: DatabaseZap,
 		iconClassName: "text-primary",
 	},

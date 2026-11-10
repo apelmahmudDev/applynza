@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta
 			name="description"
-			content="Applynza is a free, local-first Chrome extension for saving, organizing, and tracking job applications as you browse."
+			content="Applynza is a free, local-first Chrome extension for saving, organizing, and tracking job applications, with optional Google cloud sync."
 		/>
 		<title>Applynza — Manage your job search without leaving the browser</title>
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -241,8 +241,9 @@
 							class="rise-in rise-in-3 text-muted text-[17px] leading-relaxed mt-6 max-w-[480px]"
 						>
 							Applynza detects job details on the page you're viewing, lets you
-							review or edit them, and saves everything instantly. Your data
-							stays private and stored locally in your browser.
+							review or edit them, and saves everything instantly. Your workspace
+							is stored locally by default, with optional Google sign-in to sync
+							your jobs across devices.
 						</p>
 
 						<div
@@ -506,17 +507,17 @@
 									<div class="px-4 pt-3.5 pb-6">
 										<div class="flex items-center justify-between mb-3">
 											<p class="text-[12.5px] font-medium text-ink">
-												Job detected on this page
+												Job found on this page
 											</p>
 											<span
 												class="text-[10.5px] font-medium text-accentDeep bg-accentSoft px-2 py-[3px] rounded-md"
-												>Job board</span
+												>LinkedIn</span
 											>
 										</div>
 
 										<div class="rounded-lg border border-border p-3.5">
 											<p class="text-[14.5px] font-semibold leading-snug">
-												Frontend Developer
+												Senior Frontend Engineer
 											</p>
 											<div
 												class="flex items-center gap-1.5 mt-2.5 text-[12.5px] text-muted"
@@ -543,7 +544,7 @@
 														stroke-width="1.6"
 													/>
 												</svg>
-												Millennium
+												DataCrunch
 											</div>
 											<div
 												class="flex items-center gap-1.5 mt-1.5 text-[12.5px] text-muted"
@@ -569,7 +570,7 @@
 														stroke-width="1.6"
 													/>
 												</svg>
-												Singapore · On-site
+												Gulshan, Dhaka, Bangladesh
 											</div>
 										</div>
 
@@ -590,7 +591,7 @@
 														stroke-linejoin="round"
 													/>
 												</svg>
-												Edit
+												Review &amp; Edit
 											</button>
 											<button
 												class="flex-1 rounded-lg bg-accentGradient text-white text-[12.5px] font-medium py-2.5 shadow-smSoft"
@@ -646,7 +647,7 @@
 														stroke-width="1.6"
 													/>
 												</svg>
-												Dashboard
+												Open Dashboard
 											</button>
 											<button
 												class="flex flex-col items-center gap-1.5 rounded-lg border border-border py-2.5 text-[11px] font-medium text-ink"
@@ -672,7 +673,7 @@
 														stroke-width="1.6"
 													/>
 												</svg>
-												Side Panel
+												Open Side Panel
 											</button>
 										</div>
 
@@ -700,7 +701,7 @@
 													stroke-width="2"
 												/>
 											</svg>
-											All data stored locally in your browser
+											Local storage by default · optional cloud sync
 										</p>
 									</div>
 								</div>
@@ -761,7 +762,7 @@
 								<div
 									class="flex items-center justify-between gap-3 text-[14px] font-semibold"
 								>
-									<span>Job detected on this page</span>
+									<span>Job found on this page</span>
 									<span
 										class="rounded-lg bg-[#e9fbf3] px-3 py-1 text-[12px] font-medium text-[#0e9d66]"
 										>LinkedIn</span
@@ -864,7 +865,7 @@
 												stroke-linecap="round"
 												stroke-linejoin="round"
 											/></svg
-										>Edit Before Saving
+										>Review &amp; Edit
 									</div>
 									<div
 										class="flex h-10 items-center justify-center rounded-lg bg-[#5c63dc] text-[14px] font-semibold text-white shadow-sm"
@@ -934,7 +935,7 @@
 							<p
 								class="px-4 py-3.5 text-center text-[12px] font-medium text-[#243b63]"
 							>
-								All data is stored locally in your browser.
+								Your data is stored locally in your browser.
 							</p>
 						</div>
 					</div>
@@ -1479,17 +1480,18 @@
 				>
 					<div class="fade-up">
 						<span class="text-[13px] font-medium text-green tracking-wide"
-							>Local-first, by design</span
+							>Local-first, with optional sync</span
 						>
 						<h2
 							class="font-display font-semibold text-[32px] md:text-[38px] leading-tight mt-3"
 						>
-							Your data stays on your machine.
+							Your data stays local — unless you choose to sync.
 						</h2>
 						<p class="text-canvas/65 text-[16px] leading-relaxed mt-5 max-w-md">
-							Saved jobs, statuses, and reminders are stored locally in the
-							browser. There's no account to create and no server holding your
-							search.
+							Saved jobs, statuses, reminders, and preferences are stored
+							locally in the browser by default. If you turn on sync, Applynza
+							uses Google sign-in and securely syncs your Applynza data to your
+							private cloud workspace so it is available on your other devices.
 						</p>
 						<a
 							href="https://chromewebstore.google.com/detail/kmcbnkikojfohfdoennicddnlabophjg?utm_source=item-share-cb"
@@ -1626,7 +1628,8 @@
 								<div>
 									<p class="text-[14.5px] font-medium">storage</p>
 									<p class="text-[13px] text-canvas/50 mt-0.5">
-										Keep your saved jobs on this device, locally.
+										Keep your saved jobs on this device, or sync them across
+										devices when you choose.
 									</p>
 								</div>
 							</div>

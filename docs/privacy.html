@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta
 			name="description"
-			content="Applynza privacy details: what the extension reads, stores, and sends."
+			content="Applynza privacy details: local storage, optional Google sign-in, cloud sync, and what the extension reads."
 		/>
 		<title>Privacy — Applynza</title>
 		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -137,7 +137,7 @@
 						Here is exactly what the extension accesses, what it stores, and
 						when information can leave your browser.
 					</p>
-					<p class="text-[12.5px] text-dim mt-6">Last updated August 1, 2026</p>
+					<p class="text-[12.5px] text-dim mt-6">Last updated November 10, 2026</p>
 				</div>
 			</section>
 
@@ -155,14 +155,15 @@
 					</div>
 					<div class="text-muted text-[15.5px] leading-relaxed space-y-4">
 						<p>
-							Applynza does not require an account, does not include advertising
-							or analytics, and does not sell your information. Saved jobs,
-							notes, statuses, reminders, preferences, and theme settings are
-							kept in your browser's local extension storage.
+							Applynza does not require an account for local use, does not include
+							advertising or analytics, and does not sell your information. Saved
+							jobs, notes, statuses, reminders, preferences, and theme settings
+							are kept in your browser's local extension storage by default.
 						</p>
 						<p>
-							You decide when a job is detected and saved. You can export your
-							data or clear it from the extension's Settings screen.
+							You decide when a job is detected, saved, or synced. You can
+							export your data or clear local data from the extension's Settings
+							screen.
 						</p>
 					</div>
 				</section>
@@ -235,9 +236,47 @@
 				>
 					<div>
 						<p
-							class="text-[12px] uppercase tracking-[0.14em] text-green font-semibold"
+							class="text-[12px] uppercase tracking-[0.14em] text-accent font-semibold"
 						>
 							04
+						</p>
+						<h2 class="font-display font-semibold text-[25px] mt-2">
+							Optional Google cloud sync
+						</h2>
+					</div>
+					<div class="text-muted text-[15.5px] leading-relaxed space-y-4">
+						<p>
+							Local use does not need an account. If you choose
+							<strong>Turn on sync</strong>, Applynza opens Google sign-in so
+							you can authorize sync for your own account. Google provides your
+							name, email address, and profile photo to identify your signed-in
+							account.
+						</p>
+						<p>
+							When sync is enabled, Applynza syncs the job records you save,
+							including their details, notes, statuses, reminders, and
+							timestamps, plus dashboard and theme preferences. Data is stored
+							in Cloud Firestore under your user ID and is accessible only to
+							that authenticated account. Sync is not automatic until you opt in.
+						</p>
+						<p>
+							Signing out stops syncing on that browser. Turning sync off stops
+							future synchronization but does not automatically delete your
+							local data or cloud data. You can manage local data in Settings;
+							cloud data remains in your account until it is separately
+							deleted.
+						</p>
+					</div>
+				</section>
+
+				<section
+					class="grid md:grid-cols-[190px_1fr] gap-6 md:gap-12 border-t border-border pt-12"
+				>
+					<div>
+						<p
+							class="text-[12px] uppercase tracking-[0.14em] text-green font-semibold"
+						>
+							05
 						</p>
 						<h2 class="font-display font-semibold text-[25px] mt-2">
 							Optional analysis
@@ -251,9 +290,9 @@
 							structured job details.
 						</p>
 						<p>
-							This is separate from local saving. The extension does not
-							silently send every page or every saved job. Review the service's
-							own privacy terms before enabling or using it.
+							This is separate from local saving and cloud sync. The extension
+							does not silently send every page or every saved job. Review the
+							service's own privacy terms before enabling or using it.
 						</p>
 					</div>
 				</section>
@@ -265,7 +304,7 @@
 						<p
 							class="text-[12px] uppercase tracking-[0.14em] text-accent font-semibold"
 						>
-							05
+							06
 						</p>
 						<h2 class="font-display font-semibold text-[25px] mt-2">
 							Permissions

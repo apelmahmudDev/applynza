@@ -1,11 +1,26 @@
 import type { ReactNode } from "react";
-import { ArrowLeft, LayoutDashboard, PlusCircle } from "lucide-react";
+import {
+	ArrowLeft,
+	Cloud,
+	ChevronDown,
+	LayoutDashboard,
+	PlusCircle,
+	UserRound,
+} from "lucide-react";
 
 import {
 	UserIdentityBadge,
 	useUserIdentity,
 } from "@/components/user-identity-badge";
 import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
 	Tooltip,
 	TooltipContent,
@@ -14,6 +29,7 @@ import {
 } from "@/components/ui/tooltip";
 import { openDashboard } from "@/lib/open-dashboard";
 import { cn } from "@/lib/utils";
+import { useSyncAccount } from "@/modules/dashboard/hooks/use-sync-account";
 
 type SidePanelLayoutProps = {
 	children: ReactNode;
@@ -69,21 +85,72 @@ export function SidePanelTopBar({
 	rightSlot,
 }: SidePanelTopBarProps) {
 	const userIdentity = useUserIdentity();
+	const { user } = useSyncAccount();
+	const profileName = user
+		? user.displayName ?? user.email ?? userIdentity.name
+		: "Not signed in";
 	const resolvedLeftSlot = leftSlot ?? (
-		<div className="flex min-w-0 items-center gap-3">
-			<UserIdentityBadge
-				identity={userIdentity}
-				className="size-8 text-[11px]"
-			/>
-			<div className="min-w-0">
-				<p className="truncate text-sm font-semibold text-foreground">
-					{userIdentity.name}
-				</p>
-				<p className="sr-only truncate text-xs text-muted-foreground">
-					{userIdentity.role}
-				</p>
-			</div>
-		</div>
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button
+					type="button"
+					variant="ghost"
+					className="h-auto min-w-0 justify-start gap-3 rounded-xl px-1.5 py-1.5 text-left hover:bg-transparent hover:text-foreground focus-visible:border-transparent focus-visible:ring-0 aria-expanded:bg-transparent aria-expanded:text-foreground"
+					aria-label={`Open profile menu for ${profileName}`}
+				>
+					{user ? (
+						<UserIdentityBadge
+							identity={userIdentity}
+							className="size-7 border border-border/70 text-[10px]"
+						/>
+					) : (
+						<span
+							className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border/70 bg-muted text-muted-foreground"
+							aria-hidden="true"
+						>
+							<UserRound className="size-4" />
+						</span>
+					)}
+					<span className="min-w-0">
+						<span className="block truncate text-sm font-semibold text-foreground">
+							{profileName}
+						</span>
+						<span className="sr-only">
+							{user ? userIdentity.role : "Local workspace"}
+						</span>
+					</span>
+					<ChevronDown
+						className="size-3.5 shrink-0 text-muted-foreground"
+						aria-hidden="true"
+					/>
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent
+				align="start"
+				side="bottom"
+				sideOffset={8}
+				className="w-64 rounded-xl p-1.5"
+			>
+				<DropdownMenuLabel className="px-3 py-2">
+					<p className="truncate text-sm font-semibold text-foreground">
+						{profileName}
+					</p>
+					<p className="mt-0.5 text-xs font-normal text-muted-foreground">
+						{user ? userIdentity.role : "Local workspace"}
+					</p>
+				</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuItem className="items-start gap-3 rounded-lg px-3 py-2.5">
+					<Cloud className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+					<span className="min-w-0">
+						<span className="block text-sm font-semibold">Turn on sync...</span>
+						<span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+							Access your jobs on every device
+						</span>
+					</span>
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 
 	return (

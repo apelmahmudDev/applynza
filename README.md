@@ -33,7 +33,7 @@
       alt="Visit the Applynza website"
     />
   </a>
-  <a href="https://github.com/apelmahmudDev/applypilot">
+  <a href="https://github.com/apelmahmudDev/applynza">
     <img
       src="https://img.shields.io/badge/GitHub-View%20Repository-181717?style=for-the-badge&logo=github&logoColor=white"
       alt="View Applynza on GitHub"

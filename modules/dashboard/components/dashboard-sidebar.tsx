@@ -1,9 +1,20 @@
-import { ShieldCheck } from "lucide-react";
-
 import {
-	UserIdentityBadge,
-	useUserIdentity,
-} from "@/components/user-identity-badge";
+	ChevronDown,
+	Cloud,
+	ShieldCheck,
+	UserRound,
+} from "lucide-react";
+
+import { UserIdentityBadge } from "@/components/user-identity-badge";
+import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
 	Sidebar,
 	SidebarContent,
@@ -18,7 +29,9 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import { getAppVersionLabel } from "@/lib/app-version";
 import { useDashboardReminderCount } from "@/modules/dashboard/hooks/use-dashboard-reminder-count";
+import { useSyncAccount } from "@/modules/dashboard/hooks/use-sync-account";
 import {
 	dashboardNavSections,
 	type DashboardView,
@@ -35,7 +48,8 @@ export function DashboardSidebar({
 }: DashboardSidebarProps) {
 	const { isMobile, setOpenMobile } = useSidebar();
 	const logoSrc = browser.runtime.getURL("/logo.png");
-	const userProfile = useUserIdentity();
+	const { user } = useSyncAccount();
+	const profileName = user?.displayName ?? user?.email ?? "Not signed in";
 	const reminderCount = useDashboardReminderCount();
 	const collapsedMenuButtonClass =
 		"group-data-[collapsible=icon]:h-auto! group-data-[collapsible=icon]:w-full! group-data-[collapsible=icon]:flex-col! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-1! group-data-[collapsible=icon]:py-2.5! group-data-[collapsible=icon]:text-center group-data-[collapsible=icon]:[&>span]:overflow-visible group-data-[collapsible=icon]:[&>span]:text-clip group-data-[collapsible=icon]:[&>span]:whitespace-normal group-data-[collapsible=icon]:[&>span]:text-center group-data-[collapsible=icon]:[&>span]:text-[11px] group-data-[collapsible=icon]:[&>span]:leading-4";
@@ -144,20 +158,75 @@ export function DashboardSidebar({
 					</div>
 				</div>
 
-				<div className="flex items-center gap-3 rounded-lg bg-slate-100 p-3 dark:border dark:border-border/70 dark:bg-[#2c2c2c] group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2">
-					<UserIdentityBadge identity={userProfile} />
-					<div className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
-						<p className="truncate text-sm font-bold text-slate-800 dark:text-foreground">
-							{userProfile.name}
-						</p>
-						<p className="truncate text-xs font-semibold text-slate-500 dark:text-muted-foreground">
-							{userProfile.role}
-						</p>
-					</div>
-					<p className="shrink-0 text-xs font-semibold text-slate-400 dark:text-muted-foreground/80 group-data-[collapsible=icon]:hidden">
-						{userProfile.version}
-					</p>
-				</div>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button
+							type="button"
+							variant="ghost"
+							className="group/profile h-auto w-full justify-start gap-3 rounded-lg bg-slate-100 p-3 text-left hover:bg-slate-100 hover:text-foreground focus-visible:border-transparent focus-visible:ring-0 aria-expanded:bg-slate-100 aria-expanded:text-foreground dark:bg-[#2c2c2c] dark:hover:bg-[#2c2c2c] group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2"
+							aria-label={`Open profile menu for ${profileName}`}
+						>
+							{user ? (
+								<UserIdentityBadge
+									name={profileName}
+									className="size-10 border border-border/70"
+								/>
+							) : (
+								<span
+									className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border/70 bg-muted text-muted-foreground"
+									aria-hidden="true"
+								>
+									<UserRound className="size-5" />
+								</span>
+							)}
+							<span className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
+								<span className="block truncate text-sm font-bold text-slate-800 dark:text-foreground">
+									{profileName}
+								</span>
+								<span className="block truncate text-xs font-semibold text-slate-500 dark:text-muted-foreground">
+									{user ? "Signed in" : "Local workspace"}
+								</span>
+							</span>
+							<span className="shrink-0 text-xs font-semibold text-slate-400 dark:text-muted-foreground/80 group-data-[collapsible=icon]:hidden">
+								{getAppVersionLabel()}
+							</span>
+							<ChevronDown
+								className="size-3.5 shrink-0 text-muted-foreground group-data-[collapsible=icon]:hidden"
+								aria-hidden="true"
+							/>
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent
+						align="start"
+						side="right"
+						sideOffset={8}
+						className="w-64 rounded-xl p-1.5"
+					>
+						<DropdownMenuLabel className="px-3 py-2">
+							<p className="truncate text-sm font-semibold text-foreground">
+								{profileName}
+							</p>
+							<p className="mt-0.5 text-xs font-normal text-muted-foreground">
+								{user ? "Signed in" : "Local workspace"}
+							</p>
+						</DropdownMenuLabel>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem className="items-start gap-3 rounded-lg px-3 py-2.5">
+							<Cloud
+								className="mt-0.5 size-4 shrink-0 text-primary"
+								aria-hidden="true"
+							/>
+							<span className="min-w-0">
+								<span className="block text-sm font-semibold">
+									Turn on sync...
+								</span>
+								<span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+									Access your jobs on every device
+								</span>
+							</span>
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 			</SidebarFooter>
 		</Sidebar>
 	);

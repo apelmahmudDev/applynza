@@ -10,7 +10,6 @@ import {
 
 import {
 	UserIdentityBadge,
-	useUserIdentity,
 } from "@/components/user-identity-badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -84,10 +83,9 @@ export function SidePanelTopBar({
 	onAddJob,
 	rightSlot,
 }: SidePanelTopBarProps) {
-	const userIdentity = useUserIdentity();
 	const { user } = useSyncAccount();
 	const profileName = user
-		? user.displayName ?? user.email ?? userIdentity.name
+		? user.displayName ?? user.email ?? "Signed in"
 		: "Not signed in";
 	const resolvedLeftSlot = leftSlot ?? (
 		<DropdownMenu>
@@ -100,7 +98,7 @@ export function SidePanelTopBar({
 				>
 					{user ? (
 						<UserIdentityBadge
-							identity={userIdentity}
+							name={profileName}
 							className="size-7 border border-border/70 text-[10px]"
 						/>
 					) : (
@@ -116,7 +114,7 @@ export function SidePanelTopBar({
 							{profileName}
 						</span>
 						<span className="sr-only">
-							{user ? userIdentity.role : "Local workspace"}
+							{user ? "Signed in" : "Local workspace"}
 						</span>
 					</span>
 					<ChevronDown
@@ -136,7 +134,7 @@ export function SidePanelTopBar({
 						{profileName}
 					</p>
 					<p className="mt-0.5 text-xs font-normal text-muted-foreground">
-						{user ? userIdentity.role : "Local workspace"}
+						{user ? "Signed in" : "Local workspace"}
 					</p>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />

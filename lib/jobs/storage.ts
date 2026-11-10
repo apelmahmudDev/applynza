@@ -3,6 +3,11 @@ import {
 	type ReminderTypeOption,
 } from "@/modules/dashboard/components/reminders/reminder-form.types";
 import type { JobForm } from "@/modules/popup/types";
+import {
+	ANONYMOUS_ACCOUNT_ID,
+	getAccountStorageKey,
+	getCurrentAccountId,
+} from "@/lib/storage/account";
 
 export const JOBS_STORAGE_KEY = "applynza.jobs";
 export const LEGACY_JOBS_STORAGE_KEY = "applypilot.jobs";
@@ -123,11 +128,24 @@ export async function deleteJobFromStorage(jobId: string) {
 }
 
 export async function getStoredJobs(): Promise<StoredJob[]> {
+	const accountId = getCurrentAccountId();
 	const stored = await browser.storage.local.get([
+		getAccountStorageKey(JOBS_STORAGE_KEY, accountId),
 		JOBS_STORAGE_KEY,
 		LEGACY_JOBS_STORAGE_KEY,
 	]);
-	const jobs = stored[JOBS_STORAGE_KEY] ?? stored[LEGACY_JOBS_STORAGE_KEY];
+	const scopedKey = getAccountStorageKey(JOBS_STORAGE_KEY, accountId);
+	let jobs = stored[scopedKey];
+
+	if (
+		!Array.isArray(jobs) &&
+		accountId === ANONYMOUS_ACCOUNT_ID
+	) {
+		jobs = stored[JOBS_STORAGE_KEY] ?? stored[LEGACY_JOBS_STORAGE_KEY];
+		if (Array.isArray(jobs)) {
+			await saveJobsToAccountCache(accountId, jobs);
+		}
+	}
 
 	if (!Array.isArray(jobs)) {
 		return [];
@@ -137,11 +155,37 @@ export async function getStoredJobs(): Promise<StoredJob[]> {
 }
 
 async function setStoredJobs(jobs: StoredJob[]) {
+	const accountId = getCurrentAccountId();
 	await browser.storage.local.set({
 		[JOBS_STORAGE_KEY]: jobs,
 		[LEGACY_JOBS_STORAGE_KEY]: jobs,
+		[getAccountStorageKey(JOBS_STORAGE_KEY, accountId)]: jobs,
 	});
 	void import("@/lib/sync/service").then(({ queueSync }) => queueSync());
+}
+
+export async function saveJobsToAccountCache(
+	accountId: string,
+	jobs: unknown,
+) {
+	if (!Array.isArray(jobs)) {
+		return;
+	}
+
+	await browser.storage.local.set({
+		[getAccountStorageKey(JOBS_STORAGE_KEY, accountId)]: jobs,
+	});
+}
+
+export async function loadJobsFromAccountCache(accountId: string) {
+	const stored = await browser.storage.local.get(
+		getAccountStorageKey(JOBS_STORAGE_KEY, accountId),
+	);
+	const jobs = stored[getAccountStorageKey(JOBS_STORAGE_KEY, accountId)];
+
+	return Array.isArray(jobs)
+		? jobs.map(toStoredJob).filter((job): job is StoredJob => job !== null)
+		: [];
 }
 
 function isDuplicateJob(storedJob: StoredJob, job: JobForm) {

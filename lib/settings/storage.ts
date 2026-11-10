@@ -1,5 +1,10 @@
 export const DASHBOARD_SETTINGS_STORAGE_KEY = "applynza.dashboard-settings";
 export const LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY = "applypilot.dashboard-settings";
+import {
+	ANONYMOUS_ACCOUNT_ID,
+	getAccountStorageKey,
+	getCurrentAccountId,
+} from "@/lib/storage/account";
 
 export type DashboardDefaultStatus = "saved" | "applied" | "interview" | "offer";
 export type DashboardDateFormat = "may-20-2025" | "20-may-2025" | "2025-05-20";
@@ -18,13 +23,22 @@ export const defaultDashboardSettings: DashboardSettings = {
 };
 
 export async function getStoredDashboardSettings(): Promise<DashboardSettings> {
+	const accountId = getCurrentAccountId();
 	const stored = await browser.storage.local.get([
+		getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY, accountId),
 		DASHBOARD_SETTINGS_STORAGE_KEY,
 		LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY,
 	]);
-	const settings =
-		stored[DASHBOARD_SETTINGS_STORAGE_KEY] ??
-		stored[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY];
+	let settings = stored[getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY, accountId)];
+
+	if (!settings && accountId === ANONYMOUS_ACCOUNT_ID) {
+		settings =
+			stored[DASHBOARD_SETTINGS_STORAGE_KEY] ??
+			stored[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY];
+		if (settings) {
+			await saveDashboardSettingsToAccountCache(accountId, settings);
+		}
+	}
 
 	if (!settings || typeof settings !== "object") {
 		return defaultDashboardSettings;
@@ -58,10 +72,42 @@ export async function updateStoredDashboardSettings(
 	await browser.storage.local.set({
 		[DASHBOARD_SETTINGS_STORAGE_KEY]: nextSettings,
 		[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY]: nextSettings,
+		[getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY)]: nextSettings,
 	});
 	void import("@/lib/sync/service").then(({ queueSync }) => queueSync());
 
 	return nextSettings;
+}
+
+export async function saveDashboardSettingsToAccountCache(
+	accountId: string,
+	settings: unknown,
+) {
+	if (!settings || typeof settings !== "object") {
+		return;
+	}
+
+	await browser.storage.local.set({
+		[getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY, accountId)]: settings,
+	});
+}
+
+export async function loadDashboardSettingsFromAccountCache(accountId: string) {
+	const stored = await browser.storage.local.get(
+		getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY, accountId),
+	);
+	const settings = stored[getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY, accountId)];
+
+	if (!settings || typeof settings !== "object") {
+		return null;
+	}
+
+	const value = settings as Partial<DashboardSettings>;
+	return {
+		defaultStatus: normalizeDefaultStatus(value.defaultStatus),
+		dateFormat: normalizeDateFormat(value.dateFormat),
+		sortJobsBy: normalizeSortJobsBy(value.sortJobsBy),
+	};
 }
 
 function normalizeDefaultStatus(value: unknown): DashboardDefaultStatus {

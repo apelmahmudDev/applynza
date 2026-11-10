@@ -10,9 +10,11 @@ import {
 } from "@/lib/firebase/client";
 import {
 	getSyncSettings,
+	prepareForAccountSwitch,
 	setSyncEnabled,
 	startRemoteListeners,
 	startStorageSyncListener,
+	switchLocalAccount,
 	stopRemoteListeners,
 	type SyncSettings,
 } from "@/lib/sync/service";
@@ -89,7 +91,11 @@ export function useSyncAccount() {
 
 					setUser(nextUser);
 					try {
+						await switchLocalAccount(nextUser?.uid ?? "anonymous");
 						if (nextUser && (await getSyncSettings()).enabled) {
+							await import("@/lib/sync/service").then(({ syncNow }) =>
+								syncNow(),
+							);
 							startRemoteListeners();
 						} else {
 							stopRemoteListeners();
@@ -126,6 +132,7 @@ export function useSyncAccount() {
 		setIsBusy(true);
 		setErrorMessage(null);
 		try {
+			await prepareForAccountSwitch();
 			await signInWithGoogle();
 			toast.success("Signed in with Google.");
 		} catch (error) {
@@ -144,6 +151,7 @@ export function useSyncAccount() {
 		setIsBusy(true);
 		setErrorMessage(null);
 		try {
+			await prepareForAccountSwitch();
 			await setSyncEnabled(false);
 			await signOutFromFirebase();
 			setUser(null);

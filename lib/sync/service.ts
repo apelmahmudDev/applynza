@@ -10,9 +10,33 @@ import {
 } from "firebase/firestore";
 
 import { getFirebaseAuth, getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase/client";
-import { getStoredDashboardSettings } from "@/lib/settings/storage";
-import { getStoredThemePreference } from "@/lib/theme/storage";
-import { getStoredJobs, type StoredJob } from "@/lib/jobs/storage";
+import {
+	DASHBOARD_SETTINGS_STORAGE_KEY,
+	LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY,
+	getStoredDashboardSettings,
+	loadDashboardSettingsFromAccountCache,
+	saveDashboardSettingsToAccountCache,
+} from "@/lib/settings/storage";
+import {
+	LEGACY_THEME_STORAGE_KEY,
+	THEME_STORAGE_KEY,
+	getStoredThemePreference,
+	loadThemeFromAccountCache,
+	saveThemeToAccountCache,
+} from "@/lib/theme/storage";
+import {
+	JOBS_STORAGE_KEY,
+	LEGACY_JOBS_STORAGE_KEY,
+	getStoredJobs,
+	loadJobsFromAccountCache,
+	saveJobsToAccountCache,
+	type StoredJob,
+} from "@/lib/jobs/storage";
+import {
+	ACTIVE_ACCOUNT_STORAGE_KEY,
+	getAccountStorageKey,
+	getCurrentAccountId,
+} from "@/lib/storage/account";
 
 export const SYNC_SETTINGS_STORAGE_KEY = "applynza.sync-settings";
 
@@ -48,20 +72,39 @@ let isApplyingRemoteData = false;
 let unsubscribeJobs: Unsubscribe | null = null;
 let unsubscribeSettings: Unsubscribe | null = null;
 let isStorageSyncListenerRegistered = false;
+let activeAccountId = getCurrentAccountId();
 
 export async function getSyncSettings(): Promise<SyncSettings> {
-	const stored = await browser.storage.local.get(SYNC_SETTINGS_STORAGE_KEY);
-	const settings = stored[SYNC_SETTINGS_STORAGE_KEY];
+	const accountKey = getAccountStorageKey(SYNC_SETTINGS_STORAGE_KEY);
+	const stored = await browser.storage.local.get([
+		SYNC_SETTINGS_STORAGE_KEY,
+		accountKey,
+	]);
+	const settings =
+		stored[accountKey] ?? stored[SYNC_SETTINGS_STORAGE_KEY];
 
 	if (!settings || typeof settings !== "object") {
 		return defaultSyncSettings;
 	}
 
 	const value = settings as Partial<SyncSettings>;
+	const scopedValue = stored[accountKey] as Partial<SyncSettings> | undefined;
 	return {
 		enabled: value.enabled === true,
-		lastSyncedAt: typeof value.lastSyncedAt === "string" ? value.lastSyncedAt : null,
-		lastError: typeof value.lastError === "string" ? value.lastError : null,
+		lastSyncedAt:
+			getCurrentAccountId() === "anonymous" &&
+			typeof value.lastSyncedAt === "string"
+				? value.lastSyncedAt
+				: typeof scopedValue?.lastSyncedAt === "string"
+					? scopedValue.lastSyncedAt
+					: null,
+		lastError:
+			getCurrentAccountId() === "anonymous" &&
+			typeof value.lastError === "string"
+				? value.lastError
+				: typeof scopedValue?.lastError === "string"
+					? scopedValue.lastError
+					: null,
 	};
 }
 
@@ -82,6 +125,46 @@ export async function setSyncEnabled(enabled: boolean) {
 		syncQueued = true;
 		scheduleRetry();
 		throw error;
+	}
+}
+
+export async function prepareForAccountSwitch() {
+	activeAccountId = await getStoredActiveAccountId();
+	await persistActiveDataForAccount(activeAccountId);
+	await browser.storage.local.set({
+		[ACTIVE_ACCOUNT_STORAGE_KEY]: activeAccountId,
+	});
+}
+
+export async function switchLocalAccount(nextAccountId: string) {
+	activeAccountId = await getStoredActiveAccountId();
+	if (nextAccountId === activeAccountId) {
+		return;
+	}
+
+	isApplyingRemoteData = true;
+	try {
+		await persistActiveDataForAccount(activeAccountId);
+
+		const jobs = await loadJobsFromAccountCache(nextAccountId);
+		const dashboard =
+			(await loadDashboardSettingsFromAccountCache(nextAccountId)) ?? null;
+		const theme = await loadThemeFromAccountCache(nextAccountId);
+
+		await browser.storage.local.set({
+			[JOBS_STORAGE_KEY]: jobs,
+			[LEGACY_JOBS_STORAGE_KEY]: jobs,
+			[DASHBOARD_SETTINGS_STORAGE_KEY]: dashboard,
+			[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY]: dashboard,
+			[THEME_STORAGE_KEY]: theme,
+			[LEGACY_THEME_STORAGE_KEY]: theme,
+		});
+		activeAccountId = nextAccountId;
+		await browser.storage.local.set({
+			[ACTIVE_ACCOUNT_STORAGE_KEY]: nextAccountId,
+		});
+	} finally {
+		isApplyingRemoteData = false;
 	}
 }
 
@@ -307,6 +390,42 @@ async function recordSyncError(error: unknown) {
 	});
 }
 
+async function persistActiveDataForAccount(accountId: string) {
+	const stored = await browser.storage.local.get([
+		JOBS_STORAGE_KEY,
+		LEGACY_JOBS_STORAGE_KEY,
+		DASHBOARD_SETTINGS_STORAGE_KEY,
+		LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY,
+		THEME_STORAGE_KEY,
+		LEGACY_THEME_STORAGE_KEY,
+	]);
+
+	await Promise.all([
+		saveJobsToAccountCache(
+			accountId,
+			stored[JOBS_STORAGE_KEY] ?? stored[LEGACY_JOBS_STORAGE_KEY],
+		),
+		saveDashboardSettingsToAccountCache(
+			accountId,
+			stored[DASHBOARD_SETTINGS_STORAGE_KEY] ??
+				stored[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY],
+		),
+		saveThemeToAccountCache(
+			accountId,
+			stored[THEME_STORAGE_KEY] ?? stored[LEGACY_THEME_STORAGE_KEY],
+		),
+	]);
+}
+
+async function getStoredActiveAccountId() {
+	const stored = await browser.storage.local.get(ACTIVE_ACCOUNT_STORAGE_KEY);
+	const accountId = stored[ACTIVE_ACCOUNT_STORAGE_KEY];
+
+	return typeof accountId === "string" && accountId.length > 0
+		? accountId
+		: activeAccountId;
+}
+
 async function handleRemoteSyncError(error: unknown) {
 	await recordSyncError(error);
 	syncQueued = true;
@@ -399,5 +518,8 @@ async function setLocalValueIfChanged(values: Record<string, unknown>) {
 }
 
 async function saveSyncSettings(settings: SyncSettings) {
-	await browser.storage.local.set({ [SYNC_SETTINGS_STORAGE_KEY]: settings });
+	await browser.storage.local.set({
+		[SYNC_SETTINGS_STORAGE_KEY]: settings,
+		[getAccountStorageKey(SYNC_SETTINGS_STORAGE_KEY)]: settings,
+	});
 }

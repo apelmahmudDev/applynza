@@ -1,4 +1,4 @@
-import { Cloud, LogIn, LogOut, RefreshCw } from "lucide-react";
+import { Cloud, LogIn, LogOut } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -15,7 +15,6 @@ export function SettingsSyncSection() {
 		signIn,
 		signOut,
 		toggleSync,
-		sync,
 	} = useSyncAccount();
 
 	const lastSyncedLabel = settings.lastSyncedAt
@@ -87,24 +86,11 @@ export function SettingsSyncSection() {
 				</div>
 
 				{user && settings.enabled ? (
-					<div className="flex flex-col gap-3 border-t border-slate-100 pt-6 dark:border-border/60 sm:flex-row sm:items-center sm:justify-between">
+					<div className="border-t border-slate-100 pt-6 dark:border-border/60">
 						<p className="text-xs text-slate-500 dark:text-muted-foreground">
-							Last synced: {lastSyncedLabel}
+							Automatic sync is on. Last synced: {lastSyncedLabel}
 							{settings.lastError ? ` · ${settings.lastError}` : ""}
 						</p>
-						<Button
-							type="button"
-							variant="outline"
-							className="h-11 rounded-md px-4 font-semibold"
-							onClick={() => void sync()}
-							disabled={isBusy}
-						>
-							<RefreshCw
-								className={`size-4 ${isBusy ? "animate-spin" : ""}`}
-								aria-hidden="true"
-							/>
-							Sync now
-						</Button>
 					</div>
 				) : null}
 			</div>

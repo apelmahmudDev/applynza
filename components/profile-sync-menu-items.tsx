@@ -6,13 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSyncAccount } from "@/modules/dashboard/hooks/use-sync-account";
 
-type ProfileSyncMenuItemsProps = {
-	profileName: string;
-};
-
-export function ProfileSyncMenuItems({
-	profileName,
-}: ProfileSyncMenuItemsProps) {
+export function ProfileSyncMenuItems() {
 	const {
 		user,
 		settings,
@@ -23,7 +17,6 @@ export function ProfileSyncMenuItems({
 		signIn,
 		signOut,
 		toggleSync,
-		sync,
 	} = useSyncAccount();
 
 	if (isLoading) {
@@ -37,25 +30,23 @@ export function ProfileSyncMenuItems({
 
 	const syncLabel = user
 		? settings.enabled
-			? "Sync now"
+			? "Sync is on"
 			: "Turn on sync..."
 		: "Turn on sync...";
 	const syncDescription = !isConfigured
 		? "Sync is not available in this build"
 		: user
 			? settings.enabled
-				? "Sync your latest jobs and preferences"
+				? "Your changes sync automatically"
 				: "Sync your jobs across devices"
 			: "Sign in with Google to sync across devices";
 
 	return (
 		<>
 			<DropdownMenuItem
-				disabled={isBusy || !isConfigured}
+				disabled={isBusy || !isConfigured || Boolean(user && settings.enabled)}
 				onSelect={() => {
-					if (user && settings.enabled) {
-						void sync();
-					} else if (user) {
+					if (user) {
 						void toggleSync(true);
 					} else {
 						void signIn();

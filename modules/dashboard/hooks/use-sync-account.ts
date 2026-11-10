@@ -14,7 +14,6 @@ import {
 	startRemoteListeners,
 	startStorageSyncListener,
 	stopRemoteListeners,
-	syncNow,
 	type SyncSettings,
 } from "@/lib/sync/service";
 
@@ -50,6 +49,36 @@ export function useSyncAccount() {
 					);
 				}
 			});
+
+		function handleSyncSettingsChange(
+			changes: Record<
+				string,
+				{ newValue?: unknown; oldValue?: unknown }
+			>,
+			areaName: string,
+		) {
+			if (areaName !== "local" || !changes["applynza.sync-settings"]) {
+				return;
+			}
+
+			void getSyncSettings()
+				.then((nextSettings) => {
+					if (isMounted) {
+						setSettings(nextSettings);
+					}
+				})
+				.catch((error: unknown) => {
+					if (isMounted) {
+						setErrorMessage(
+							error instanceof Error
+								? error.message
+								: "Could not update sync status.",
+						);
+					}
+				});
+		}
+
+		browser.storage.onChanged.addListener(handleSyncSettingsChange);
 
 		if (configured) {
 			unsubscribeAuth = onAuthStateChanged(getFirebaseAuth(), (nextUser) => {
@@ -87,6 +116,7 @@ export function useSyncAccount() {
 
 		return () => {
 			isMounted = false;
+			browser.storage.onChanged.removeListener(handleSyncSettingsChange);
 			unsubscribeAuth?.();
 			stopRemoteListeners();
 		};
@@ -152,24 +182,6 @@ export function useSyncAccount() {
 		}
 	}, []);
 
-	const sync = useCallback(async () => {
-		setIsBusy(true);
-		setErrorMessage(null);
-		try {
-			await syncNow();
-			setSettings(await getSyncSettings());
-			toast.success("Data synced successfully.");
-		} catch (error) {
-			setErrorMessage(
-				error instanceof Error ? error.message : "Could not sync data.",
-			);
-			toast.error(error instanceof Error ? error.message : "Could not sync data.");
-			setSettings(await getSyncSettings());
-		} finally {
-			setIsBusy(false);
-		}
-	}, []);
-
 	return {
 		user,
 		settings,
@@ -180,6 +192,5 @@ export function useSyncAccount() {
 		signIn,
 		signOut,
 		toggleSync,
-		sync,
 	};
 }

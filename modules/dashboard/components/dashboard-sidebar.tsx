@@ -208,7 +208,7 @@ export function DashboardSidebar({
 								{user ? "Signed in" : "Local workspace"}
 							</p>
 						</DropdownMenuLabel>
-						<ProfileSyncMenuItems profileName={profileName} />
+						<ProfileSyncMenuItems />
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</SidebarFooter>

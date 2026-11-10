@@ -135,7 +135,7 @@ export function SidePanelTopBar({
 						{user ? "Signed in" : "Local workspace"}
 					</p>
 				</DropdownMenuLabel>
-				<ProfileSyncMenuItems profileName={profileName} />
+				<ProfileSyncMenuItems />
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

@@ -40,6 +40,10 @@ const defaultSyncSettings: SyncSettings = {
 };
 
 let syncTimer: ReturnType<typeof setTimeout> | null = null;
+let retryTimer: ReturnType<typeof setTimeout> | null = null;
+let syncInFlight: Promise<void> | null = null;
+let syncQueued = false;
+let retryAttempt = 0;
 let isApplyingRemoteData = false;
 let unsubscribeJobs: Unsubscribe | null = null;
 let unsubscribeSettings: Unsubscribe | null = null;
@@ -66,12 +70,19 @@ export async function setSyncEnabled(enabled: boolean) {
 	await saveSyncSettings({ ...settings, enabled, lastError: null });
 
 	if (!enabled) {
+		cancelQueuedSync();
 		stopRemoteListeners();
 		return;
 	}
 
-	await syncNow();
-	startRemoteListeners();
+	try {
+		await syncNow();
+		startRemoteListeners();
+	} catch (error) {
+		syncQueued = true;
+		scheduleRetry();
+		throw error;
+	}
 }
 
 export function startStorageSyncListener() {
@@ -89,19 +100,42 @@ export function startStorageSyncListener() {
 			return;
 		}
 
-		void getSyncSettings().then((settings) => {
-			if (
-				isFirebaseConfigured() &&
-				settings.enabled &&
-				getFirebaseAuth().currentUser
-			) {
-				queueSync();
-			}
-		});
+		void getSyncSettings()
+			.then((settings) => {
+				if (
+					isFirebaseConfigured() &&
+					settings.enabled &&
+					getFirebaseAuth().currentUser
+				) {
+					queueSync();
+				}
+			})
+			.catch((error: unknown) => {
+				void recordSyncError(error);
+			});
 	});
 }
 
 export async function syncNow() {
+	if (syncInFlight) {
+		syncQueued = true;
+		return syncInFlight;
+	}
+
+	syncInFlight = syncNowInternal();
+	try {
+		await syncInFlight;
+		retryAttempt = 0;
+	} finally {
+		syncInFlight = null;
+		if (syncQueued) {
+			syncQueued = false;
+			queueSync();
+		}
+	}
+}
+
+async function syncNowInternal() {
 	if (!isFirebaseConfigured()) {
 		throw new Error("Firebase is not configured yet.");
 	}
@@ -162,17 +196,22 @@ export async function syncNow() {
 }
 
 export function queueSync() {
-	if (isApplyingRemoteData || syncTimer) {
+	if (isApplyingRemoteData) {
+		return;
+	}
+
+	syncQueued = true;
+	if (syncTimer || retryTimer || syncInFlight) {
 		return;
 	}
 
 	syncTimer = setTimeout(() => {
 		syncTimer = null;
-		void syncNow().catch(async (error) => {
-			await saveSyncSettings({
-				...(await getSyncSettings()),
-				lastError: error instanceof Error ? error.message : "Sync failed.",
-			});
+		syncQueued = false;
+		void syncNow().catch((error: unknown) => {
+			void recordSyncError(error);
+			syncQueued = true;
+			scheduleRetry();
 		});
 	}, 800);
 }
@@ -189,24 +228,89 @@ export function startRemoteListeners() {
 	unsubscribeJobs = onSnapshot(
 		collection(database, "users", user.uid, "jobs"),
 		(snapshot) => {
-			void applyRemoteJobs(snapshot.docs.map((job) => job.data() as StoredJob));
+			void applyRemoteJobs(
+				snapshot.docs.map((job) => job.data() as StoredJob),
+			).catch((error: unknown) => {
+				void handleRemoteSyncError(error);
+			});
+		},
+		(error) => {
+			void handleRemoteSyncError(error);
 		},
 	);
 	unsubscribeSettings = onSnapshot(
 		doc(database, "users", user.uid, "settings", "preferences"),
 		(snapshot) => {
 			if (snapshot.exists()) {
-				void applyRemoteSettings(snapshot.data());
+				void applyRemoteSettings(snapshot.data()).catch((error: unknown) => {
+					void handleRemoteSyncError(error);
+				});
 			}
+		},
+		(error) => {
+			void handleRemoteSyncError(error);
 		},
 	);
 }
 
 export function stopRemoteListeners() {
+	cancelQueuedSync();
 	unsubscribeJobs?.();
 	unsubscribeSettings?.();
 	unsubscribeJobs = null;
 	unsubscribeSettings = null;
+}
+
+function cancelQueuedSync() {
+	if (syncTimer) {
+		clearTimeout(syncTimer);
+		syncTimer = null;
+	}
+	if (retryTimer) {
+		clearTimeout(retryTimer);
+		retryTimer = null;
+	}
+	syncQueued = false;
+	retryAttempt = 0;
+}
+
+function scheduleRetry() {
+	if (retryTimer || !syncQueued) {
+		return;
+	}
+
+	const delay = Math.min(30_000, 2_000 * 2 ** retryAttempt);
+	retryAttempt = Math.min(retryAttempt + 1, 4);
+	retryTimer = setTimeout(() => {
+		retryTimer = null;
+		syncQueued = false;
+		void getSyncSettings()
+			.then((settings) => {
+				if (settings.enabled && getFirebaseAuth().currentUser) {
+					void syncNow().catch((error: unknown) => {
+						void recordSyncError(error);
+						scheduleRetry();
+					});
+				}
+			})
+			.catch((error: unknown) => {
+				void recordSyncError(error);
+				scheduleRetry();
+			});
+	}, delay);
+}
+
+async function recordSyncError(error: unknown) {
+	await saveSyncSettings({
+		...(await getSyncSettings()),
+		lastError: error instanceof Error ? error.message : "Sync failed.",
+	});
+}
+
+async function handleRemoteSyncError(error: unknown) {
+	await recordSyncError(error);
+	syncQueued = true;
+	scheduleRetry();
 }
 
 export async function deleteRemoteData() {

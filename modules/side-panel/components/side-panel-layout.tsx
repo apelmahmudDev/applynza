@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import {
 	ArrowLeft,
-	Cloud,
 	ChevronDown,
 	LayoutDashboard,
 	PlusCircle,
@@ -11,13 +10,12 @@ import {
 import {
 	UserIdentityBadge,
 } from "@/components/user-identity-badge";
+import { ProfileSyncMenuItems } from "@/components/profile-sync-menu-items";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuItem,
 	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -137,16 +135,7 @@ export function SidePanelTopBar({
 						{user ? "Signed in" : "Local workspace"}
 					</p>
 				</DropdownMenuLabel>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem className="items-start gap-3 rounded-lg px-3 py-2.5">
-					<Cloud className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-					<span className="min-w-0">
-						<span className="block text-sm font-semibold">Turn on sync...</span>
-						<span className="mt-0.5 block text-xs font-normal text-muted-foreground">
-							Access your jobs on every device
-						</span>
-					</span>
-				</DropdownMenuItem>
+				<ProfileSyncMenuItems profileName={profileName} />
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

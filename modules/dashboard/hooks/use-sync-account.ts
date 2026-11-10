@@ -27,6 +27,7 @@ export function useSyncAccount() {
 	});
 	const [isLoading, setIsLoading] = useState(true);
 	const [isBusy, setIsBusy] = useState(false);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const configured = isFirebaseConfigured();
 
 	useEffect(() => {
@@ -34,25 +35,51 @@ export function useSyncAccount() {
 		let unsubscribeAuth: (() => void) | undefined;
 		startStorageSyncListener();
 
-		void getSyncSettings().then((nextSettings) => {
-			if (isMounted) {
-				setSettings(nextSettings);
-			}
-		});
+		void getSyncSettings()
+			.then((nextSettings) => {
+				if (isMounted) {
+					setSettings(nextSettings);
+				}
+			})
+			.catch((error: unknown) => {
+				if (isMounted) {
+					setErrorMessage(
+						error instanceof Error
+							? error.message
+							: "Could not load sync settings.",
+					);
+				}
+			});
 
 		if (configured) {
-			unsubscribeAuth = onAuthStateChanged(getFirebaseAuth(), async (nextUser) => {
-				if (!isMounted) {
-					return;
-				}
+			unsubscribeAuth = onAuthStateChanged(getFirebaseAuth(), (nextUser) => {
+				void (async () => {
+					if (!isMounted) {
+						return;
+					}
 
-				setUser(nextUser);
-				if (nextUser && (await getSyncSettings()).enabled) {
-					startRemoteListeners();
-				} else {
-					stopRemoteListeners();
-				}
-				setIsLoading(false);
+					setUser(nextUser);
+					try {
+						if (nextUser && (await getSyncSettings()).enabled) {
+							startRemoteListeners();
+						} else {
+							stopRemoteListeners();
+						}
+					} catch (error: unknown) {
+						if (isMounted) {
+							setErrorMessage(
+								error instanceof Error
+									? error.message
+									: "Could not load sync status.",
+							);
+						}
+						stopRemoteListeners();
+					} finally {
+						if (isMounted) {
+							setIsLoading(false);
+						}
+					}
+				})();
 			});
 		} else {
 			setIsLoading(false);
@@ -67,10 +94,14 @@ export function useSyncAccount() {
 
 	const signIn = useCallback(async () => {
 		setIsBusy(true);
+		setErrorMessage(null);
 		try {
 			await signInWithGoogle();
 			toast.success("Signed in with Google.");
 		} catch (error) {
+			setErrorMessage(
+				error instanceof Error ? error.message : "Could not sign in with Google.",
+			);
 			toast.error(
 				error instanceof Error ? error.message : "Could not sign in with Google.",
 			);
@@ -81,6 +112,7 @@ export function useSyncAccount() {
 
 	const signOut = useCallback(async () => {
 		setIsBusy(true);
+		setErrorMessage(null);
 		try {
 			await setSyncEnabled(false);
 			await signOutFromFirebase();
@@ -88,6 +120,9 @@ export function useSyncAccount() {
 			setSettings((current) => ({ ...current, enabled: false }));
 			toast.success("Signed out. Your local data is unchanged.");
 		} catch (error) {
+			setErrorMessage(
+				error instanceof Error ? error.message : "Could not sign out.",
+			);
 			toast.error(error instanceof Error ? error.message : "Could not sign out.");
 		} finally {
 			setIsBusy(false);
@@ -96,6 +131,7 @@ export function useSyncAccount() {
 
 	const toggleSync = useCallback(async (enabled: boolean) => {
 		setIsBusy(true);
+		setErrorMessage(null);
 		try {
 			await setSyncEnabled(enabled);
 			setSettings(await getSyncSettings());
@@ -106,6 +142,9 @@ export function useSyncAccount() {
 				toast.success("Sync disabled. Your cloud data was kept.");
 			}
 		} catch (error) {
+			setErrorMessage(
+				error instanceof Error ? error.message : "Could not update sync.",
+			);
 			toast.error(error instanceof Error ? error.message : "Could not update sync.");
 			setSettings(await getSyncSettings());
 		} finally {
@@ -115,11 +154,15 @@ export function useSyncAccount() {
 
 	const sync = useCallback(async () => {
 		setIsBusy(true);
+		setErrorMessage(null);
 		try {
 			await syncNow();
 			setSettings(await getSyncSettings());
 			toast.success("Data synced successfully.");
 		} catch (error) {
+			setErrorMessage(
+				error instanceof Error ? error.message : "Could not sync data.",
+			);
 			toast.error(error instanceof Error ? error.message : "Could not sync data.");
 			setSettings(await getSyncSettings());
 		} finally {
@@ -132,6 +175,7 @@ export function useSyncAccount() {
 		settings,
 		isLoading,
 		isBusy,
+		errorMessage,
 		isConfigured: configured,
 		signIn,
 		signOut,

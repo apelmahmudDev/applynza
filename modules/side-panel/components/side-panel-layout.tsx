@@ -49,6 +49,8 @@ export function SidePanelLayout({
 	header,
 	footer,
 }: SidePanelLayoutProps) {
+	const { settings: syncSettings } = useSyncAccount();
+
 	return (
 		<div className="relative flex min-h-0 flex-1 flex-col">
 			{header}
@@ -66,7 +68,9 @@ export function SidePanelLayout({
 			<footer className="shrink-0 bg-white px-4 pt-1 pb-0.5 text-center backdrop-blur dark:bg-background">
 				{footer ?? (
 					<p className="text-[10px] text-muted-foreground/80">
-						All your job data is stored locally in your browser.
+						{syncSettings.enabled
+							? "Your data is synced across your devices."
+							: "Your data is stored locally in your browser."}
 					</p>
 				)}
 			</footer>

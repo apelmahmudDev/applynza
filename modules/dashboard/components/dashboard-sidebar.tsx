@@ -46,7 +46,7 @@ export function DashboardSidebar({
 }: DashboardSidebarProps) {
 	const { isMobile, setOpenMobile } = useSidebar();
 	const logoSrc = browser.runtime.getURL("/logo.png");
-	const { user } = useSyncAccount();
+	const { user, settings: syncSettings } = useSyncAccount();
 	const profileName = user?.displayName ?? user?.email ?? "Not signed in";
 	const reminderCount = useDashboardReminderCount();
 	const collapsedMenuButtonClass =
@@ -147,10 +147,14 @@ export function DashboardSidebar({
 						/>
 						<div className="min-w-0">
 							<p className="text-sm font-bold text-slate-800 dark:text-foreground">
-								Your data is local-first.
+								{syncSettings.enabled
+									? "Your data is synced across devices."
+									: "Your data is local-first."}
 							</p>
 							<p className="mt-1 text-xs leading-5 text-slate-500 dark:text-muted-foreground">
-								Cloud sync is optional and user-controlled.
+								{syncSettings.enabled
+									? "Automatic sync is on."
+									: "Cloud sync is optional and user-controlled."}
 							</p>
 						</div>
 					</div>

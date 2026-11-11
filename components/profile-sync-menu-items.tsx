@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Cloud, LoaderCircle, LogOut } from "lucide-react";
 
+import { SignOutConfirmDialog } from "@/components/sign-out-confirm-dialog";
 import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
@@ -7,6 +9,7 @@ import {
 import { useSyncAccount } from "@/modules/dashboard/hooks/use-sync-account";
 
 export function ProfileSyncMenuItems() {
+	const [isSignOutDialogOpen, setIsSignOutDialogOpen] = useState(false);
 	const {
 		user,
 		settings,
@@ -43,6 +46,18 @@ export function ProfileSyncMenuItems() {
 
 	return (
 		<>
+			<SignOutConfirmDialog
+				open={isSignOutDialogOpen}
+				isConfirming={isBusy}
+				onOpenChange={setIsSignOutDialogOpen}
+				onConfirm={() => {
+					void signOut().then((signedOut) => {
+						if (signedOut) {
+							setIsSignOutDialogOpen(false);
+						}
+					});
+				}}
+			/>
 			<DropdownMenuItem
 				disabled={isBusy || !isConfigured || Boolean(user && settings.enabled)}
 				onSelect={() => {
@@ -81,7 +96,10 @@ export function ProfileSyncMenuItems() {
 					<DropdownMenuSeparator />
 					<DropdownMenuItem
 						disabled={isBusy}
-						onSelect={() => void signOut()}
+						onSelect={(event) => {
+							event.preventDefault();
+							setIsSignOutDialogOpen(true);
+						}}
 						className="gap-3 rounded-lg px-3 py-2.5"
 					>
 						<LogOut className="size-4 text-muted-foreground" aria-hidden="true" />

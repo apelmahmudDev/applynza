@@ -89,6 +89,7 @@ export function SidePanelTopBar({
 	const profileName = user
 		? user.displayName ?? user.email ?? "Signed in"
 		: "Not signed in";
+	const profileEmail = user?.email ?? "Signed in";
 	const resolvedLeftSlot = leftSlot ?? (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -116,7 +117,7 @@ export function SidePanelTopBar({
 							{profileName}
 						</span>
 						<span className="sr-only">
-							{user ? "Signed in" : "Local workspace"}
+							{user ? profileEmail : "Local workspace"}
 						</span>
 					</span>
 					<ChevronDown
@@ -135,8 +136,8 @@ export function SidePanelTopBar({
 					<p className="truncate text-sm font-semibold text-foreground">
 						{profileName}
 					</p>
-					<p className="mt-0.5 text-xs font-normal text-muted-foreground">
-						{user ? "Signed in" : "Local workspace"}
+					<p className="mt-0.5 truncate text-xs font-normal text-muted-foreground">
+						{user ? profileEmail : "Local workspace"}
 					</p>
 				</DropdownMenuLabel>
 				<ProfileSyncMenuItems />

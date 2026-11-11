@@ -1,5 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Bell, Globe } from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import {
 	Tooltip,
@@ -51,10 +52,11 @@ export function getDashboardColumns({
 			cell: ({ row }) => {
 				const job = row.original;
 				return (
-					<div className="min-w-[220px]">
-						<p className="truncate text-sm font-bold text-slate-950 dark:text-foreground">
-							{job.title}
-						</p>
+					<div className="min-w-[220px] max-w-[460px]">
+						<TruncatedText
+							className="text-sm font-bold text-slate-950 dark:text-foreground"
+							value={job.title}
+						/>
 						<p className="mt-1 truncate text-xs font-medium text-slate-500 dark:text-muted-foreground">
 							{job.jobType}
 						</p>
@@ -68,15 +70,18 @@ export function getDashboardColumns({
 			cell: ({ row }) => {
 				const job = row.original;
 				return (
-					<div className="flex min-w-[150px] items-center gap-3">
+					<div className="flex min-w-[150px] max-w-[320px] items-center gap-3">
 						<JobBrandMark
 							brand={job.brand}
 							logoUrl={job.logoUrl}
 							company={job.company}
 						/>
-						<p className="truncate text-sm font-semibold text-slate-900 dark:text-foreground">
-							{job.company}
-						</p>
+						<div className="min-w-0">
+							<TruncatedText
+								className="text-sm font-semibold text-slate-900 dark:text-foreground"
+								value={job.company}
+							/>
+						</div>
 					</div>
 				);
 			},
@@ -91,20 +96,12 @@ export function getDashboardColumns({
 				const locationText = job.location.trim();
 
 				return (
-					<div className="min-w-[150px] max-w-[320px]">
+					<div className="min-w-[150px] max-w-[360px]">
 						{hasLocation ? (
-							<TooltipProvider>
-								<Tooltip>
-									<TooltipTrigger asChild>
-										<p className="truncate text-sm font-semibold text-slate-900 dark:text-foreground">
-											{locationText}
-										</p>
-									</TooltipTrigger>
-									<TooltipContent side="top" sideOffset={6}>
-										{locationText}
-									</TooltipContent>
-								</Tooltip>
-							</TooltipProvider>
+							<TruncatedText
+								className="text-sm font-semibold text-slate-900 dark:text-foreground"
+								value={locationText}
+							/>
 						) : (
 							<p className="text-sm font-semibold text-slate-400 dark:text-muted-foreground/75">
 								-
@@ -196,6 +193,55 @@ export function getDashboardColumns({
 	);
 
 	return columns;
+}
+
+function TruncatedText({
+	value,
+	className,
+}: {
+	value: string;
+	className: string;
+}) {
+	const textRef = useRef<HTMLParagraphElement>(null);
+	const [isTruncated, setIsTruncated] = useState(false);
+	const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+
+	useLayoutEffect(() => {
+		const element = textRef.current;
+		if (!element) return;
+
+		const updateTruncation = () => {
+			setIsTruncated(element.scrollWidth > element.clientWidth);
+		};
+
+		updateTruncation();
+		const frame = requestAnimationFrame(updateTruncation);
+		const resizeObserver = new ResizeObserver(updateTruncation);
+		resizeObserver.observe(element);
+
+		return () => {
+			cancelAnimationFrame(frame);
+			resizeObserver.disconnect();
+		};
+	}, [value]);
+
+	return (
+		<TooltipProvider>
+			<Tooltip
+				open={isTruncated && isTooltipOpen}
+				onOpenChange={setIsTooltipOpen}
+			>
+				<TooltipTrigger asChild>
+					<p ref={textRef} className={cn("truncate", className)}>
+						{value}
+					</p>
+				</TooltipTrigger>
+				<TooltipContent side="top" sideOffset={6}>
+					{value}
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	);
 }
 
 function getDateColumnLabel(statusFilter: DashboardStatusFilter) {

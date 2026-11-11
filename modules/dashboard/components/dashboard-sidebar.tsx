@@ -48,6 +48,7 @@ export function DashboardSidebar({
 	const logoSrc = browser.runtime.getURL("/logo.png");
 	const { user, settings: syncSettings } = useSyncAccount();
 	const profileName = user?.displayName ?? user?.email ?? "Not signed in";
+	const profileEmail = user?.email ?? "Signed in";
 	const reminderCount = useDashboardReminderCount();
 	const collapsedMenuButtonClass =
 		"group-data-[collapsible=icon]:h-auto! group-data-[collapsible=icon]:w-full! group-data-[collapsible=icon]:flex-col! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-1! group-data-[collapsible=icon]:py-2.5! group-data-[collapsible=icon]:text-center group-data-[collapsible=icon]:[&>span]:overflow-visible group-data-[collapsible=icon]:[&>span]:text-clip group-data-[collapsible=icon]:[&>span]:whitespace-normal group-data-[collapsible=icon]:[&>span]:text-center group-data-[collapsible=icon]:[&>span]:text-[11px] group-data-[collapsible=icon]:[&>span]:leading-4";
@@ -186,7 +187,7 @@ export function DashboardSidebar({
 									{profileName}
 								</span>
 								<span className="block truncate text-xs font-semibold text-slate-500 dark:text-muted-foreground">
-									{user ? "Signed in" : "Local workspace"}
+									{user ? profileEmail : "Local workspace"}
 								</span>
 							</span>
 							<span className="shrink-0 text-xs font-semibold text-slate-400 dark:text-muted-foreground/80 group-data-[collapsible=icon]:hidden">
@@ -208,8 +209,8 @@ export function DashboardSidebar({
 							<p className="truncate text-sm font-semibold text-foreground">
 								{profileName}
 							</p>
-							<p className="mt-0.5 text-xs font-normal text-muted-foreground">
-								{user ? "Signed in" : "Local workspace"}
+							<p className="mt-0.5 truncate text-xs font-normal text-muted-foreground">
+								{user ? profileEmail : "Local workspace"}
 							</p>
 						</DropdownMenuLabel>
 						<ProfileSyncMenuItems />

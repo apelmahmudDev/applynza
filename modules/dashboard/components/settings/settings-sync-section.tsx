@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { Cloud, LogIn, LogOut } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { SignOutConfirmDialog } from "@/components/sign-out-confirm-dialog";
 import { Switch } from "@/components/ui/switch";
 import { settingsSections } from "./data";
 import { SettingsSectionCard } from "./settings-section-card";
 import { useSyncAccount } from "@/modules/dashboard/hooks/use-sync-account";
 
 export function SettingsSyncSection() {
+	const [isSignOutDialogOpen, setIsSignOutDialogOpen] = useState(false);
 	const {
 		user,
 		settings,
@@ -26,6 +29,18 @@ export function SettingsSyncSection() {
 
 	return (
 		<SettingsSectionCard config={settingsSections.sync}>
+			<SignOutConfirmDialog
+				open={isSignOutDialogOpen}
+				isConfirming={isBusy}
+				onOpenChange={setIsSignOutDialogOpen}
+				onConfirm={() => {
+					void signOut().then((signedOut) => {
+						if (signedOut) {
+							setIsSignOutDialogOpen(false);
+						}
+					});
+				}}
+			/>
 			<div className="space-y-5">
 				{!isConfigured ? (
 					<div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100">
@@ -51,7 +66,7 @@ export function SettingsSyncSection() {
 							type="button"
 							variant="outline"
 							className="h-11 rounded-md px-4 font-semibold"
-							onClick={() => void signOut()}
+							onClick={() => setIsSignOutDialogOpen(true)}
 							disabled={isBusy}
 						>
 							<LogOut className="size-4" aria-hidden="true" />

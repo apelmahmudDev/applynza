@@ -17,6 +17,7 @@ import { reminderTypeOptions } from "@/modules/dashboard/components/reminders/re
 import { getReminderFormValues } from "@/modules/dashboard/components/reminders/reminder-form.utils";
 import { RemindersDatePicker } from "@/modules/dashboard/components/reminders/reminders-date-picker";
 import { RemindersStats } from "@/modules/dashboard/components/reminders/reminders-stats";
+import { RemindersSkeleton } from "@/modules/dashboard/components/reminders/reminders-skeleton";
 import { RemindersTableSection } from "@/modules/dashboard/components/reminders/reminders-table-section";
 import type { ReminderRow } from "@/modules/dashboard/components/reminders/types";
 import { useDashboardReminders } from "@/modules/dashboard/hooks/use-dashboard-reminders";
@@ -33,6 +34,7 @@ export function RemindersView() {
 		sections,
 		stats,
 		totalVisibleReminders,
+		isLoading,
 		saveReminder,
 		markReminderDone,
 	} = useDashboardReminders();
@@ -100,57 +102,62 @@ export function RemindersView() {
 			</section>
 
 			<RemindersStats stats={stats} />
+			{isLoading ? (
+				<RemindersSkeleton />
+			) : (
+				<>
+					<section className="mt-6 mb-8 space-y-6">
+						<div className="space-y-5">
+							{sections.length ? (
+								sections.map((section) => (
+									<RemindersTableSection
+										key={section.id}
+										section={section}
+										jobsById={jobsById}
+										onEditReminder={setEditingReminder}
+										onMarkCompleted={async (row) => {
+											const completed = await markReminderDone(row.jobId);
 
-			<section className="mt-6 mb-8 space-y-6">
-				<div className="space-y-5">
-					{sections.length ? (
-						sections.map((section) => (
-							<RemindersTableSection
-								key={section.id}
-								section={section}
-								jobsById={jobsById}
-								onEditReminder={setEditingReminder}
-								onMarkCompleted={async (row) => {
-									const completed = await markReminderDone(row.jobId);
+											if (completed) {
+												toast.success("Marked this reminder as completed.");
+											} else {
+												toast.error(
+													"Could not mark this reminder as completed.",
+												);
+											}
+										}}
+										onOpenJob={(row) => {
+											setSelectedReminderRow(row);
+											setSelectedJobId(row.jobId);
+										}}
+									/>
+								))
+							) : (
+								<div className="rounded-md border border-slate-100 bg-white px-6 py-10 text-center text-sm font-medium text-slate-500 shadow-[0_4px_16px_rgba(15,23,42,0.01)] dark:border-none dark:bg-card dark:text-muted-foreground">
+									No reminders found for the current filters.
+								</div>
+							)}
 
-									if (completed) {
-										toast.success("Marked this reminder as completed.");
-									} else {
-										toast.error(
-											"Could not mark this reminder as completed.",
-										);
-									}
-								}}
-								onOpenJob={(row) => {
-									setSelectedReminderRow(row);
-									setSelectedJobId(row.jobId);
-								}}
-							/>
-						))
-					) : (
-						<div className="rounded-md border border-slate-100 bg-white px-6 py-10 text-center text-sm font-medium text-slate-500 shadow-[0_4px_16px_rgba(15,23,42,0.01)] dark:border-none dark:bg-card dark:text-muted-foreground">
-							No reminders found for the current filters.
+							<div className="flex flex-col gap-4 text-sm font-medium text-slate-500 dark:text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+								<p>
+									Showing {totalVisibleReminders} reminder
+									{totalVisibleReminders === 1 ? "" : "s"}
+								</p>
+								{selectedDate ? (
+									<Button
+										type="button"
+										variant="outline"
+										className="h-10 rounded-md border-slate-100 bg-white px-4 font-semibold text-slate-700 shadow-none dark:border-border dark:bg-card dark:text-foreground"
+										onClick={() => setSelectedDate(undefined)}
+									>
+										Clear Date
+									</Button>
+								) : null}
+							</div>
 						</div>
-					)}
-
-					<div className="flex flex-col gap-4 text-sm font-medium text-slate-500 dark:text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-						<p>
-							Showing {totalVisibleReminders} reminder
-							{totalVisibleReminders === 1 ? "" : "s"}
-						</p>
-						{selectedDate ? (
-							<Button
-								type="button"
-								variant="outline"
-								className="h-10 rounded-md border-slate-100 bg-white px-4 font-semibold text-slate-700 shadow-none dark:border-border dark:bg-card dark:text-foreground"
-								onClick={() => setSelectedDate(undefined)}
-							>
-								Clear Date
-							</Button>
-						) : null}
-					</div>
-				</div>
-			</section>
+					</section>
+				</>
+			)}
 
 			{editingReminder ? (
 				<ReminderFormDialog

@@ -27,13 +27,18 @@ import {
 import {
 	JOBS_STORAGE_KEY,
 	LEGACY_JOBS_STORAGE_KEY,
+	DELETED_JOBS_STORAGE_KEY,
+	clearDeletedJobIds,
+	getDeletedJobIds,
 	getStoredJobs,
 	loadJobsFromAccountCache,
 	saveJobsToAccountCache,
+	areStoredJobsDuplicates,
 	type StoredJob,
 } from "@/lib/jobs/storage";
 import {
 	ACTIVE_ACCOUNT_STORAGE_KEY,
+	ANONYMOUS_ACCOUNT_ID,
 	getAccountStorageKey,
 	getCurrentAccountId,
 } from "@/lib/storage/account";
@@ -73,6 +78,7 @@ let unsubscribeJobs: Unsubscribe | null = null;
 let unsubscribeSettings: Unsubscribe | null = null;
 let isStorageSyncListenerRegistered = false;
 let activeAccountId = getCurrentAccountId();
+let isSignOutInProgress = false;
 
 export async function getSyncSettings(): Promise<SyncSettings> {
 	const accountKey = getAccountStorageKey(SYNC_SETTINGS_STORAGE_KEY);
@@ -142,27 +148,64 @@ export async function switchLocalAccount(nextAccountId: string) {
 		return;
 	}
 
+	const previousAccountId = activeAccountId;
 	isApplyingRemoteData = true;
 	try {
-		await persistActiveDataForAccount(activeAccountId);
+		const previousJobs =
+			previousAccountId === ANONYMOUS_ACCOUNT_ID
+				? await loadJobsFromAccountCache(ANONYMOUS_ACCOUNT_ID)
+				: [];
+		await persistActiveDataForAccount(previousAccountId);
 
-		const jobs = await loadJobsFromAccountCache(nextAccountId);
-		const dashboard =
-			(await loadDashboardSettingsFromAccountCache(nextAccountId)) ?? null;
-		const theme = await loadThemeFromAccountCache(nextAccountId);
+		const accountJobs = await loadJobsFromAccountCache(nextAccountId);
+		const jobs =
+			previousJobs.length > 0
+				? mergeJobs(previousJobs, accountJobs)
+				: accountJobs;
+		const accountDashboard =
+			await loadDashboardSettingsFromAccountCache(nextAccountId);
+		const guestDashboard =
+			previousAccountId === ANONYMOUS_ACCOUNT_ID
+				? await loadDashboardSettingsFromAccountCache(ANONYMOUS_ACCOUNT_ID)
+				: null;
+		const dashboard = accountDashboard ?? guestDashboard;
+		const accountTheme = await loadThemeFromAccountCache(nextAccountId);
+		const guestTheme =
+			previousAccountId === ANONYMOUS_ACCOUNT_ID
+				? await loadThemeFromAccountCache(ANONYMOUS_ACCOUNT_ID)
+				: null;
+		const theme = accountTheme ?? guestTheme;
 
 		await browser.storage.local.set({
 			[JOBS_STORAGE_KEY]: jobs,
 			[LEGACY_JOBS_STORAGE_KEY]: jobs,
+			[getAccountStorageKey(JOBS_STORAGE_KEY, nextAccountId)]: jobs,
 			[DASHBOARD_SETTINGS_STORAGE_KEY]: dashboard,
 			[LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY]: dashboard,
+			...(dashboard
+				? {
+						[getAccountStorageKey(
+							DASHBOARD_SETTINGS_STORAGE_KEY,
+							nextAccountId,
+						)]: dashboard,
+					}
+				: {}),
 			[THEME_STORAGE_KEY]: theme,
 			[LEGACY_THEME_STORAGE_KEY]: theme,
+			...(theme
+				? {
+						[getAccountStorageKey(THEME_STORAGE_KEY, nextAccountId)]: theme,
+					}
+				: {}),
 		});
 		activeAccountId = nextAccountId;
 		await browser.storage.local.set({
 			[ACTIVE_ACCOUNT_STORAGE_KEY]: nextAccountId,
 		});
+
+		if (previousAccountId === ANONYMOUS_ACCOUNT_ID) {
+			await clearAccountCache(ANONYMOUS_ACCOUNT_ID);
+		}
 	} finally {
 		isApplyingRemoteData = false;
 	}
@@ -232,21 +275,35 @@ async function syncNowInternal() {
 
 	const database = getFirebaseDb();
 	const jobs = await getStoredJobs();
+	const deletedJobIds = await getDeletedJobIds();
 	const remoteJobsSnapshot = await getDocs(collection(database, "users", user.uid, "jobs"));
-	const remoteJobs = remoteJobsSnapshot.docs.map((job) => job.data() as StoredJob);
+	const remoteJobs = remoteJobsSnapshot.docs
+		.filter((job) => !deletedJobIds.includes(job.id))
+		.map((job) => job.data() as StoredJob);
 	const mergedJobs = mergeJobs(jobs, remoteJobs);
 
 	isApplyingRemoteData = true;
 	try {
 		await setLocalValueIfChanged({
-			"applynza.jobs": mergedJobs,
-			"applypilot.jobs": mergedJobs,
+			[JOBS_STORAGE_KEY]: mergedJobs,
+			[LEGACY_JOBS_STORAGE_KEY]: mergedJobs,
+			[getAccountStorageKey(JOBS_STORAGE_KEY, user.uid)]: mergedJobs,
 		});
 	} finally {
 		isApplyingRemoteData = false;
 	}
 
 	await Promise.all(mergedJobs.map((job) => setDoc(doc(database, "users", user.uid, "jobs", job.id), job)));
+	const mergedJobIds = new Set(mergedJobs.map((job) => job.id));
+	await Promise.all(
+		remoteJobsSnapshot.docs
+			.filter(
+				(job) =>
+					deletedJobIds.includes(job.id) || !mergedJobIds.has(job.id),
+			)
+			.map((job) => deleteDoc(job.ref)),
+	);
+	await clearDeletedJobIds(deletedJobIds);
 
 	const dashboard = await getStoredDashboardSettings();
 	const theme = await getStoredThemePreference();
@@ -342,6 +399,78 @@ export function stopRemoteListeners() {
 	unsubscribeSettings?.();
 	unsubscribeJobs = null;
 	unsubscribeSettings = null;
+}
+
+export function isAccountSignOutInProgress() {
+	return isSignOutInProgress;
+}
+
+export async function prepareForSignOut() {
+	isSignOutInProgress = true;
+
+	try {
+		const user = getFirebaseAuth().currentUser;
+		const settings = await getSyncSettings();
+
+		if (syncInFlight) {
+			await syncInFlight;
+		} else if (user && settings.enabled) {
+			await syncNow();
+		}
+
+		stopRemoteListeners();
+		return user?.uid ?? activeAccountId;
+	} catch (error) {
+		isSignOutInProgress = false;
+		throw error;
+	}
+}
+
+export async function completeSignOut(accountId: string) {
+	await clearLocalAccountData(accountId);
+	activeAccountId = "anonymous";
+	isApplyingRemoteData = false;
+	isSignOutInProgress = false;
+}
+
+export function cancelSignOut() {
+	isSignOutInProgress = false;
+}
+
+async function clearLocalAccountData(accountId: string) {
+	const stored = await browser.storage.local.get(null);
+	const accountScopedKeys = Object.keys(stored).filter((key) =>
+		key.startsWith("applynza.accounts."),
+	);
+	const keysToRemove = [
+		JOBS_STORAGE_KEY,
+		LEGACY_JOBS_STORAGE_KEY,
+		DELETED_JOBS_STORAGE_KEY,
+		DASHBOARD_SETTINGS_STORAGE_KEY,
+		LEGACY_DASHBOARD_SETTINGS_STORAGE_KEY,
+		THEME_STORAGE_KEY,
+		LEGACY_THEME_STORAGE_KEY,
+		SYNC_SETTINGS_STORAGE_KEY,
+		ACTIVE_ACCOUNT_STORAGE_KEY,
+		getAccountStorageKey(JOBS_STORAGE_KEY, accountId),
+		getAccountStorageKey(DELETED_JOBS_STORAGE_KEY, accountId),
+		getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY, accountId),
+		getAccountStorageKey(THEME_STORAGE_KEY, accountId),
+		getAccountStorageKey(SYNC_SETTINGS_STORAGE_KEY, accountId),
+		...accountScopedKeys,
+	];
+
+	await browser.storage.local.remove([...new Set(keysToRemove)]);
+}
+
+async function clearAccountCache(accountId: string) {
+	await browser.storage.local.remove([
+		getAccountStorageKey(JOBS_STORAGE_KEY, accountId),
+		getAccountStorageKey(DELETED_JOBS_STORAGE_KEY, accountId),
+		getAccountStorageKey(DASHBOARD_SETTINGS_STORAGE_KEY, accountId),
+		getAccountStorageKey(THEME_STORAGE_KEY, accountId),
+		getAccountStorageKey(SYNC_SETTINGS_STORAGE_KEY, accountId),
+	]);
 }
 
 function cancelQueuedSync() {
@@ -450,12 +579,17 @@ async function applyRemoteJobs(remoteJobs: StoredJob[]) {
 	}
 
 	const localJobs = await getStoredJobs();
-	const mergedJobs = mergeJobs(localJobs, remoteJobs);
+	const deletedJobIds = await getDeletedJobIds();
+	const mergedJobs = mergeJobs(
+		localJobs,
+		remoteJobs.filter((job) => !deletedJobIds.includes(job.id)),
+	);
 	isApplyingRemoteData = true;
 	try {
 		await setLocalValueIfChanged({
-			"applynza.jobs": mergedJobs,
-			"applypilot.jobs": mergedJobs,
+			[JOBS_STORAGE_KEY]: mergedJobs,
+			[LEGACY_JOBS_STORAGE_KEY]: mergedJobs,
+			[getAccountStorageKey(JOBS_STORAGE_KEY)]: mergedJobs,
 		});
 	} finally {
 		isApplyingRemoteData = false;
@@ -490,8 +624,16 @@ function mergeJobs(localJobs: StoredJob[], remoteJobs: StoredJob[]) {
 		}
 	}
 
-	return [...jobsById.values()].sort(
+	const jobsByDate = [...jobsById.values()].sort(
 		(a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
+	);
+
+	return jobsByDate.filter(
+		(job, index) =>
+			index ===
+			jobsByDate.findIndex((candidate) =>
+				areStoredJobsDuplicates(candidate, job),
+			),
 	);
 }
 
@@ -499,6 +641,7 @@ function isSyncableStorageKey(key: string) {
 	return (
 		key === "applynza.jobs" ||
 		key === "applypilot.jobs" ||
+		key === DELETED_JOBS_STORAGE_KEY ||
 		key === "applynza.dashboard-settings" ||
 		key === "applypilot.dashboard-settings" ||
 		key === "applynza.theme" ||

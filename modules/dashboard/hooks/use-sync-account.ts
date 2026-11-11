@@ -10,7 +10,11 @@ import {
 } from "@/lib/firebase/client";
 import {
 	getSyncSettings,
+	cancelSignOut,
+	completeSignOut,
 	prepareForAccountSwitch,
+	prepareForSignOut,
+	isAccountSignOutInProgress,
 	setSyncEnabled,
 	startRemoteListeners,
 	startStorageSyncListener,
@@ -18,6 +22,7 @@ import {
 	stopRemoteListeners,
 	type SyncSettings,
 } from "@/lib/sync/service";
+import { ACCOUNT_CHANGED_EVENT } from "@/lib/storage/account";
 
 export function useSyncAccount() {
 	const [user, setUser] = useState<User | null>(null);
@@ -90,16 +95,30 @@ export function useSyncAccount() {
 					}
 
 					setUser(nextUser);
+					if (isAccountSignOutInProgress()) {
+						if (isMounted) {
+							setIsLoading(false);
+						}
+						return;
+					}
+
 					try {
 						await switchLocalAccount(nextUser?.uid ?? "anonymous");
-						if (nextUser && (await getSyncSettings()).enabled) {
-							await import("@/lib/sync/service").then(({ syncNow }) =>
-								syncNow(),
-							);
-							startRemoteListeners();
+						if (nextUser) {
+							const syncSettings = await getSyncSettings();
+
+							if (!syncSettings.enabled) {
+								await setSyncEnabled(true);
+							} else {
+								await import("@/lib/sync/service").then(({ syncNow }) =>
+									syncNow(),
+								);
+								startRemoteListeners();
+							}
 						} else {
 							stopRemoteListeners();
 						}
+						window.dispatchEvent(new Event(ACCOUNT_CHANGED_EVENT));
 					} catch (error: unknown) {
 						if (isMounted) {
 							setErrorMessage(
@@ -151,21 +170,34 @@ export function useSyncAccount() {
 		setIsBusy(true);
 		setErrorMessage(null);
 		try {
-			await prepareForAccountSwitch();
-			await setSyncEnabled(false);
+			const accountId = await prepareForSignOut();
 			await signOutFromFirebase();
+			await completeSignOut(accountId);
 			setUser(null);
-			setSettings((current) => ({ ...current, enabled: false }));
-			toast.success("Signed out. Your local data is unchanged.");
+			setSettings({
+				enabled: false,
+				lastSyncedAt: null,
+				lastError: null,
+			});
+			window.dispatchEvent(new Event(ACCOUNT_CHANGED_EVENT));
+			toast.success("Signed out. Local synced data was removed.");
+			return true;
 		} catch (error) {
+			cancelSignOut();
+			if (settings.enabled && getFirebaseAuth().currentUser) {
+				startRemoteListeners();
+			}
 			setErrorMessage(
 				error instanceof Error ? error.message : "Could not sign out.",
 			);
-			toast.error(error instanceof Error ? error.message : "Could not sign out.");
+			toast.error(
+				"Could not complete sign-out. Your local data is still safe. Please retry.",
+			);
+			return false;
 		} finally {
 			setIsBusy(false);
 		}
-	}, []);
+	}, [settings]);
 
 	const toggleSync = useCallback(async (enabled: boolean) => {
 		setIsBusy(true);

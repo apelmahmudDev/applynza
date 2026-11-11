@@ -26,34 +26,33 @@ export function getExportDashboardHeaderContent(): DashboardHeaderContent {
 export function ExportView() {
 	return (
 		<div>
-			<section className="mb-5 flex flex-col gap-5 pt-5 pb-2 xl:flex-row xl:items-center xl:justify-between">
-				<div className="min-w-0">
-					<h1 className="text-3xl font-bold tracking-[-0.05em] text-slate-950 dark:text-foreground">
-						Backup &amp; Restore
-					</h1>
-					<p className="mt-2 text-sm text-slate-500 dark:text-muted-foreground">
-						Download a backup of your data and restore it anytime.
-					</p>
-				</div>
-			</section>
-
-			<section className="mt-6 mb-8 space-y-6">
-				<Tabs defaultValue="export" className="space-y-6">
-					<TabsList className="h-auto rounded-md bg-slate-100 p-1 dark:bg-muted">
+			<Tabs defaultValue="export" className="space-y-6">
+				<section className="mb-5 flex flex-col gap-5 pt-5 pb-2 xl:flex-row xl:items-end xl:justify-between">
+					<div className="min-w-0">
+						<h1 className="text-3xl font-bold tracking-[-0.05em] text-slate-950 dark:text-foreground">
+							Backup &amp; Restore
+						</h1>
+						<p className="mt-2 text-sm text-slate-500 dark:text-muted-foreground">
+							Download a backup of your data and restore it anytime.
+						</p>
+					</div>
+					<TabsList className="h-auto self-start rounded-md bg-slate-100 p-1 dark:bg-muted xl:ml-auto xl:self-end">
 						<TabsTrigger
 							value="export"
-							className="px-4 py-2 font-semibold rounded-sm"
+							className="rounded-sm px-4 py-2 font-semibold"
 						>
 							Export Data
 						</TabsTrigger>
 						<TabsTrigger
 							value="restore"
-							className="px-4 py-2 font-semibold rounded-sm"
+							className="rounded-sm px-4 py-2 font-semibold"
 						>
 							Restore Data
 						</TabsTrigger>
 					</TabsList>
+				</section>
 
+				<section className="mt-6 mb-8">
 					<TabsContent value="export">
 						<div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
 							<ExportContentsSection />
@@ -67,8 +66,9 @@ export function ExportView() {
 							<RestoreControlsSection />
 						</div>
 					</TabsContent>
-				</Tabs>
-
+				</section>
+			</Tabs>
+			<section className="mb-8">
 				<ExportInfoSection />
 			</section>
 		</div>

@@ -27,6 +27,7 @@ type DetectedJobViewProps = {
 	isAnalyzing: boolean;
 	isAnalysisAvailable: boolean;
 	isSaving: boolean;
+	isSyncEnabled: boolean;
 	onAnalyze: () => void;
 	onEdit: () => void;
 	onSave: () => void;
@@ -40,6 +41,7 @@ export function DetectedJobView({
 	isAnalyzing,
 	isAnalysisAvailable,
 	isSaving,
+	isSyncEnabled,
 	onAnalyze,
 	onEdit,
 	onSave,
@@ -55,8 +57,8 @@ export function DetectedJobView({
 					{isDetecting
 						? "Detecting job details..."
 						: hasDetectedJob
-							? "Job detected on this page"
-							: "No job detected"}
+							? "Job found on this page"
+							: "No job found on this page"}
 				</p>
 				{hasDetectedJob && (
 					<span className="rounded-md bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600 dark:bg-emerald-500/16 dark:text-emerald-300">
@@ -126,8 +128,8 @@ export function DetectedJobView({
 			) : (
 				<DetectionStateCard
 					icon={SearchX}
-					title="No job details found"
-					description="Open a job posting page, or add the application manually if this site blocks automatic detection."
+					title="No job information found"
+					description="We couldn’t find job details here. Open a job posting page or add the application manually."
 					tone="empty"
 				/>
 			)}
@@ -164,7 +166,7 @@ export function DetectedJobView({
 						onClick={onEdit}
 					>
 						<FilePlus2 className="size-4" aria-hidden="true" />
-						{hasDetectedJob ? "Edit Before Saving" : "Add Manually"}
+						{hasDetectedJob ? "Review & Edit" : "Add Manually"}
 					</Button>
 					<Button
 						type="button"
@@ -203,7 +205,9 @@ export function DetectedJobView({
 			</div>
 
 			<p className="mt-auto pt-7 text-center text-xs font-medium text-slate-700 dark:text-muted-foreground">
-				All data is stored locally in your browser.
+				{isSyncEnabled
+					? "Your data is synced across your devices."
+					: "Your data is stored locally in your browser."}
 			</p>
 		</section>
 	);

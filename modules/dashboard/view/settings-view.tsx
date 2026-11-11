@@ -2,7 +2,9 @@ import { SettingsAboutSection } from "@/modules/dashboard/components/settings/se
 import { SettingsAppearanceSection } from "@/modules/dashboard/components/settings/settings-appearance-section";
 import { SettingsPreferencesSection } from "@/modules/dashboard/components/settings/settings-preferences-section";
 import { SettingsStorageSection } from "@/modules/dashboard/components/settings/settings-storage-section";
+import { SettingsSyncSection } from "@/modules/dashboard/components/settings/settings-sync-section";
 import { useDashboardSettings } from "@/modules/dashboard/hooks/use-dashboard-settings";
+import { useSyncAccount } from "@/modules/dashboard/hooks/use-sync-account";
 
 export function SettingsView() {
 	const {
@@ -14,6 +16,7 @@ export function SettingsView() {
 		updateSetting,
 		clearAllData,
 	} = useDashboardSettings();
+	const { settings: syncSettings } = useSyncAccount();
 
 	return (
 		<div>
@@ -23,7 +26,7 @@ export function SettingsView() {
 						Settings
 					</h1>
 					<p className="mt-2 text-sm text-slate-500 dark:text-muted-foreground">
-						Customize your experience. All data stays in this browser.
+						Customize your experience. Your data stays local unless cloud sync is enabled.
 					</p>
 				</div>
 
@@ -42,9 +45,11 @@ export function SettingsView() {
 				<SettingsStorageSection
 					storageUsedLabel={storageUsedLabel}
 					storageUsedPercent={storageUsedPercent}
+					isSyncEnabled={syncSettings.enabled}
 					isClearingData={isClearingData}
 					onClearAllData={clearAllData}
 				/>
+				<SettingsSyncSection />
 				<SettingsPreferencesSection
 					settings={settings}
 					onUpdateSetting={updateSetting}

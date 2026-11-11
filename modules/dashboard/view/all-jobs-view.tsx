@@ -31,7 +31,7 @@ const statusFilters: Array<{ value: DashboardStatusFilter; label: string }> = [
 
 export function AllJobsView() {
 	const { settings } = useDashboardSettings();
-	const { jobs, stats, createJob, saveJob, saveReminder, deleteJob } =
+	const { jobs, isLoading, stats, createJob, saveJob, saveReminder, deleteJob } =
 		useDashboardJobs(settings.sortJobsBy);
 	const [selectedJobId, setSelectedJobId] = useState<string | null>(null);
 	const [editingJobId, setEditingJobId] = useState<string | null>(null);
@@ -121,6 +121,7 @@ export function AllJobsView() {
 					})
 				}
 				data={jobs}
+				isLoading={isLoading}
 				toolbarMode="tabs-only"
 				showStatusTabs={false}
 				initialStatusFilter="saved"

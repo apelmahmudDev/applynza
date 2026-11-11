@@ -1,11 +1,18 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
 	deleteJobFromStorage,
 	getStoredJobs,
 	JOBS_STORAGE_KEY,
+	LEGACY_JOBS_STORAGE_KEY,
 	updateJobInStorage,
 } from "@/lib/jobs/storage";
+import {
+	ACTIVE_ACCOUNT_STORAGE_KEY,
+	ACCOUNT_CHANGED_EVENT,
+	getAccountStorageKey,
+	waitForAuthInitialization,
+} from "@/lib/storage/account";
 import type { DashboardSortJobsBy } from "@/lib/settings/storage";
 import type { ReminderFormValues } from "@/modules/dashboard/components/reminders/reminder-form.types";
 import { buildAllJobsStats } from "@/modules/dashboard/data/dashboard-job-stats";
@@ -21,15 +28,25 @@ export function useDashboardJobs(
 	sortJobsBy: DashboardSortJobsBy = "last-updated",
 ) {
 	const [jobs, setJobs] = useState<DashboardJob[]>([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const hasLoadedJobs = useRef(false);
 
 	useEffect(() => {
 		let isActive = true;
+		let latestLoadId = 0;
 
 		const loadJobs = async () => {
+			const loadId = ++latestLoadId;
+			if (!hasLoadedJobs.current) {
+				setIsLoading(true);
+			}
+			await waitForAuthInitialization();
 			const nextJobs = sortDashboardJobs(await getDashboardJobs(), sortJobsBy);
 
-			if (isActive) {
+			if (isActive && loadId === latestLoadId) {
 				setJobs(nextJobs);
+				hasLoadedJobs.current = true;
+				setIsLoading(false);
 			}
 		};
 
@@ -39,16 +56,24 @@ export function useDashboardJobs(
 			changes: Record<string, browser.storage.StorageChange>,
 			areaName: string,
 		) => {
-			if (areaName === "local" && changes[JOBS_STORAGE_KEY]) {
+			if (
+				areaName === "local" &&
+				(changes[JOBS_STORAGE_KEY] ||
+					changes[LEGACY_JOBS_STORAGE_KEY] ||
+					changes[ACTIVE_ACCOUNT_STORAGE_KEY] ||
+					changes[getAccountStorageKey(JOBS_STORAGE_KEY)])
+			) {
 				void loadJobs();
 			}
 		};
 
 		browser.storage.onChanged.addListener(handleStorageChanged);
+		window.addEventListener(ACCOUNT_CHANGED_EVENT, loadJobs);
 
 		return () => {
 			isActive = false;
 			browser.storage.onChanged.removeListener(handleStorageChanged);
+			window.removeEventListener(ACCOUNT_CHANGED_EVENT, loadJobs);
 		};
 	}, [sortJobsBy]);
 
@@ -134,6 +159,7 @@ export function useDashboardJobs(
 
 	return {
 		jobs,
+		isLoading,
 		stats,
 		createJob,
 		saveJob,

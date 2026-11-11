@@ -89,6 +89,9 @@ export function useDashboardSettings() {
 		setIsClearingData(true);
 
 		try {
+			await import("@/lib/sync/service").then(({ setSyncEnabled }) =>
+				setSyncEnabled(false),
+			);
 			await browser.storage.local.clear();
 			setSettings(defaultDashboardSettings);
 			setStorageUsedBytes(0);

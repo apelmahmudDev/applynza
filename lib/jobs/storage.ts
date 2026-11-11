@@ -3,9 +3,15 @@ import {
 	type ReminderTypeOption,
 } from "@/modules/dashboard/components/reminders/reminder-form.types";
 import type { JobForm } from "@/modules/popup/types";
+import {
+	ANONYMOUS_ACCOUNT_ID,
+	getAccountStorageKey,
+	getCurrentAccountId,
+} from "@/lib/storage/account";
 
 export const JOBS_STORAGE_KEY = "applynza.jobs";
 export const LEGACY_JOBS_STORAGE_KEY = "applypilot.jobs";
+export const DELETED_JOBS_STORAGE_KEY = "applynza.deleted-jobs";
 
 export type StoredJob = JobForm & {
 	id: string;
@@ -40,7 +46,7 @@ export async function saveJobToStorage(job: JobForm): Promise<SaveJobResult> {
 	const jobs = await getStoredJobs();
 	const now = new Date().toISOString();
 	const duplicateIndex = jobs.findIndex((storedJob) =>
-		isDuplicateJob(storedJob, job),
+		areStoredJobsDuplicates(storedJob, job),
 	);
 
 	if (duplicateIndex >= 0) {
@@ -118,16 +124,56 @@ export async function deleteJobFromStorage(jobId: string) {
 		return false;
 	}
 
+	await addDeletedJobId(jobId);
 	await setStoredJobs(nextJobs);
 	return true;
 }
 
+export async function getDeletedJobIds() {
+	const accountId = getCurrentAccountId();
+	const stored = await browser.storage.local.get(
+		getAccountStorageKey(DELETED_JOBS_STORAGE_KEY, accountId),
+	);
+	const deletedJobIds =
+		stored[getAccountStorageKey(DELETED_JOBS_STORAGE_KEY, accountId)];
+
+	return Array.isArray(deletedJobIds)
+		? deletedJobIds.filter((id): id is string => typeof id === "string")
+		: [];
+}
+
+export async function clearDeletedJobIds(jobIds: string[]) {
+	if (jobIds.length === 0) {
+		return;
+	}
+
+	const deletedJobIds = await getDeletedJobIds();
+	const remainingIds = deletedJobIds.filter((id) => !jobIds.includes(id));
+
+	await browser.storage.local.set({
+		[getAccountStorageKey(DELETED_JOBS_STORAGE_KEY)]: remainingIds,
+	});
+}
+
 export async function getStoredJobs(): Promise<StoredJob[]> {
+	const accountId = getCurrentAccountId();
 	const stored = await browser.storage.local.get([
+		getAccountStorageKey(JOBS_STORAGE_KEY, accountId),
 		JOBS_STORAGE_KEY,
 		LEGACY_JOBS_STORAGE_KEY,
 	]);
-	const jobs = stored[JOBS_STORAGE_KEY] ?? stored[LEGACY_JOBS_STORAGE_KEY];
+	const scopedKey = getAccountStorageKey(JOBS_STORAGE_KEY, accountId);
+	let jobs = stored[scopedKey];
+
+	if (
+		!Array.isArray(jobs) &&
+		accountId === ANONYMOUS_ACCOUNT_ID
+	) {
+		jobs = stored[JOBS_STORAGE_KEY] ?? stored[LEGACY_JOBS_STORAGE_KEY];
+		if (Array.isArray(jobs)) {
+			await saveJobsToAccountCache(accountId, jobs);
+		}
+	}
 
 	if (!Array.isArray(jobs)) {
 		return [];
@@ -137,13 +183,58 @@ export async function getStoredJobs(): Promise<StoredJob[]> {
 }
 
 async function setStoredJobs(jobs: StoredJob[]) {
+	const accountId = getCurrentAccountId();
 	await browser.storage.local.set({
 		[JOBS_STORAGE_KEY]: jobs,
 		[LEGACY_JOBS_STORAGE_KEY]: jobs,
+		[getAccountStorageKey(JOBS_STORAGE_KEY, accountId)]: jobs,
+	});
+	void import("@/lib/sync/service").then(({ queueSync }) => queueSync());
+}
+
+async function addDeletedJobId(jobId: string) {
+	const deletedJobIds = await getDeletedJobIds();
+
+	if (deletedJobIds.includes(jobId)) {
+		return;
+	}
+
+	await browser.storage.local.set({
+		[getAccountStorageKey(DELETED_JOBS_STORAGE_KEY)]: [
+			...deletedJobIds,
+			jobId,
+		],
 	});
 }
 
-function isDuplicateJob(storedJob: StoredJob, job: JobForm) {
+export async function saveJobsToAccountCache(
+	accountId: string,
+	jobs: unknown,
+) {
+	if (!Array.isArray(jobs)) {
+		return;
+	}
+
+	await browser.storage.local.set({
+		[getAccountStorageKey(JOBS_STORAGE_KEY, accountId)]: jobs,
+	});
+}
+
+export async function loadJobsFromAccountCache(accountId: string) {
+	const stored = await browser.storage.local.get(
+		getAccountStorageKey(JOBS_STORAGE_KEY, accountId),
+	);
+	const jobs = stored[getAccountStorageKey(JOBS_STORAGE_KEY, accountId)];
+
+	return Array.isArray(jobs)
+		? jobs.map(toStoredJob).filter((job): job is StoredJob => job !== null)
+		: [];
+}
+
+export function areStoredJobsDuplicates(
+	storedJob: StoredJob,
+	job: Pick<JobForm, "company" | "title" | "url">,
+) {
 	const storedUrl = normalizeUrl(storedJob.url);
 	const jobUrl = normalizeUrl(job.url);
 

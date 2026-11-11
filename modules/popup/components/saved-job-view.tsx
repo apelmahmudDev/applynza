@@ -8,9 +8,14 @@ import type { JobForm } from "@/modules/popup/types";
 type SavedJobViewProps = {
 	job: JobForm;
 	saveAction?: "created" | "updated";
+	isSyncEnabled: boolean;
 };
 
-export function SavedJobView({ job, saveAction = "created" }: SavedJobViewProps) {
+export function SavedJobView({
+	job,
+	saveAction = "created",
+	isSyncEnabled,
+}: SavedJobViewProps) {
 	const title =
 		saveAction === "updated" ? "Updated saved job" : "Saved successfully";
 
@@ -52,7 +57,9 @@ export function SavedJobView({ job, saveAction = "created" }: SavedJobViewProps)
 			</div>
 
 			<p className="text-center text-xs font-medium text-slate-700 dark:text-muted-foreground">
-				All data is stored locally in your browser.
+				{isSyncEnabled
+					? "Your data is synced across your devices."
+					: "Your data is stored locally in your browser."}
 			</p>
 		</section>
 	);

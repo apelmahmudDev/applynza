@@ -1,6 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { getStoredJobs, JOBS_STORAGE_KEY } from "@/lib/jobs/storage";
+import {
+	getStoredJobs,
+	JOBS_STORAGE_KEY,
+	LEGACY_JOBS_STORAGE_KEY,
+} from "@/lib/jobs/storage";
+import {
+	ACTIVE_ACCOUNT_STORAGE_KEY,
+	ACCOUNT_CHANGED_EVENT,
+	getAccountStorageKey,
+	waitForAuthInitialization,
+} from "@/lib/storage/account";
 
 export function useDashboardReminderCount() {
 	const [count, setCount] = useState(0);
@@ -11,9 +21,12 @@ export function useDashboardReminderCount() {
 		}
 
 		let isMounted = true;
+		let latestLoadId = 0;
 
 		const loadReminderCount = async () => {
+			const loadId = ++latestLoadId;
 			try {
+				await waitForAuthInitialization();
 				const jobs = await getStoredJobs();
 				const nextCount = jobs.filter(
 					(job) =>
@@ -22,11 +35,11 @@ export function useDashboardReminderCount() {
 						!job.reminderDone,
 				).length;
 
-				if (isMounted) {
+				if (isMounted && loadId === latestLoadId) {
 					setCount(nextCount);
 				}
 			} catch {
-				if (isMounted) {
+				if (isMounted && loadId === latestLoadId) {
 					setCount(0);
 				}
 			}
@@ -38,16 +51,24 @@ export function useDashboardReminderCount() {
 			changes: Record<string, browser.storage.StorageChange>,
 			areaName: string,
 		) => {
-			if (areaName === "local" && changes[JOBS_STORAGE_KEY]) {
+			if (
+				areaName === "local" &&
+				(changes[JOBS_STORAGE_KEY] ||
+					changes[LEGACY_JOBS_STORAGE_KEY] ||
+					changes[ACTIVE_ACCOUNT_STORAGE_KEY] ||
+					changes[getAccountStorageKey(JOBS_STORAGE_KEY)])
+			) {
 				void loadReminderCount();
 			}
 		};
 
 		browser.storage.onChanged.addListener(handleStorageChange);
+		window.addEventListener(ACCOUNT_CHANGED_EVENT, loadReminderCount);
 
 		return () => {
 			isMounted = false;
 			browser.storage.onChanged.removeListener(handleStorageChange);
+			window.removeEventListener(ACCOUNT_CHANGED_EVENT, loadReminderCount);
 		};
 	}, []);
 

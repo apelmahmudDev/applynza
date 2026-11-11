@@ -24,6 +24,7 @@ import type {
 	DashboardStatusFilter,
 } from "@/modules/dashboard/types";
 import { DataTablePagination } from "./data-table-pagination";
+import { JobTableSkeleton } from "./job-table-skeleton";
 
 type DataTableProps = {
 	columns:
@@ -32,6 +33,7 @@ type DataTableProps = {
 				statusFilter: DashboardStatusFilter;
 		  }) => ColumnDef<DashboardJob>[]);
 	data: DashboardJob[];
+	isLoading?: boolean;
 	statsSlot?: ReactNode;
 	headerSlot?:
 		| ReactNode
@@ -65,6 +67,7 @@ const sourceFilters: Array<{ value: DashboardSourceFilter; label: string }> = [
 export function DataTable({
 	columns,
 	data,
+	isLoading = false,
 	statsSlot,
 	headerSlot,
 	toolbarMode = "full",
@@ -151,8 +154,11 @@ export function DataTable({
 							</TableRow>
 						))}
 					</TableHeader>
-					<TableBody>
-						{table.getRowModel().rows.length ? (
+					{isLoading ? (
+						<JobTableSkeleton columnCount={resolvedColumns.length} />
+					) : (
+						<TableBody>
+							{table.getRowModel().rows.length ? (
 							table.getRowModel().rows.map((row) => (
 								<TableRow
 									key={row.id}
@@ -168,17 +174,18 @@ export function DataTable({
 									))}
 								</TableRow>
 							))
-						) : (
-							<TableRow>
-								<TableCell
-									colSpan={resolvedColumns.length}
-									className="h-28 text-center text-sm font-semibold text-slate-500 dark:text-muted-foreground"
-								>
-									No jobs found.
-								</TableCell>
-							</TableRow>
-						)}
-					</TableBody>
+							) : (
+								<TableRow>
+									<TableCell
+										colSpan={resolvedColumns.length}
+										className="h-28 text-center text-sm font-semibold text-slate-500 dark:text-muted-foreground"
+									>
+										No jobs found.
+									</TableCell>
+								</TableRow>
+							)}
+						</TableBody>
+					)}
 				</Table>
 			</div>
 			<DataTablePagination table={table} />

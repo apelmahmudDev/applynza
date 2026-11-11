@@ -132,7 +132,7 @@ export function HomeView({
 					<div className="flex items-center gap-3 px-1">
 						<Sparkles className="size-4 text-primary" aria-hidden="true" />
 						<h2 className="text-sm font-bold text-foreground">
-							Detected on this page
+							{detectedJob ? "Job found on this page" : "No job found on this page"}
 						</h2>
 					</div>
 					{!isDetecting && detectedJob && !isDetectionBannerDismissed && (
@@ -310,10 +310,14 @@ export function HomeView({
 							<>
 								<DetectionMessage
 									icon={detectionError ? AlertCircle : Sparkles}
-									title={detectionError ? "Detection failed" : "No job detected"}
+									title={
+										detectionError
+											? "Detection failed"
+											: "No job information found"
+									}
 									description={
 										detectionError ||
-										"Open a job page or add the application details manually."
+										"We couldn't find job details here. Open a job posting page or add the application manually."
 									}
 									isDarkMode={isDarkMode}
 								/>

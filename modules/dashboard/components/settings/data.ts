@@ -1,5 +1,6 @@
 import {
 	CircleHelp,
+	Cloud,
 	DatabaseZap,
 	Palette,
 	SlidersHorizontal,
@@ -8,14 +9,21 @@ import {
 import type { SettingsPreferenceItem, SettingsSectionConfig } from "./types";
 
 export const settingsSections: Record<
-	"storage" | "preferences" | "appearance" | "about",
+	"storage" | "sync" | "preferences" | "appearance" | "about",
 	SettingsSectionConfig
 > = {
 	storage: {
 		title: "Data & Storage",
 		description:
-			"All data is saved in your browser using Chrome Storage. You can clear all data anytime. This cannot be undone.",
+			"Manage the Applynza data stored in this browser. Cloud sync is managed in Account & Sync.",
 		icon: DatabaseZap,
+		iconClassName: "text-primary",
+	},
+	sync: {
+		title: "Account & Sync",
+		description:
+			"Sign in with Google and optionally sync your Applynza data across browsers.",
+		icon: Cloud,
 		iconClassName: "text-primary",
 	},
 	preferences: {
@@ -35,7 +43,7 @@ export const settingsSections: Record<
 	about: {
 		title: "About",
 		description:
-			"Applynza is a browser extension to help you track job applications locally. No accounts. No cloud. No tracking.",
+			"Applynza is a local-first browser extension for tracking job applications. Cloud sync is optional.",
 		icon: CircleHelp,
 		iconClassName: "text-primary",
 	},
